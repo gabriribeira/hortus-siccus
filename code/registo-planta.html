@@ -24,30 +24,48 @@
     </div>
 
     <div id="page">
-        <div class="page-content pb-0">
-            <div class="card card-style m-0 rounded-0 bg-16" data-card-height="cover">
-                <div class="card-center rounded-m mx-4">
+        <div class="pb-0">
+            <div class=" m-0 rounded-0" data-card-height="cover">
+                <div class=" rounded-m mx-4">
                     <!--tb tinha a classe bg-theme-->
                     <div class="content">
-                        <h1>Novo Registo</h1>
+                        <h1 class="pt-3">Novo Registo</h1>
                         <div class="text-center my-3">
                             <img src="images/pictures/0s.png" width="200" height="200"
                                 class="rounded-circle mt-3 shadow-l" />
+                                <h2 class="pt-3">Nome da Planta</h2>
+                                <h8 class="font-500">Nome Científico da Planta</h8>
                         </div>
-
                         <p class="font-11 mt-n2 mb-3"></p>
                         <br />
-                        <h3 class="font-600 mt-2 mb-3">Seleciona uma planta já existente</h3>
+                        <h3 class="font-600 mt-2 mb-3">Seleciona uma planta já existente...</h3>
                         <div class="input-style no-borders has-icon validate-field">
                             <i class="fa fa-leaf"></i>
-                            <input type="planta" class="" id="form1a" placeholder="Seleciona uma planta..." />
+                            <input type="planta" class="" id="form1a" placeholder="Seleciona uma planta do herbário..." />
                             <label for="form1a" class="font-10 mt-1">Planta</label>
                             <i class="fa fa-times disabled invalid color-dark"></i>
                             <i class="fa fa-check disabled valid color-dark"></i>
                         </div>
-                        <div class="mb-2 no-borders has-icon">
-                            <p class="font-600 m-0">Nome(s) Vulgar(es): <span class="font-400"><!--Preenchido com AJAX--></span></p>
-                            <p class="font-600 m-0">Família Botânica: <span class="font-400"><!--Preenchido com AJAX--></span></p>
+                        <div class="input-style no-borders has-icon validate-field" style="border-bottom: none;">
+                            <i class="fa fa-leaf"></i>
+                            <input type="planta" class="" id="form1a" placeholder="Família Botânica" disabled/>
+                            <label for="form1a" class="font-10 mt-1">Família</label>
+                            <i class="fa fa-times disabled invalid color-dark"></i>
+                            <i class="fa fa-check disabled valid color-dark"></i>
+                        </div>
+                        <div class="input-style no-borders has-icon validate-field">
+                            <i class="fa fa-leaf"></i>
+                            <input type="planta" class="" id="form1a" placeholder="Origem" disabled/>
+                            <label for="form1a" class="font-10 mt-1">Origem</label>
+                            <i class="fa fa-times disabled invalid color-dark"></i>
+                            <i class="fa fa-check disabled valid color-dark"></i>
+                        </div>
+                        <div class="input-style no-borders has-icon validate-field">
+                            <i class="fa fa-leaf"></i>
+                            <input type="planta" class="" id="form1a" placeholder="Estatuto" disbled/>
+                            <label for="form1a" class="font-10 mt-1">Estatuto</label>
+                            <i class="fa fa-times disabled invalid color-dark"></i>
+                            <i class="fa fa-check disabled valid color-dark"></i>
                         </div>
                         <div class="no-effect mt-3 d-flex" data-trigger-switch="toggle-id-1" data-bs-toggle="collapse"
                             href="#collapseExample1" role="button" aria-expanded="false"
@@ -58,16 +76,30 @@
                                 <label class="custom-control-label" for="toggle-id-1"></label>
                             </div>
                         </div>
-                        <div class="collapse" id="collapseExample1">
+                        <div class="collapse mb-5" id="collapseExample1">
                             <div class="input-style no-borders has-icon validate-field">
                                 <i class="fa fa-leaf"></i>
-                                <input type="nomenovo" class="" placeholder="Nome" />
-                                <label for="form1a" class="font-10 mt-1">Nome da Planta</label>
+                                <input type="nomenovo" class="" placeholder="Nome Científico" />
+                                <label for="form1a" class="font-10 mt-1">Nome Científico da Planta</label>
+                                <i class="fa fa-times disabled invalid color-dark"></i>
+                                <i class="fa fa-check disabled valid color-dark"></i>
+                            </div>
+                            <div class="input-style no-borders has-icon validate-field">
+                                <i class="fa fa-leaf"></i>
+                                <input type="nomenovo" class="" placeholder="Nome Vulgar" />
+                                <label for="form1a" class="font-10 mt-1">Nome Vulgar da Planta</label>
+                                <i class="fa fa-times disabled invalid color-dark"></i>
+                                <i class="fa fa-check disabled valid color-dark"></i>
+                            </div>
+                            <div class="input-style no-borders has-icon validate-field">
+                                <i class="fa fa-leaf"></i>
+                                <input type="planta" class="" id="form1a" placeholder="Seleciona uma Família..." />
+                                <label for="form1a" class="font-10 mt-1">Família</label>
                                 <i class="fa fa-times disabled invalid color-dark"></i>
                                 <i class="fa fa-check disabled valid color-dark"></i>
                             </div>
                         </div>
-                        <div class="input-style no-borders has-icon validate-field mt-5">
+                        <div class="input-style no-borders has-icon validate-field">
                             <i class="fa fa-comment"></i>
                             <label for="descricao">Descrição</label>
                             <input type="text" id="descricao" name="fname" placeholder="Descrição">
@@ -119,11 +151,40 @@
                             <i class="fa fa-check disabled invalid color-red-dark"></i>
                             <em></em>
                         </div>
+                        <div class="input-style no-borders no-icon"> <!--NÃO DÁ PARA AUMENTAR O TAMANHO DA FONTE-->
+                            <label for="form5a" class="color-highlight">Seleciona o Concelho</label>
+                            <select id="form5a">
+                                <option value="default"disabled selected>Concelho</option>
+                                <option value="iOS">iOS</option>
+                                <option value="Linux">Linux</option>
+                                <option value="MacOS">MacOS</option>
+                                <option value="Android">Android</option>
+                                <option value="Windows">Windows</option>
+                            </select>
+                            <span><i class="fa fa-chevron-down"></i></span>
+                            <i class="fa fa-check disabled valid color-green-dark"></i>
+                            <i class="fa fa-check disabled invalid color-red-dark"></i>
+                            <em></em>
+                        </div>
+                        <div class="input-style no-borders no-icon"> <!--NÃO DÁ PARA AUMENTAR O TAMANHO DA FONTE-->
+                            <label for="form5a" class="color-highlight">Seleciona a Freguesia</label>
+                            <select id="form5a">
+                                <option value="default"disabled selected>Freguesia</option>
+                                <option value="iOS">iOS</option>
+                                <option value="Linux">Linux</option>
+                                <option value="MacOS">MacOS</option>
+                                <option value="Android">Android</option>
+                                <option value="Windows">Windows</option>
+                            </select>
+                            <span><i class="fa fa-chevron-down"></i></span>
+                            <i class="fa fa-check disabled valid color-green-dark"></i>
+                            <i class="fa fa-check disabled invalid color-red-dark"></i>
+                            <em></em>
+                        </div>
 
-                        <a href="#" class="btn btn-full btn-l bg-green-dark mt-3 mb-n2 text-uppercase">Register</a>
+                        <a href="#" class="btn btn-full btn-l bg-green-dark mt-5 mb-n2 text-uppercase">Register</a>
                     </div>
                 </div>
-                <div class="card-overlay opacity-85 rounded-0"></div>
             </div>
         </div>
         <!-- Page content ends here-->
