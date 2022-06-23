@@ -23,13 +23,20 @@
         <div class="card card-style m-0 rounded-0 bg-16" data-card-height="cover">
             <div class="card-center  rounded-m mx-4"> <!--tb tinha a classe bg-theme-->
                 <div class="content">
-                    <h1>Register</h1>
+                    <h1>Registo</h1>
                     <p class="font-11 mt-n2 mb-3"></p>
                     <br>
                     <div class="input-style no-borders has-icon validate-field">
                         <i class="fa fa-user"></i>
-                        <input type="name"  class="" id="form1a" placeholder="Name">
-                        <label for="form1a" class=" font-10 mt-1">Name</label>
+                        <input type="username" name="username" class="" id="form1a" placeholder="Username">
+                        <label for="form1a" class=" font-10 mt-1">Username</label>
+                        <i class="fa fa-times disabled invalid color-dark"></i>
+                        <i class="fa fa-check disabled valid color-dark"></i>
+                    </div>
+                    <div class="input-style no-borders has-icon validate-field">
+                        <i class="fa fa-user"></i>
+                        <input type="nome_user" name="nome_user" class="" id="form1a" placeholder="Nome e Apelido">
+                        <label for="form1a" class=" font-10 mt-1">Nome e Apelido</label>
                         <i class="fa fa-times disabled invalid color-dark"></i>
                         <i class="fa fa-check disabled valid color-dark"></i>
                     </div>
