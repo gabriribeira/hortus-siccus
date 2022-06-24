@@ -39,4 +39,4 @@ if (isset($_POST["password"]) && isset($_POST["password_ver"]) && $_POST["passwo
     var_dump($_POST);
 }
 
-//header("Location: ../registo.php?msg=$msg");
+header("Location: ../registo.php?msg=$msg");

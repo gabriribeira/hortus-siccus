@@ -91,7 +91,7 @@
                                 }
 
                                 ?>
-                                <div class="col-6" style="align-content: start;"><span class="font-15 color-theme"><?= $msg ?></span></div>
+                                <div class="col-6" style="align-content: start;"><span class="font-15" style="color: red;"><?= $msg ?></span></div>
                                 <div class="col-6" style="text-align: right;"><a href="login.html" class="font-15 color-theme">Já tenho conta</a></div>
                             </div>
                             <button type="submit" class="btn btn-full btn-l bg-green-dark  mt-3 mb-n2  text-uppercase col-12">Registar</button>
