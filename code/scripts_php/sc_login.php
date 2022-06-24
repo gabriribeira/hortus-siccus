@@ -30,11 +30,11 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
                     $_SESSION["id_utilizador"] = $id_user;
                     $_SESSION["role"] = $role;
                     // Log in com sucesso
-                    header("Location: ../profile.php");
+                    header("Location: ../feed.html");
                 } else {
                     // Password errada
                     $_POST = "msg=2#login";
-                    header("Location: ../login.php?msg=4");
+                    header("Location: ../login.html?msg=4");
                     //echo "Incorrect credentials!";
                     //echo "<a href='../login.php'>Try again</a>";
                 }
@@ -42,7 +42,7 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
                 // Username não existe
                 //echo "Incorrect credentials!";
                 //echo "<a href='../login.php'>Try again</a>";
-                header("Location: ../login.php?msg=5");
+                header("Location: ../login.html?msg=5");
 
             }
         } else {
