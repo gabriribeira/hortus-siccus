@@ -1,9 +1,7 @@
 <?php
 
 require_once("../connections/connection.php");
-
-
-require_once "../connections/connection.php";
+echo "ola";
 
 if (isset($_POST["username"]) && isset($_POST["password"])) {
     $username = $_POST['username'];
