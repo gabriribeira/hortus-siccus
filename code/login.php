@@ -23,20 +23,41 @@
         <div class="card card-style m-0 rounded-0 bg-16-lg" data-card-height="cover">
             <div class="card-center  rounded-m mx-4"> <!--tb tinha a classe bg-theme-->
                 <div class="content">
+                    <?php
+                    if (isset($_GET["msg"])) {
+                        switch ($_GET["msg"]) {
+                            case 1:
+                                $msg = "Username ou Password incorretos!";
+                                break;
+                            case 2:
+                                $msg = "Tem de preencher todos os campos do formulário!";
+                                break;
+                            case 3:
+                                $msg = "Ocorreu um erro a processar o pedido!";
+                                break;
+                            default:
+                                $msg = "";
+                        }
+                    }else{
+                        $msg = "";
+                    }
+
+                    ?>
                     <form action="scripts_php/sc_login.php" method="post">
                     <h1>Login</h1>
                     <p class="font-11 mt-n2 mb-3"></p>
+                    <div class="col-12" style="align-content: start;"><span class="font-15" style="color: white;"><?= $msg ?></span></div>
                     <br>
                     <div class="input-style no-borders has-icon validate-field">
                         <i class="fa fa-user"></i>
-                        <input type="username"  class="" id="form1a" placeholder="Username">
+                        <input name="username" type="username"  class="" id="form1a" placeholder="Username">
                         <label for="form1a" class=" font-10 mt-1">Username </label>
                         <i class="fa fa-times disabled invalid color-dark"></i>
                         <i class="fa fa-check disabled valid color-dark"></i>
                     </div>
                     <div class="input-style no-borders has-icon validate-field mt-2">
                         <i class="fa fa-lock"></i>
-                        <input type="password" class=" " id="form3a" placeholder="Password">
+                        <input name="password" type="password" class=" " id="form3a" placeholder="Password">
                         <label for="form3a" class="font-10 mt-1">Password</label>
                         <i class="fa fa-times disabled invalid color-dark"></i>
                         <i class="fa fa-check disabled valid colo-dark"></i>
