@@ -1,9 +1,7 @@
 <?php
 
 require_once("../connections/connection.php");
-
-
-require_once "../connections/connection.php";
+echo "ola";
 
 if (isset($_POST["username"]) && isset($_POST["password"])) {
     $username = $_POST['username'];
@@ -13,9 +11,10 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
 
     $stmt = mysqli_stmt_init($link);
 
-    $query = "SELECT id_user, username, password_hash, roles_id_role FROM utilizadores WHERE username LIKE ?";
+    $query = "SELECT id_user, username, password_hash, roles_id_role FROM users WHERE username LIKE ?";
 
     if (mysqli_stmt_prepare($stmt, $query)) {
+        echo "ola prepare";
         mysqli_stmt_bind_param($stmt, 's', $username);
 
         if (mysqli_stmt_execute($stmt)) {
@@ -33,29 +32,31 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
                     header("Location: ../feed.html");
                 } else {
                     // Password errada
-                    $_POST = "msg=2#login";
-                    header("Location: ../login.html?msg=4");
+                    header("Location: ../login.php?msg=1");
                     //echo "Incorrect credentials!";
-                    //echo "<a href='../login.php'>Try again</a>";
                 }
             } else {
                 // Username não existe
                 //echo "Incorrect credentials!";
-                //echo "<a href='../login.php'>Try again</a>";
-                header("Location: ../login.html?msg=5");
+                header("Location: ../login.php?msg=1");
 
             }
         } else {
             // Acção de erro
+            header("Location: ../login.php?msg=3");
             //echo "Error:" . mysqli_stmt_error($stmt);
         }
     } else {
         // Acção de erro
         //echo "Error:" . mysqli_error($link);
+        header("Location: ../login.php?msg=3");
+
     }
     mysqli_stmt_close($stmt);
     mysqli_close($link);
 } else {
-    echo "Campos do formulário por preencher";
+    //echo "Campos do formulário por preencher";
+    header("Location: ../login.php?msg=2");
+
 }
 
