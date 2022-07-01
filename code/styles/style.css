@@ -4280,11 +4280,11 @@ input[type=number] {
 }
 
 .splide.slider-arrows .splide__arrow--prev {
-  margin-left: 30px !important;
+  margin-left: 0px !important;
 }
 
 .splide.slider-arrows .splide__arrow--next {
-  margin-right: 30px !important;
+  margin-right: 0px !important;
 }
 
 .cover-button-top {
@@ -6006,7 +6006,7 @@ input[type=number] {
 }
 
 .splide__pagination__page.is-active {
-  background: #4A89DC !important;
+  background: #9b8035 !important;
 }
 
 /*Gradient 1*/
@@ -6298,7 +6298,7 @@ input[type=number] {
 }
 
 .bg-18 {
-  background-image: url(../images/pictures/18.jpg);
+  background-image: url(../images/pictures/6.jpg);
 }
 
 .bg-19 {
@@ -6511,8 +6511,7 @@ input[type=number] {
   justify-content: center;
   border: none;
   padding: 0;
-  opacity: 0.7;
-  background: #ccc;
+
 }
 
 .splide__arrow svg {
@@ -6542,20 +6541,23 @@ input[type=number] {
 }
 
 .splide__pagination {
-  position: absolute;
+  position: relative;
   z-index: 1;
   bottom: 0.5em;
   left: 50%;
   transform: translateX(-50%);
   padding: 0;
+  margin-top: 20px;
+
+
 }
 
 .splide__pagination__page {
   display: inline-block;
   width: 8px;
-  height: 8px;
+  height: 10px;
   background: #ccc;
-  border-radius: 50%;
+  border-radius: 45%;
   margin: 0px 7px;
   padding: 0;
   transition: transform 0.2s linear;
