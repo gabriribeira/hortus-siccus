@@ -6236,7 +6236,7 @@ input[type=number] {
   background-color: #4b5270;
 }
 .feed-2{
-  background-color: #3e443b;
+  background-color: #3e443b !important;
 }
 .feed-3{
   background-color: #9b8035 ;
