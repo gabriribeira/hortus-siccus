@@ -18,6 +18,7 @@ body {
    color: #eeeee4;
  }
 
+
  .borda-menu{
    border-radius: 15px;
    height: 50%;
@@ -36,6 +37,9 @@ body {
 
 .color-branco{
   color:#eeeee4;
+}
+.color-amarelo{
+  color: #9e8035;
 }
 .margem-biblio{
   margin-left: 210px;
@@ -6250,6 +6254,9 @@ input[type=number] {
 }
 .feed-7{
   background-color: #eeeee4;
+}
+.feed-8{
+  background-color: white;
 }
 
 .bg-7 {
