@@ -25,7 +25,7 @@ body {
 
 .font-biblio{
   margin-top: 70px;
-  font-size: 250px;
+  font-size: 220px;
   color: #eeeee4;
   font-family: "gopher", sans-serif !important;
 
@@ -38,10 +38,10 @@ body {
   color:#eeeee4;
 }
 .margem-biblio{
-  margin-left: 295px;
+  margin-left: 210px;
 }
 .margem-perfil{
-  margin-left: 300px;
+  margin-left: 220px;
 }
 .font-barra{
   color: #eeeee4;
