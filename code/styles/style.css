@@ -6668,5 +6668,15 @@ input[type=number] {
   transform: translate(-50%, -40px) !important;
 }
 
+.margemeditar{
+  margin-left: 310px;
+}
 
+.margemheaderamigos{
+  padding-left: 50px;
+}
+
+.header_amigos{
+  margin-left: 250px;
+}
 /*tinder*/
