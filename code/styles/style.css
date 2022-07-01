@@ -1072,7 +1072,7 @@ p {
 }
 
 .rounded-m {
-  border-radius: 15px !important;
+  border-radius: 90px !important;
 }
 
 .rounded-l {
@@ -6018,6 +6018,8 @@ input[type=number] {
 [data-gradient=gradient-1] .menu-gradient, .gradient-1 {
   background: linear-gradient(0deg, #3D3949, #6772A4);
 }
+
+
 
 [data-gradient=gradient-1] .footer-bar-1 .active-nav i,
 [data-gradient=gradient-1] .footer-bar-1 .active-nav span,
