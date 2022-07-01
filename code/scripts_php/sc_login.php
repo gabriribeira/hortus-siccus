@@ -14,7 +14,6 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
     $query = "SELECT id_user, username, password_hash, roles_id_role FROM users WHERE username LIKE ?";
 
     if (mysqli_stmt_prepare($stmt, $query)) {
-        echo "ola prepare";
         mysqli_stmt_bind_param($stmt, 's', $username);
 
         if (mysqli_stmt_execute($stmt)) {
