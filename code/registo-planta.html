@@ -18,7 +18,19 @@
     <link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png" />
 </head>
 
-<body class="theme-light" data-gradient="gradient-1">
+<body class="theme-light text-white" style="background-color: #3e443b;">
+<div class="footer-bar-4 " id="footer-bar">
+    <a href="perfil.html"><i><img id="demo" onclick="myFunction()" class="icons2" src="images/icons/perfil_Prancheta%201.png"></i></a>
+    <a class="active-nav" href="feed.html"><img id="click2" class="icons2"  src="images/icons/home_Prancheta%201.png"></i></a>
+    <a href="herbario-UA.html"><img id="click3"  class="icons2" src="images/icons/herbario_Prancheta%201.png"></i></a>
+</div>
+
+<!-- Global Menus-->
+<div class="menu menu-box-modal menu-gradient" data-menu-height="cover" data-menu-load="menu-color.html"
+     data-menu-width="cover" id="menu-color"></div>
+<div class="menu menu-box-bottom menu-box-detached" data-menu-effect="menu-parallax" data-menu-height="390"
+     data-menu-load="menu-share.html" id="menu-share"></div>
+
     <div id="preloader">
         <div class="spinner-border color-red-dark" role="status"></div>
     </div>
@@ -29,22 +41,21 @@
                 <div class=" rounded-m mx-4">
                     <!--tb tinha a classe bg-theme-->
                     <div class="content mb-5">
-                        <h1 class="pt-3">Novo Registo</h1>
                         <div class="text-center my-3">
                             <img src="images/pictures/isolated/9.jpg" width="200" height="200"
                                 class="rounded-circle mt-3 shadow-l" />
-                                <h1 class="pt-3">Nome da Planta</h1>
-                                <h6 class="font-500"><i>Nome Científico da Planta</i></h6>
-                                <h6 class="font-500">Data de Registo</h6>
+                                <h1 class="pt-3 text-white">Nome da Planta</h1>
+                                <h6 class="font-500 text-white"><i>Nome Científico da Planta</i></h6>
+                                <h6 class="font-500 text-white">Data de Registo</h6>
                         </div>
                         <p class="font-11 mt-n2 mb-3"></p>
                         <br />
-                        <h3 class="font-600 mt-2 mb-3">Regista uma planta do herbário...</h3>
+                        <h3 class="font-600 mt-2 mb-3 text-white">regista uma planta do herbário</h3>
 
 
                         <div class="input-style no-borders has-icon validate-field">
                             <i class="fa fa-leaf"></i>
-                            <input type="planta" class="" id="form1a" placeholder="Seleciona uma planta do herbário..." />
+                            <input type="planta" class="text-white" id="form1a" placeholder="seleciona uma planta do herbário" />
                             <label for="form1a" class="font-10 mt-1">Planta</label>
                             <i class="fa fa-times disabled invalid color-dark"></i>
                             <i class="fa fa-check disabled valid color-dark"></i>
@@ -73,7 +84,7 @@
                         <div class="no-effect mt-3 d-flex" data-trigger-switch="toggle-id-1" data-bs-toggle="collapse"
                             href="#collapseExample1" role="button" aria-expanded="false"
                             aria-controls="collapseExample1">
-                            <h3 class="font-800 pt-2">Ou regista uma planta nova!</h3>
+                            <h3 class=" pt-2 text-white">ou regista uma planta nova!</h3>
                             <div class="custom-control ios-switch mt-5">
                                 <input type="checkbox" class="ios-input" id="toggle-id-1" />
                                 <label class="custom-control-label" for="toggle-id-1"></label>
@@ -187,19 +198,17 @@
                         <div class="input-style no-borders has-icon validate-field" style="border-bottom: none;">
                             <i class="fa fa-location-dot"></i>
                             <input type="planta" class="" id="form1a" placeholder="Coordenadas" disabled/>
-                            <label for="form1a" class="font-10 mt-1">Coordenadas</label>
+                            <label for="form1a" class="font-10 mt-1 text-white">Coordenadas</label>
                             <i class="fa fa-times disabled invalid color-dark"></i>
                             <i class="fa fa-check disabled valid color-dark"></i>
                         </div>
 
-                        <a href="#" class="btn btn-full btn-l bg-green-dark my-5 mb-n2 text-uppercase">Register</a>
+                        <a href="#" class="btn btn-full btn-l bg-green-dark my-5 mb-n2 text-uppercase text-white border-white">Register</a>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Page content ends here-->
     </div>
-
     <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="scripts/custom.js"></script>
 </body>
