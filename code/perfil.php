@@ -24,14 +24,13 @@
 
 <body class="theme-light feed-7">
 <?php
-//session_start();
+session_start();
 require_once("connections/connection.php");
 if (isset( $_SESSION["username"])) {
     $user = $_SESSION["username"];
-
     $link = new_db_connection();
     $stmt = mysqli_stmt_init($link);
-    $query = "SELECT  id_user, username, nome_user, email, descricao, roles_id_roles FROM users WHERE username = ?";
+    $query = "SELECT  id_user, username, nome_user, email, descricao, roles_id_role FROM users WHERE username = ?";
 
     if (mysqli_stmt_prepare($stmt, $query)) {
         mysqli_stmt_bind_param($stmt, "s",  $user);
@@ -41,7 +40,7 @@ if (isset( $_SESSION["username"])) {
             $_SESSION["id_user"] = $id;
             $_SESSION['role'] = $role;
         } else {
-            echo "Error: " . mysqli_error($stmt); // Errors related with the query
+            echo "Error: " . mysqli_error($stmt);
         }
         mysqli_stmt_close($stmt);
     } else {
@@ -49,10 +48,9 @@ if (isset( $_SESSION["username"])) {
     }
     mysqli_close($link);
 }else{
-    header("Location: login.php");
+   //header("Location: login.php");
 }
 ?>
-
 <div id="page">
     <!-- FOOTER MENU-->
     <div class="footer-bar-4 " id="footer-bar">
@@ -86,66 +84,61 @@ if (isset( $_SESSION["username"])) {
                 background-position: center;
                 background-size: cover;
                 background-color: white;"
-                > </div>
+                ></div>
 
-                <p class="font-26 mt-3 mb-0">username</p>
-                <a class="font-18  mt-1 mb-0 color-dark-dark">email</a>
-                <p class="font-16  mb-0">usernamekwfhewjfdkejdiwlejdwliejdkwlejdçoJEDoileqhd</p>
-                <p class="font-18  mt-1 mb-0 ">colheitas</p>
-                <a class="header-icon header-icon-1 mt-1" href="editar_perfil.html"><i><img class="icons d-block"
-                                                                                            src="images/icons/editar_perfil_Prancheta%201.png"></i></a>
 
+                <p class="font-26 mt-3 mb-0"><?=$nome?></p>
+                <a class="font-18  mt-1 mb-0 color-dark-dark" style="font-style: italic"><?=$email?></a>
+                <p class="font-16  mb-0" ><?=$descricao?></p>
+                <p class="font-18  mt-1 mb-0 color-amarelo">48 colheitas</p>
             </div>
-
-
             <!-- AVATAR -->
             <div class="col-6 card card-style feed-0 mt-4" data-card-height="350">
                 <img src="images/avatares/azul.png">
             </div>
         </div><div class="content mb-5">
 
-
             <!--MONTRA-->
             <div class="splide single-slider slider-arrows mt-4" id="single-slider-3">
                 <div class="splide__track">
                     <div class="splide__list">
                         <div class="splide__slide">
-                            <div data-card-height="320"  class="card mx-3 bg-18  " style="border-radius: 15px">
+                            <div data-card-height="320"  class="card mx-2 bg-18  " style="border-radius: 15px">
                                 <div class="card-bottom text-center mb-4">
                                     <p class="color-white text-uppercase font-16 mb-0">Splendid Simplicity</p>
                                 </div>
                             </div>
                         </div>
                         <div class="splide__slide">
-                            <div data-card-height="320"  class="card mx-3 bg-18  " style="border-radius: 15px">
+                            <div data-card-height="320"  class="card mx-2 bg-18  " style="border-radius: 15px">
                                 <div class="card-bottom text-center mb-4">
                                     <p class="color-white text-uppercase font-16 mb-0">Splendid Simplicity</p>
                                 </div>
                             </div>
                         </div>
                         <div class="splide__slide">
-                            <div data-card-height="320"  class="card mx-3 bg-18  " style="border-radius: 15px">
+                            <div data-card-height="320"  class="card mx-2 bg-18  " style="border-radius: 15px">
                                 <div class="card-bottom text-center mb-4">
                                     <p class="color-white text-uppercase font-16 mb-0">Splendid Simplicity</p>
                                 </div>
                             </div>
                         </div>
                         <div class="splide__slide">
-                            <div data-card-height="320"  class="card mx-3 bg-18  " style="border-radius: 15px">
+                            <div data-card-height="320"  class="card mx-2 bg-18  " style="border-radius: 15px">
                                 <div class="card-bottom text-center mb-4">
                                     <p class="color-white text-uppercase font-16 mb-0">Splendid Simplicity</p>
                                 </div>
                             </div>
                         </div>
                         <div class="splide__slide">
-                            <div data-card-height="320"  class="card mx-3 bg-18  " style="border-radius: 15px">
+                            <div data-card-height="320"  class="card mx-2 bg-18  " style="border-radius: 15px">
                                 <div class="card-bottom text-center mb-4">
                                     <p class="color-white text-uppercase font-16 mb-0">Splendid Simplicity</p>
                                 </div>
                             </div>
                         </div>
                         <div class="splide__slide">
-                            <div data-card-height="320"  class="card mx-3 bg-18  " style="border-radius: 15px">
+                            <div data-card-height="320"  class="card mx-2 bg-18  " style="border-radius: 15px">
                                 <div class="card-bottom text-center mb-4">
                                     <p class="color-white text-uppercase font-16 mb-0">Splendid Simplicity</p>
                                 </div>
@@ -164,7 +157,6 @@ if (isset( $_SESSION["username"])) {
 
         </div>
     </div>
-
 
 </div>
 <script src="scripts/bootstrap.min.js" type="text/javascript"></script>
