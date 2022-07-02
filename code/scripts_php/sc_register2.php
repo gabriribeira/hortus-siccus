@@ -6,12 +6,12 @@ $stmt = mysqli_stmt_init($link); // create a prepared statement
 
 if (isset($_POST["bio"]) && $_FILES["fileToUpload"]["name"] != "") {
 
-    $query = "SELECT id_user, username FROM users WHERE username = ?";
+    $query = "SELECT id_user, username, roles_id_role FROM users WHERE username = ?";
 
     if (mysqli_stmt_prepare($stmt, $query)) { // Prepare the statement
         mysqli_stmt_bind_param($stmt, 's', $_POST["username"]);
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $id_user, $username);
+        mysqli_stmt_bind_result($stmt, $id_user, $username, $role);
         if (!mysqli_stmt_fetch($stmt)) { // Execute the prepared statement
             $msg = 6;
             header("Location: ../registo2.php?msg=" . $msg);
@@ -70,11 +70,12 @@ if (isset($_POST["bio"]) && $_FILES["fileToUpload"]["name"] != "") {
                             if (mysqli_stmt_prepare($stmt, $query)) { // Prepare the statement
                                 mysqli_stmt_bind_param($stmt, 'sss', $filename, $_POST["bio"], $id_user);
                                 if (mysqli_stmt_execute($stmt)) { // Execute the prepared statement
-                                    $msg = 10;
+                                    $_SESSION["username"] = $username;
+                                    $_SESSION["id_utilizador"] = $id_user;
+                                    $_SESSION["role"] = $role;
                                 } else {
-                                    echo mysqli_stmt_error($stmt);
+                                    mysqli_stmt_error($stmt);
                                     $msg = 3;
-                                    //header("Location: ../login.php?msg=" . $msg);
                                 }
                                 mysqli_stmt_close($stmt); // Close statement
                             }
@@ -82,7 +83,7 @@ if (isset($_POST["bio"]) && $_FILES["fileToUpload"]["name"] != "") {
 
                             move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
 
-                            header("Location: ../registo2.php?msg=" . $msg);
+                            header("Location: ../perfil.php?id=$id_user");
                         } else {
                             $msg = 9;
                             header("Location: ../registo2.php?msg=" . $msg);
