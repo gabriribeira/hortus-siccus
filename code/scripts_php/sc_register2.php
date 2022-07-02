@@ -1,17 +1,19 @@
 <?php
 
+session_start();
+
 require_once("../connections/connection.php"); // We need the function!
 $link = new_db_connection(); // Create a new DB connection
 $stmt = mysqli_stmt_init($link); // create a prepared statement
 
 if (isset($_POST["bio"]) && $_FILES["fileToUpload"]["name"] != "") {
 
-    $query = "SELECT id_user, username, roles_id_role FROM users WHERE username = ?";
+    $query = "SELECT id_user, username, roles_id_role, nome_user FROM users WHERE username = ?";
 
     if (mysqli_stmt_prepare($stmt, $query)) { // Prepare the statement
         mysqli_stmt_bind_param($stmt, 's', $_POST["username"]);
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $id_user, $username, $role);
+        mysqli_stmt_bind_result($stmt, $id_user, $username, $role, $nome_user);
         if (!mysqli_stmt_fetch($stmt)) { // Execute the prepared statement
             $msg = 6;
             header("Location: ../registo2.php?msg=" . $msg);
@@ -72,6 +74,8 @@ if (isset($_POST["bio"]) && $_FILES["fileToUpload"]["name"] != "") {
                                 if (mysqli_stmt_execute($stmt)) { // Execute the prepared statement
                                     $_SESSION["username"] = $username;
                                     $_SESSION["id_utilizador"] = $id_user;
+                                    $_SESSION["nome_utilizador"] = $nome_user;
+                                    $_SESSION["imagem_utilizador"] = $filename;
                                     $_SESSION["role"] = $role;
                                 } else {
                                     mysqli_stmt_error($stmt);
