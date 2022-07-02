@@ -1550,3 +1550,4 @@ document.addEventListener('DOMContentLoaded', () => {
     init_template();
 });
 
+

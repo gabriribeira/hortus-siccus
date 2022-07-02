@@ -2331,6 +2331,23 @@ button {
 [data-card-height=cover].card {
   margin-bottom: 0px !important;
 }
+
+.cardamigos{
+  -webkit-transform: translate3d(0, 0, 0);
+  border: 0px !important;
+  /*margin-bottom: 30px;*/
+}
+
+.cover-slider .cardamigos {
+  margin-bottom: 0px !important;
+}
+
+[data-card-height=cover].cardamigos {
+  margin-bottom: 0px !important;
+}
+
+
+
 .card-desafio{
   border: 1.5px solid #2b2b2b !important;
 }
@@ -6680,3 +6697,4 @@ input[type=number] {
   margin-left: 250px;
 }
 /*tinder*/
+
