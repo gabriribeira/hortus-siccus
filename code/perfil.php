@@ -71,7 +71,7 @@ if (isset( $_SESSION["username"])) {
                                                                                src="images/icons/editar_perfil_Prancheta%201.png"></i></a>
         <a class="header-icon header-icon-1 ms-5" href="editar_perfil.html"><i><img class="icons"
                                                                                     src="images/icons/amigos_Prancheta%201.png"></i></a>
-        <p class="header-icon font-barra font-31 margem-perfil mt-1 ">Olá,<?=$username?></p>
+        <p class="header-icon font-barra font-31 margem-perfil mt-1 ">Olá!</p>
     </div>
 
     <!--PERFIL-->
@@ -89,28 +89,33 @@ if (isset( $_SESSION["username"])) {
                 <?php
                 //esta parte ainda não pus no github. NO PERFIL FICA A FALTAR
                 // montra dinâmica + badges dinâmicos + count colheitas + adicionar comentários
-                //$stmt = mysqli_stmt_init($link);
-                //$query = "SELECT COUNT(data_registo)
-               // FROM registos
-                //WHERE users_id_user=?";
+                $link = new_db_connection();
+                $stmt = mysqli_stmt_init($link);
+                $query = "SELECT COUNT(data_registo)
+                FROM registos
+                WHERE users_id_user=?";
 
-                //if (mysqli_stmt_prepare($stmt, $query)) {
-                   // mysqli_stmt_bind_param($stmt, "i", $id);
-                   // if (mysqli_stmt_execute($stmt)) {
-                    //    mysqli_stmt_bind_result($stmt, $n);
-                    //    mysqli_stmt_fetch($stmt);
-                    //    $colheitas = $n;
-                    //} else {
-                    //    echo "Error: " . mysqli_error($stmt);
-                    //}
-                   // mysqli_stmt_close($stmt);
-                //}
+                if (mysqli_stmt_prepare($stmt, $query)) {
+                    mysqli_stmt_bind_param($stmt, "i",  $id);
+                    if (mysqli_stmt_execute($stmt)) {
+                        mysqli_stmt_bind_result($stmt, $total_colheitas);
+                        mysqli_stmt_fetch($stmt);
+
+                    } else {
+                        echo "Error: " . mysqli_error($stmt);
+                    }
+                    mysqli_stmt_close($stmt);
+                } else {
+                    echo("Error description: " . mysqli_error($link));
+                }
+                mysqli_close($link);
+
                 ?>
 
                 <p class="font-26 mt-3 mb-0"><?=$nome?></p>
                 <a class="font-18  mt-1 mb-0 color-dark-dark" style="font-style: italic"><?=$email?></a>
                 <p class="font-16  mb-0" ><?=$descricao?></p>
-                <p class="font-18  mt-1 mb-0 color-amarelo"><?=48?> colheitas</p>
+                <p class="font-18  mt-1 mb-0 color-amarelo"><?=$total_colheitas?> colheitas</p>
             </div>
             <!-- AVATAR -->
             <div class="col-6 card card-style feed-0 mt-4" data-card-height="350">
@@ -172,8 +177,48 @@ if (isset( $_SESSION["username"])) {
             <!-- BADGES -->
             <div class="row mb-0 mt-5 ">
                 <img src="images/badgets/bronze.png" class="m-auto" style="width:30%">
-                <p class="font-22 text-center mt-2" >Começou na aplicação</p>
+                <p class="font-22 text-center mt-2 mb-1" >Novato</p>
+                <span class="text-center font-16">Registou-se na aplicação!</span>
             </div>
+
+
+            <!-- comentarios -->
+            <section  class="mt-5" >
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-5 col-md-6 col-12 pb-4">
+                            <p class="font-18 mt-1 ">Dá um feedbak a esta gaja</p>
+                            <div class="comment mt-2 text-justify float-left">
+                                <img src="https://i.imgur.com/yTFUilP.jpg" alt="" class="rounded-circle" width="40" height="40">
+                                <h4>Jhon Doe</h4>
+                                <span>- 20 October, 2018</span>
+                                <br>
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus numquam assumenda hic aliquam vero sequi velit molestias doloremque molestiae dicta?</p>
+                            </div>
+                            <div class="comment mt-4 text-justify">
+                                <img src="https://i.imgur.com/yTFUilP.jpg" alt="" class="rounded-circle" width="40" height="40">
+                                <h4>Jhon Doe</h4>
+                                <span>- 20 October, 2018</span>
+                                <br>
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus numquam assumenda hic aliquam vero sequi velit molestias doloremque molestiae dicta?</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
+                            <form id="algin-form">
+                                <div class="form-group">
+                                    <h4>Leave a comment</h4>
+                                    <label for="message">Message</label>
+                                    <textarea name="msg" id=""msg cols="30" rows="5" class="form-control message" ></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="button" id="post" class="btn">Post Comment</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
         </div>
     </div>
