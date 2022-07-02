@@ -2335,6 +2335,7 @@ button {
 .cardamigos{
   -webkit-transform: translate3d(0, 0, 0);
   border: 0px !important;
+  margin-top: 200px;
   /*margin-bottom: 30px;*/
 }
 
@@ -6698,3 +6699,13 @@ input[type=number] {
 }
 /*tinder*/
 
+.avatar{
+  height: 50%;
+  width: 50%;
+  padding-top: 120px;
+  padding-bottom: 20px;
+}
+
+.slideravatar{
+  margin-top: 120px;
+}
