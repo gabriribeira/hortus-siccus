@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         autoplay:true,
                         interval:4000,
                         arrows:false,
-                        perPage: 2,
+                        perPage: 8,
                     }).mount();
                 });
             }
