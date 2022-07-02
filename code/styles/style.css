@@ -6679,4 +6679,121 @@ input[type=number] {
 .header_amigos{
   margin-left: 250px;
 }
-/*tinder*/
+/*calendas*/
+.margemtop{
+  margin-top: 90px;
+}
+.margemright{
+  margin-left: 197px;
+  font-size: 6em;
+  line-height:1 ;
+}
+.contato{
+  border: #2b2b2b 1px solid;
+  padding: 2px;
+  background-color: #9e8035;
+}
+
+/* COMMENTS AREA
+--------------------------------------------*/
+@media(min-width:568px){
+  .end{
+    margin-left: auto;
+  }
+}
+
+@media(max-width:768px){
+  #post{
+    width: 100%;
+  }
+}
+#clicked{
+  padding-top: 1px;
+  padding-bottom: 1px;
+  text-align: center;
+  width: 100%;
+  background-color: #ecb21f;
+  border-color: #a88734 #9c7e31 #846a29;
+  color: black;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 13px;
+}
+
+#profile{
+  background-color: unset;
+
+}
+
+#post{
+  margin: 10px;
+  padding: 6px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  text-align: center;
+  background-color: #9e8035;
+  color: #eeeee4;
+  border-width: 1px;
+  border-style: solid;
+  width: 50%;
+  border-radius: 0px;;
+}
+
+
+
+#nav-items li a,#profile{
+  text-decoration: none;
+  color: rgb(224, 219, 219);
+  background-color: black;
+}
+
+
+.comments{
+  margin-top: 5%;
+  margin-left: 20px;
+}
+
+
+.comment{
+  border: 1px solid #2b2b2b;
+  float: left;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+
+}
+.comment h4,.comment span,.darker h4,.darker span{
+  display: inline;
+}
+
+.comment p,.comment span,.darker p,.darker span{
+  color: rgb(184, 183, 183);
+}
+
+
+
+
+#align-form{
+  margin-top: 20px;
+}
+.form-group p a{
+  color: white;
+}
+
+#checkbx{
+  background-color: black;
+}
+
+#darker img{
+  margin-right: 15px;
+  position: static;
+}
+
+.form-group input,.form-group textarea{
+  background-color: transparent;
+  border: 1px solid #9e8035;
+
+}
+
