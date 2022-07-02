@@ -26,8 +26,12 @@
 <?php
 session_start();
 require_once("connections/connection.php");
+include_once("scripts_php/sc_badges.php");
+
 if (isset( $_SESSION["username"])) {
     $user = $_SESSION["username"];
+    $id = $_SESSION["id_utilizador"];
+
     $link = new_db_connection();
     $stmt = mysqli_stmt_init($link);
     $query = "SELECT  id_user, username, nome_user, email, descricao, roles_id_role FROM users WHERE username = ?";
@@ -175,10 +179,38 @@ if (isset( $_SESSION["username"])) {
 
 
             <!-- BADGES -->
+            <?php
+            //esta parte ainda não pus no github. NO PERFIL FICA A FALTAR
+            // montra dinâmica + badges dinâmicos + count colheitas + adicionar comentários
+            $link = new_db_connection();
+            $stmt = mysqli_stmt_init($link);
+            $query = "SELECT badges.nome_badge, badges.descricao_badge, badges.imagem_badge
+                    FROM users
+                    INNER JOIN badges
+                    ON users.badges_id_badge = badges.id_badge
+                    WHERE id_user = ?";
+
+            if (mysqli_stmt_prepare($stmt, $query)) {
+                mysqli_stmt_bind_param($stmt, "i",  $id);
+                if (mysqli_stmt_execute($stmt)) {
+                    mysqli_stmt_bind_result($stmt, $nome_b, $descricao_b, $imagem_b);
+                    mysqli_stmt_fetch($stmt);
+
+                } else {
+                    echo "Error: " . mysqli_error($stmt);
+                }
+                mysqli_stmt_close($stmt);
+            } else {
+                echo("Error description: " . mysqli_error($link));
+            }
+            mysqli_close($link);
+
+            ?>
+
             <div class="row mb-0 mt-5 ">
-                <img src="images/badgets/bronze.png" class="m-auto" style="width:30%">
-                <p class="font-22 text-center mt-2 mb-1" >Novato</p>
-                <span class="text-center font-16">Registou-se na aplicação!</span>
+                <img src="images/badges/<?=$imagem_b?>" class="m-auto" style="width:30%">
+                <p class="font-22 text-center mt-2 mb-1" ><?=$nome_b?></p>
+                <span class="text-center font-16"><?=$descricao_b?></span>
             </div>
 
 
@@ -187,8 +219,10 @@ if (isset( $_SESSION["username"])) {
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-5 col-md-6 col-12 pb-4">
-                            <p class="font-18 mt-1 ">Dá um feedbak a esta gaja</p>
-                            <div class="comment mt-2 text-justify float-left">
+                            <p class="font-18 mt-1 ">Dá o teu feedback</p>
+                            <div class="comment mt-2 text-justify float-left mb-1">
+                                <a class="font-18 float-right"><i><img class="icons"
+                                                           src="images/icons/apagar_Prancheta%201.png"></i></a>
                                 <img src="https://i.imgur.com/yTFUilP.jpg" alt="" class="rounded-circle" width="40" height="40">
                                 <h4>Jhon Doe</h4>
                                 <span>- 20 October, 2018</span>

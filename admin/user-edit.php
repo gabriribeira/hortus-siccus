@@ -281,7 +281,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-2">
-                        <h1 class="h3 mb-0 text-gray-800">Gerir Utilizadores</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Gerir Utilizador</h1>
                     </div>
 
                     <div class="row">
@@ -291,18 +291,18 @@
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
 
-                                    <form role="form" method="post" action="scripts/sc_users_update.php">
+                                    <form role="form" method="post" action="scripts_php/sc_users_edit.php">
 
                                         <?php
 
                                         require_once("../code/connections/connection.php"); // We need the function!
                                         $link = new_db_connection(); // Create a new DB connection
                                         $stmt = mysqli_stmt_init($link); // create a prepared statement
-                                        $query = "SELECT id_user, username, email, data_criacao, roles_id_role, active FROM users WHERE id_user = ? "; // Define the query
+                                        $query = "SELECT id_user, username, email, data_criacao, roles_id_role, active, nome_user FROM users WHERE id_user = ? "; // Define the query
                                         if (mysqli_stmt_prepare($stmt, $query)) { // Prepare the statement
                                             mysqli_stmt_bind_param($stmt, 's', $_GET["id"]);
                                             mysqli_stmt_execute($stmt); // Execute the prepared statement
-                                            mysqli_stmt_bind_result($stmt, $id, $username, $email, $date, $role, $active);
+                                            mysqli_stmt_bind_result($stmt, $id, $username, $email, $date, $role, $active, $nome_user);
                                             mysqli_stmt_fetch($stmt) ?>
 
                                             <input type='hidden' name='id_users' value='<?= $id ?>'>
@@ -319,6 +319,10 @@
                                                 <input class='form-control' name='username' value='<?= $username ?>'>
                                             </div>
                                             <div class='form-group'>
+                                                <label style="font-weight: bold;">Nome</label>
+                                                <input class='form-control' name='nome_user' value='<?= $nome_user ?>'>
+                                            </div>
+                                            <div class='form-group'>
                                                 <label style="font-weight: bold;">Email</label>
                                                 <input class='form-control' name='email' value='<?= $email ?>'>
                                             </div>
@@ -331,7 +335,7 @@
                                                 } ?>
                                                 <div class='checkbox'>
                                                     <label>
-                                                        <?php if ($_SESSION["id"] == $id && $_SESSION["role"] == 1) {
+                                                        <?php if ($_SESSION["id_utilizador"] == $id && $_SESSION["role"] == 2) {
                                                             echo "<p>Activo</p>";
                                                         } else {
                                                             echo "<input type='checkbox' name='active' $checkboxpar>  Activo";
@@ -343,7 +347,7 @@
                                             <div class='form-group'>
                                                 <label style="font-weight: bold;">Perfil</label>
 
-                                                <?php if ($_SESSION["id"] == $id && $_SESSION["role"] == 2) {
+                                                <?php if ($_SESSION["id_utilizador"] == $id && $_SESSION["role"] == 2) {
                                                     echo "Administrador";
                                                 } else {
                                                     if ($role == 2) {
