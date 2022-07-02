@@ -187,8 +187,10 @@ if (isset( $_SESSION["username"])) {
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-5 col-md-6 col-12 pb-4">
-                            <p class="font-18 mt-1 ">Dá um feedbak a esta gaja</p>
-                            <div class="comment mt-2 text-justify float-left">
+                            <p class="font-18 mt-1 ">Dá o teu feedback</p>
+                            <div class="comment mt-2 text-justify float-left mb-1">
+                                <a class="font-18 float-right"><i><img class="icons"
+                                                           src="images/icons/apagar_Prancheta%201.png"></i></a>
                                 <img src="https://i.imgur.com/yTFUilP.jpg" alt="" class="rounded-circle" width="40" height="40">
                                 <h4>Jhon Doe</h4>
                                 <span>- 20 October, 2018</span>
