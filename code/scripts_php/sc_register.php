@@ -18,24 +18,27 @@ if (isset($_POST["password"]) && isset($_POST["password_ver"]) && $_POST["passwo
                         header("Location: ../registo2.php?user=" . $_POST['username']);
                     }else{
                         $msg = 3;
+                        header("Location: ../registo.php?msg=$msg");
                     }
                     mysqli_stmt_close($stmt);
                 }else{
                     $msg = 3;
+                    header("Location: ../registo.php?msg=$msg");
                 }
                 mysqli_close($link);              
             }else{
                 $msg = 4;
+                header("Location: ../registo.php?msg=$msg");
             }
         }else{
             $msg = 3;
+            header("Location: ../registo.php?msg=$msg");
         }
     }else{
         $msg = 2;
+        header("Location: ../registo.php?msg=$msg");
     }
 }else{
     $msg = 1;
-    var_dump($_POST);
+    header("Location: ../registo.php?msg=$msg");
 }
-
-header("Location: ../registo.php?msg=$msg");
