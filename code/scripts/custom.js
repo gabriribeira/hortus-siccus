@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         autoplay:true,
                         interval:4000,
                         arrows:false,
-                        perPage: 8,
+                        perPage: 3,
                     }).mount();
                 });
             }
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         interval:4000,
                         arrows:false,
                         perPage: 2,
-                        perMove: 1,
+                        perMove: 3,
                     }).mount();
                 });
             }
