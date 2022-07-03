@@ -48,7 +48,7 @@
 
 
         <div class="col">
-            <div class="row">
+            <div class="row mb-0">
                 <div class="col mb-3">
                     <div class="card feed-7">
                         <div class="card-body">
@@ -78,31 +78,39 @@
                                                 <div class="col">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="form-group input-style no-borders ">
-                                                                <label>Full Name</label>
-                                                                <input class="form-control"type="text" name="name" placeholder="John Smith" value="John Smith">
+                                                            <div class="input-style input1 has-icon validate-field mb-4">
+                                                                <i class=" mx-2 fa fa-user"></i>
+                                                                <input type="name" class="form-control validate-name mx-2" id="form1" placeholder="Name">
+                                                                <label for="form1" class="color-highlight">Name</label>
+                                                                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                                                                <i class="fa fa-check disabled valid color-green-dark"></i>
                                                             </div>
                                                         </div>
                                                         <div class="col">
-                                                            <div class="form-group input-style no-borders">
-                                                                <label>Username</label>
-                                                                <input class="form-control" type="text" name="username" placeholder="johnny.s" value="johnny.s">
+                                                            <div class="input-style input1 has-icon validate-field mb-4">
+                                                                <i class="fa fa-user mx-2"></i>
+                                                                <input type="name" class="form-control validate-name mx-2" id="form1" placeholder="Username">
+                                                                <label for="form1" class="color-highlight">Username</label>
+                                                                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                                                                <i class="fa fa-check disabled valid color-green-dark"></i>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="form-group">
-                                                                <label>Email</label>
-                                                                <input class="form-control" type="text" placeholder="user@example.com">
+                                                            <div class="input-style input1 no-icon validate-field mb-4">
+                                                                <input type="email" class="form-control validate-text mx-2" id="form2" placeholder="Email">
+                                                                <label for="form2" class="color-highlight">Email</label>
+                                                                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                                                                <i class="fa fa-check disabled valid color-green-dark"></i>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col ">
-                                                            <div class="form-group">
-                                                                <label>About</label>
-                                                                <textarea class="form-control" rows="5" placeholder="My Bio"></textarea>
+                                                            <div class="input-style input1 no-icon mb-1">
+                                                                <textarea id="form7" class="mx-2" placeholder="Enter your message"></textarea>
+                                                                <label for="form7" class="color-dark-dark">Enter your Message</label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -113,34 +121,40 @@
                                                     <div class="mb-2"><b>Change Password</b></div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="form-group">
-                                                                <label>Current Password</label>
-                                                                <input class="form-control" type="password" placeholder="••••••">
+                                                            <div class="input-style input1 no-icon validate-field mb-4">
+                                                                <input type="password" class="form-control validate-text mx-2" id="form3" placeholder="Current Password">
+                                                                <label for="form3" class="color-highlight">Current password</label>
+                                                                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                                                                <i class="fa fa-check disabled valid color-green-dark"></i>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="form-group">
-                                                                <label>New Password</label>
-                                                                <input class="form-control" type="password" placeholder="••••••">
+                                                            <div class="input-style input1 no-icon validate-field mb-4">
+                                                                <input type="password" class="form-control validate-text mx-2" id="form3" placeholder="New Password">
+                                                                <label for="form3" class="color-highlight">New password</label>
+                                                                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                                                                <i class="fa fa-check disabled valid color-green-dark"></i>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <div class="form-group">
-                                                                <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
-                                                                <input class="form-control" type="password" placeholder="••••••"></div>
+                                                            <div class="input-style input1 no-icon validate-field mb-4">
+                                                                <input type="password" class="form-control validate-text mx-2" id="form3" placeholder="Confirm Password">
+                                                                <label for="form3" class="color-highlight">Confirm password</label>
+                                                                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                                                                <i class="fa fa-check disabled valid color-green-dark"></i>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <button type="submit"  class="float-right submit1  me-4 font-20   p-2">salvar</button>
                                             </div>
-                                            <div class="row">
-                                                <div class="col d-flex justify-content-end">
-                                                    <button class="btn btn-primary" type="submit">Save Changes</button>
-                                                </div>
-                                            </div>
+
+
+
                                         </form>
 
                                     </div>
