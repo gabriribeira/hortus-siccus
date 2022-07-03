@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+    <meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover"
+          name="viewport"/>
+    <title>Hortus siccus</title>
+
+    <link href="styles/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="styles/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=Roboto:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+    <link href="fonts/css/fontawesome-all.min.css" rel="stylesheet" type="text/css">
+    <link data-pwa-version="set_in_manifest_and_pwa_js" href="_manifest.json" rel="manifest">
+    <link href="app/icons/icon-192x192.png" rel="apple-touch-icon" sizes="180x180">
+    <link rel="icon" type="image/png" href="images/favicon.png" sizes="32x32" />
+    <style>
+        @import url("https://use.typekit.net/hxx3rxy.css");
+    </style>
+
+</head>
+<body class="theme-light feed-7">
+<div id="page">
+    <!-- FOOTER MENU-->
+    <div class="footer-bar-4 " id="footer-bar">
+        <a href="perfil.html"><i><img id="demo" onclick="myFunction()" class="icons2" src="images/icons/perfil_Prancheta%201.png"></i></a>
+        <a class="active-nav" href="feed.html.html"><img id="click2" class="icons2"  src="images/icons/home_Prancheta%201.png"></i></a>
+        <a href="herbario-UA.html"><img id="click3"  class="icons2" src="images/icons/herbario_Prancheta%201.png"></i></a>
+    </div>
+
+    <!-- Global Menus-->
+    <div class="menu menu-box-modal menu-gradient" data-menu-height="cover" data-menu-load="menu-color.html"
+         data-menu-width="cover" id="menu-color"></div>
+    <div class="menu menu-box-bottom menu-box-detached" data-menu-effect="menu-parallax" data-menu-height="390"
+         data-menu-load="menu-share.html" id="menu-share"></div>
+
+    <!--HEADER: LOGO E MENU DE CIMA-->
+    <div class="header-logo-app header2 ms-4 mt-4 mb-4 ">
+        <a class="header-icon header-icon-1" href="editar_perfil.html"><i><img class="icons"
+                                                                               src="images/icons/undo.png"></i></a>
+    </div>
+
+    <!--EDIÇÃO PERFIL-->
+    <div class="page-content has-footer-menu ">
+
+
+
+        <div class="col">
+            <div class="row">
+                <div class="col mb-3">
+                    <div class="card feed-7">
+                        <div class="card-body">
+                            <div class="e-profile">
+                                <div class="row">
+                                    <div class="col-12 col-sm-auto ">
+                                        <div class="mx-auto" style="width: 140px;">
+                                            <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
+                                                <img class="img-fluid " src="images/profile/bruna.jpg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col d-flex flex-column flex-sm-row justify-content-between ">
+                                        <div class="text-center text-sm-left mb-2 mb-sm-0 mt-5">
+                                            <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">John Smith</h4>
+                                            <div class="mt-2">
+                                                <input class="btn " style="border: none" type="file">
+                                                </input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-content">
+                                    <div class="tab-pane active">
+                                        <form class="form" novalidate="">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group input-style no-borders ">
+                                                                <label>Full Name</label>
+                                                                <input class="form-control"type="text" name="name" placeholder="John Smith" value="John Smith">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group input-style no-borders">
+                                                                <label>Username</label>
+                                                                <input class="form-control" type="text" name="username" placeholder="johnny.s" value="johnny.s">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Email</label>
+                                                                <input class="form-control" type="text" placeholder="user@example.com">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col ">
+                                                            <div class="form-group">
+                                                                <label>About</label>
+                                                                <textarea class="form-control" rows="5" placeholder="My Bio"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 col-sm-6 mb-3">
+                                                    <div class="mb-2"><b>Change Password</b></div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Current Password</label>
+                                                                <input class="form-control" type="password" placeholder="••••••">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>New Password</label>
+                                                                <input class="form-control" type="password" placeholder="••••••">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
+                                                                <input class="form-control" type="password" placeholder="••••••"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col d-flex justify-content-end">
+                                                    <button class="btn btn-primary" type="submit">Save Changes</button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="scripts/bootstrap.min.js" type="text/javascript"></script>
+<script src="scripts/custom.js" type="text/javascript"></script>
+<script>
+    function myFunction() {
+        document.getElementById("demo").src="images/icons/1.png";
+
+    }
+</script>
+</body>
+</html>
