@@ -139,8 +139,6 @@ if (isset( $_SESSION["username"])) {
             //esta parte ainda não pus no github. NO PERFIL FICA A FALTAR
             // montra dinâmica + badges dinâmicos + count colheitas + adicionar comentários
             $link = new_db_connection();
-
-
             $stmt2 = mysqli_stmt_init($link);
             $query = "SELECT COUNT(id_registo) FROM registos WHERE users_id_user=? AND registos.montra=1";
 
