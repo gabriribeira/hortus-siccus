@@ -23,6 +23,8 @@
 </head>
 
 <body class="theme-light feed-7">
+<div id="preloader"><div class="spinner-border color-red-dark" role="status"></div></div>
+
 <?php
 session_start();
 require_once("connections/connection.php");
@@ -30,7 +32,7 @@ include_once("scripts_php/sc_badges.php");
 
 if (isset( $_SESSION["username"])) {
     $user = $_SESSION["username"];
-    $id = $_SESSION["id_utilizador"];
+    $id = $_GET["id_user"];
 
     $link = new_db_connection();
     $stmt = mysqli_stmt_init($link);
@@ -215,41 +217,75 @@ if (isset( $_SESSION["username"])) {
 
 
             <!-- comentarios -->
-            <section  class="mt-5" >
+            <section  class="mt-5" id="comentarios" >
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-5 col-md-6 col-12 pb-4">
-                            <p class="font-18 mt-1 ">Dá o teu feedback</p>
-                            <div class="comment mt-2 text-justify float-left mb-1">
-                                <a class="font-18 float-right"><i><img class="icons"
-                                                           src="images/icons/apagar_Prancheta%201.png"></i></a>
-                                <img src="https://i.imgur.com/yTFUilP.jpg" alt="" class="rounded-circle" width="40" height="40">
-                                <h4>Jhon Doe</h4>
-                                <span>- 20 October, 2018</span>
-                                <br>
-                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus numquam assumenda hic aliquam vero sequi velit molestias doloremque molestiae dicta?</p>
-                            </div>
-                            <div class="comment mt-4 text-justify">
-                                <img src="https://i.imgur.com/yTFUilP.jpg" alt="" class="rounded-circle" width="40" height="40">
-                                <h4>Jhon Doe</h4>
-                                <span>- 20 October, 2018</span>
-                                <br>
-                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus numquam assumenda hic aliquam vero sequi velit molestias doloremque molestiae dicta?</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
-                            <form id="algin-form">
-                                <div class="form-group">
-                                    <h4>Leave a comment</h4>
-                                    <label for="message">Message</label>
-                                    <textarea name="msg" id=""msg cols="30" rows="5" class="form-control message" ></textarea>
-                                </div>
+                            <p class="font-18 mt-1 ">Comentários</p>
+                                    <?php
+                                    //esta parte ainda não pus no github. NO PERFIL FICA A FALTAR
+                                    // montra dinâmica + badges dinâmicos + count colheitas + adicionar comentários
+                                    $link = new_db_connection();
+                                    $stmt = mysqli_stmt_init($link);
+                                    $query = "SELECT comentarios.id_comentario, comentarios.comentario, comentarios.data_comentario, users.nome_user, users.imagem_user, users.id_user FROM comentarios 
+                                            INNER JOIN users ON id_user_origem=id_user
+                                            WHERE id_user_destino=?";
 
-                                <div class="form-group">
-                                    <button type="button" id="post" class="btn">Post Comment</button>
-                                </div>
-                            </form>
+                                    if (mysqli_stmt_prepare($stmt, $query)) {
+                                        mysqli_stmt_bind_param($stmt, "i",  $id);
+                                        if (mysqli_stmt_execute($stmt)) {
+                                            mysqli_stmt_bind_result($stmt, $id_c, $comentario, $data_c, $nome_c, $imagemperfil_c, $iduser_c);
+                                            while (mysqli_stmt_fetch($stmt)) {
+                                                echo "
+                                                <div class='comment mt-2 text-justify float-left mb-1'>";
+
+                                                if ($iduser_c == $_SESSION["id_utilizador"]){
+                                                    echo " <a class='font-18 float-right' href='scripts_php/sc_comentario_remove.php?id_c=$id_c'><i><img class='icons'
+                                                                                   src='images/icons/apagar_Prancheta%201.png'></i></a>";
+                                                }
+
+                                                echo" <img src='images/uploads/small/$imagemperfil_c' alt='' class='rounded-circle' width='40' height='40'>
+                                                        <h4>$nome_c</h4>
+                                                        <span>- $data_c</span>
+                                                        <br>
+                                                        <p>$comentario</p>
+                                                    </div>
+                                                ";
+
+                                            }
+
+                                        } else {
+                                            echo "Error: " . mysqli_error($stmt);
+                                        }
+                                        mysqli_stmt_close($stmt);
+                                    } else {
+                                        echo("Error description: " . mysqli_error($link));
+                                    }
+                                    mysqli_close($link);
+
+                                    ?>
                         </div>
+
+                        <?php
+                        if (isset($_SESSION["id_utilizador"]) /*&& $id!=$_SESSION["id_utilizador"]*/ ){
+                            //assim o campo de adicionar comentario so aparece se alguem tiver logado e nao vai aparecer caso estejas a visitar o teu proprio perfil
+                            echo "
+                             <div class='col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4'>
+                                <form id='algin-form' action='scripts_php/sc_comentario_add.php?id_user_d=$id' method='post' role='form'>
+                                    <div class='form-group'>
+                                        <h4>Leave a comment</h4>
+                                        <label for='message'>Message</label>
+                                        <textarea name='comentario' id='msg' cols='30' rows='5' class='form-control message' ></textarea>
+                                    </div>
+                                    <div class='form-group'>
+                                        <button type='submit' id='post' class='btn'>Post Comment</button>
+                                    </div>
+                                </form>
+                            </div>
+                            ";
+
+                        }
+                        ?>
                     </div>
                 </div>
             </section>
