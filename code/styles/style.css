@@ -330,6 +330,7 @@ p {
   appearance: none;
   background-color: rgba(0, 0, 0, 0) !important;
 }
+
 .header1 .header-icon {
   position: absolute;
   height: 60px;
@@ -6279,8 +6280,12 @@ input[type=number] {
 .feed-3{
   background-color: #9b8035 ;
   background-image: url(../images/feed_UA/1.png);
-
 }
+
+.feed_3{
+  background-color: #9b8035 ;
+}
+
 .feed-a{
   background-color: #9b8035 ;
 
@@ -6870,4 +6875,8 @@ label{
 
 .slideravatar{
   margin-top: 120px;
+}
+
+::-webkit-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
 }
