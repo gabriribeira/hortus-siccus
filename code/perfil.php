@@ -122,6 +122,7 @@ if (isset( $_SESSION["username"])) {
                 <a class="font-18  mt-1 mb-0 color-dark-dark" style="font-style: italic"><?=$email?></a>
                 <p class="font-16  mb-0" ><?=$descricao?></p>
                 <p class="font-18  mt-1 mb-0 color-amarelo"><?=$total_colheitas?> colheitas</p>
+                <button type="button" class="float-right contato1 me-4 mt-1  "><a href="about.html" class="font-16  p-2 color-dark-dark " >a seguir</a></button>
             </div>
             <!-- AVATAR -->
             <div class="col-6 card card-style feed-0 mt-4" data-card-height="350">
