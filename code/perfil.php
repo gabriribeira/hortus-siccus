@@ -151,11 +151,12 @@ if (isset( $_SESSION["username"])) {
                     }
             }
                     mysqli_stmt_close($stmt2);
-                    mysqli_close($link);
 
 
             if ($total!=0){
-                $stmt = mysqli_stmt_init($link);
+                $link2 = new_db_connection();
+
+                $stmt = mysqli_stmt_init($link2);
                 $query = "SELECT registos.imagem_registo, plantas.nome_cientifico
                             FROM registos
                             INNER JOIN plantas ON plantas_id_plantas=id_plantas
@@ -166,10 +167,7 @@ if (isset( $_SESSION["username"])) {
                     if (mysqli_stmt_execute($stmt)) {
                         mysqli_stmt_bind_result($stmt, $imagem_registo, $nome_cientifico);
                         while (mysqli_stmt_fetch($stmt)) {
-                            if ($total==1){
-                                echo "SÓ TENHO UM: $imagem_registo, $nome_cientifico";
-
-                            }else if ($total >1){
+                            if ($total>=1){
                                 echo "
                                  <div class='splide__slide'>
                                     <div data-card-height='320'  class='card mx-2 ' style='background-image: url(images/uploads/registos_plantas/$imagem_registo); border-radius: 15px'>
