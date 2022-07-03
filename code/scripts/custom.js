@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if(singleSlider.length){
                 singleSlider.forEach(function(e){
                     var single = new Splide( '#'+e.id, {
-                        type:'loop',
+                        type:'',
                         autoplay:true,
                         interval:4000,
                         perPage: 1,

@@ -131,51 +131,74 @@ if (isset( $_SESSION["username"])) {
         </div><div class="content mb-5">
 
             <!--MONTRA-->
+
             <div class="splide single-slider slider-arrows mt-4" id="single-slider-3">
                 <div class="splide__track">
                     <div class="splide__list">
-                        <div class="splide__slide">
-                            <div data-card-height="320"  class="card mx-2 bg-18  " style="border-radius: 15px">
-                                <div class="card-bottom text-center mb-4">
-                                    <p class="color-white text-uppercase font-16 mb-0">Splendid Simplicity</p>
+            <?php
+            //esta parte ainda não pus no github. NO PERFIL FICA A FALTAR
+            // montra dinâmica + badges dinâmicos + count colheitas + adicionar comentários
+            $link = new_db_connection();
+
+
+            $stmt2 = mysqli_stmt_init($link);
+            $query = "SELECT COUNT(id_registo) FROM registos WHERE users_id_user=? AND registos.montra=1";
+
+            if (mysqli_stmt_prepare($stmt2, $query)) {
+                mysqli_stmt_bind_param($stmt2, "i",  $id);
+                if (mysqli_stmt_execute($stmt2)) {
+                    mysqli_stmt_bind_result($stmt2, $total);
+                    mysqli_stmt_fetch($stmt2);
+                    }
+            }
+                    mysqli_stmt_close($stmt2);
+
+
+            if ($total!=0){
+                $link2 = new_db_connection();
+
+                $stmt = mysqli_stmt_init($link2);
+                $query = "SELECT registos.imagem_registo, plantas.nome_cientifico
+                            FROM registos
+                            INNER JOIN plantas ON plantas_id_plantas=id_plantas
+                            WHERE users_id_user=? AND registos.montra=1";
+
+                if (mysqli_stmt_prepare($stmt, $query)) {
+                    mysqli_stmt_bind_param($stmt, "i",  $id);
+                    if (mysqli_stmt_execute($stmt)) {
+                        mysqli_stmt_bind_result($stmt, $imagem_registo, $nome_cientifico);
+                        while (mysqli_stmt_fetch($stmt)) {
+                            if ($total>=1){
+                                echo "
+                                 <div class='splide__slide'>
+                                    <div data-card-height='320'  class='card mx-2 ' style='background-image: url(images/uploads/registos_plantas/$imagem_registo); border-radius: 15px'>
+                                        <div class='card-bottom text-center mb-4'>
+                                            <p class='color-white text-uppercase font-16 mb-0'>$nome_cientifico</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="splide__slide">
-                            <div data-card-height="320"  class="card mx-2 bg-18  " style="border-radius: 15px">
-                                <div class="card-bottom text-center mb-4">
-                                    <p class="color-white text-uppercase font-16 mb-0">Splendid Simplicity</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="splide__slide">
-                            <div data-card-height="320"  class="card mx-2 bg-18  " style="border-radius: 15px">
-                                <div class="card-bottom text-center mb-4">
-                                    <p class="color-white text-uppercase font-16 mb-0">Splendid Simplicity</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="splide__slide">
-                            <div data-card-height="320"  class="card mx-2 bg-18  " style="border-radius: 15px">
-                                <div class="card-bottom text-center mb-4">
-                                    <p class="color-white text-uppercase font-16 mb-0">Splendid Simplicity</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="splide__slide">
-                            <div data-card-height="320"  class="card mx-2 bg-18  " style="border-radius: 15px">
-                                <div class="card-bottom text-center mb-4">
-                                    <p class="color-white text-uppercase font-16 mb-0">Splendid Simplicity</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="splide__slide">
-                            <div data-card-height="320"  class="card mx-2 bg-18  " style="border-radius: 15px">
-                                <div class="card-bottom text-center mb-4">
-                                    <p class="color-white text-uppercase font-16 mb-0">Splendid Simplicity</p>
-                                </div>
-                            </div>
-                        </div>
+                                 ";
+
+                            }
+                        }
+
+
+                    } else {
+                        echo "Error: " . mysqli_error($stmt);
+                    }
+                    mysqli_stmt_close($stmt);
+                } else {
+                    echo("Error description: " . mysqli_error($link));
+                }
+                mysqli_close($link);
+            }else {
+                echo "Ainda não há nada na montra";
+            }
+
+
+
+            ?>
+
                     </div>
                 </div>
             </div>
