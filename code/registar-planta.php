@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +36,7 @@
                     .done(function(data) {
                         $('#resultados-pesquisa').html('');
                         for (var i in data) {
-                            $('#resultados-pesquisa').append('<a href="registar-planta.php?id=' + data[i]["id"] + '"><h3 class="pt-2" style="color: black; font-size: 1rem; font-weight: bold;">' + data[i]["nome"] + '</h3></a>');
+                            $('#resultados-pesquisa').append('<a class="resultado" href="registar-planta.php?id=' + data[i]["id"] + '"><h4 class="pt-2" style="color: black; font-size: 1rem; font-weight: bold;">' + data[i]["nome"] + '</h4></a>');
                             $('#resultados-pesquisa').append('<hr>');
                         }
                     })
@@ -49,6 +51,12 @@
 </head>
 
 <body class="theme-light feed-7">
+
+    <div id="preloader">
+        <div class="spinner-border color-red-dark" role="status"></div>
+    </div>
+
+
     <div id="page">
         <!-- FOOTER MENU-->
         <div class="footer-bar-4 " id="footer-bar">
@@ -73,41 +81,124 @@
                 <div class=" m-0 rounded-0" data-card-height="cover">
                     <div class=" rounded-m">
                         <div class="content mb-5">
+
+                            <?php
+
+                            if (isset($_GET["id"]) && $_GET["id"] != "") {
+                                require_once('connections/connection.php');
+                                $link = new_db_connection();
+                                /* create a prepared statement */
+                                $stmt = mysqli_stmt_init($link);
+                                $query = "SELECT id_plantas, nome_cientifico, origens.origem, estatutos.estatuto, familias_plantas.familia, plantas_vulgares.nome_vulgar
+                                FROM plantas 
+                                INNER JOIN origens
+                                ON plantas.origens_id_origem = origens.id_origem
+                                INNER JOIN estatutos
+                                ON plantas.estatutos_id_estatuto = estatutos.id_estatuto
+                                INNER JOIN familias_plantas
+                                ON plantas.familias_plantas_id_familia = familias_plantas.id_familia
+                                INNER JOIN plantas_vulgares
+                                ON plantas.id_plantas = plantas_vulgares.plantas_id_plantas
+                                WHERE id_plantas = ?";
+
+                                if (mysqli_stmt_prepare($stmt, $query)) {
+                                    mysqli_stmt_bind_param($stmt, 's', $_GET["id"]);
+                                    /* execute the prepared statement */
+                                    if (mysqli_stmt_execute($stmt)) {
+                                        /* bind result variables */
+                                        mysqli_stmt_bind_result($stmt, $id, $nome, $origem, $estatuto, $familia, $vulgar);
+                                        mysqli_stmt_fetch($stmt);
+                                    } else {
+                                        echo "Error: " . mysqli_stmt_error($stmt);
+                                    }
+                                    /* close statement */
+                                    mysqli_stmt_close($stmt);
+                                } else {
+                                    echo "Error: " . mysqli_error($link);
+                                }
+                            }
+
+                            ?>
+
                             <div class="text-center">
                                 <img src="images/profile/bruna.jpg" data-src="images/pictures/25t.jpg" style=" width: 200px ;height: 230px" class="rounded-m preload-img  img-fluid" alt="img">
                                 <div class="mt-2">
                                     <input class="btn " style="border: none" type="file">
                                     </input>
                                 </div>
-                                <p class="pt-3 color-amarelo font-30 mb-2" style="font-style: italic; font-family: Georgia, sans-serif;">Nome científico</p>
-                                <div class="input-style input2  has-icon validate-field mb-4">
-                                    <input type="text" class="form-control validate-name" id="search">
-                                    <label for="form1" class="color-highlight"></label>
-                                    <div id="resultados-pesquisa"></div>
-                                </div>
-                                <p class="color-amarelo font-18 mt-0 mb-3"><i>Nome comum<i></p>
+                                <p class="pt-3 color-amarelo font-30 mb-2" style="font-style: italic; font-family: Georgia, sans-serif;">
+                                    <?php if (isset($_GET["id"]) && $_GET["id"] != "") {
+                                        echo $nome;
+                                    } else {
+                                        echo "Nome Científico";
+                                    } ?>
+                                </p>
+                                <?php
+                                if (!isset($_GET["id"]) || $_GET["id"] == "") { ?>
+                                    <div class="input-style input2  has-icon validate-field mb-4">
+                                        <input type="text" class="form-control validate-name" id="search">
+                                        <label for="form1" class="color-highlight"></label>
+                                        <div id="resultados-pesquisa"></div>
+                                    </div>
+                                <?php } ?>
+
+                                <p class="color-amarelo font-18 mt-0 mb-3"><i>
+                                        <?php if (isset($_GET["id"]) && $_GET["id"] != "") {
+                                            echo $vulgar;
+                                        } else {
+                                            echo "Nome Comum";
+                                        } ?>
+                                        <i></p>
                             </div>
                             <p class="font-11 mt-n2 mb-3"></p>
                             <br />
                             <div class="row m-0 p-0">
                                 <div class="mt-2 col-6">
-                                    <p class="color-amarelo font-18 mb-2">família</p>
+                                    <p class="color-amarelo font-18 mb-2">
+                                        família</p>
                                     <hr class="mt-1 mb-1">
-                                    <div class="input-style input1  has-icon validate-field mb-4">
-                                        <input type="name" class="form-control validate-name" id="form1" placeholder="">
-                                        <label for="form1" class="color-highlight"></label>
-                                    </div>
+                                    <?php
+                                    if (isset($_GET["id"]) && $_GET["id"] != "") { ?>
+                                        <div class="input-style input1  has-icon validate-field mb-4">
+                                            <input type="name" class="form-control validate-name" id="form1" value="<?= $familia ?>">
+                                            <label for="form1" class="color-highlight"></label>
+                                        </div>
+                                    <?php } else { ?>
+                                        <div class="input-style input1  has-icon validate-field mb-4">
+                                            <input type="name" class="form-control validate-name" id="form1">
+                                            <label for="form1" class="color-highlight"></label>
+                                        </div>
+                                    <?php } ?>
                                     <p class="color-amarelo font-18 mb-2">estado</p>
                                     <hr class="mt-1 mb-1">
                                     <div class="input-style input1 no-icon mb-4">
                                         <label for="form5" class="color-highlight"></label>
                                         <select id="form5">
                                             <option value="default" disabled selected>Select a Value</option>
-                                            <option value="iOS">iOS</option>
-                                            <option value="Linux">Linux</option>
-                                            <option value="MacOS">MacOS</option>
-                                            <option value="Android">Android</option>
-                                            <option value="Windows">Windows</option>
+                                            <?php
+                                            require_once('connections/connection.php');
+                                            $link = new_db_connection();
+                                            /* create a prepared statement */
+                                            $stmt2 = mysqli_stmt_init($link);
+                                            $query = "SELECT id_estado, estado FROM estados ORDER BY id_estado ASC";
+
+                                            if (mysqli_stmt_prepare($stmt2, $query)) {
+                                                /* execute the prepared statement */
+                                                if (mysqli_stmt_execute($stmt2)) {
+                                                    /* bind result variables */
+                                                    mysqli_stmt_bind_result($stmt2, $id_estado, $estado);
+                                                    while (mysqli_stmt_fetch($stmt2)) { ?>
+                                                        <option value="<?= $id_estado ?>"><?= $estado ?></option>
+                                            <?php }
+                                                } else {
+                                                    echo "Error: " . mysqli_stmt_error($stmt2);
+                                                }
+                                                /* close statement */
+                                                mysqli_stmt_close($stmt2);
+                                            } else {
+                                                echo "Error: " . mysqli_error($link);
+                                            }
+                                            ?>
                                         </select>
                                         <span><i class="fa fa-chevron-down"></i></span>
                                         <i class="fa fa-check disabled valid color-green-dark"></i>
@@ -116,16 +207,32 @@
                                     </div>
                                     <p class="color-amarelo font-18 mb-2">origem</p>
                                     <hr class="mt-1 mb-1">
-                                    <div class="input-style input1  has-icon validate-field mb-4">
-                                        <input type="name" class="form-control validate-name" id="form1" placeholder="">
-                                        <label for="form1" class="color-highlight"></label>
-                                    </div>
+                                    <?php
+                                    if (isset($_GET["id"]) && $_GET["id"] != "") { ?>
+                                        <div class="input-style input1  has-icon validate-field mb-4">
+                                            <input type="name" class="form-control validate-name" id="form1" value="<?= $origem ?>">
+                                            <label for="form1" class="color-highlight"></label>
+                                        </div>
+                                    <?php } else { ?>
+                                        <div class="input-style input1  has-icon validate-field mb-4">
+                                            <input type="name" class="form-control validate-name" id="form1">
+                                            <label for="form1" class="color-highlight"></label>
+                                        </div>
+                                    <?php } ?>
                                     <p class="color-amarelo font-18 mb-2">estatuto</p>
                                     <hr class="mt-1 mb-1">
-                                    <div class="input-style input1  has-icon validate-field mb-4">
-                                        <input type="name" class="form-control validate-name" id="form1" placeholder="">
-                                        <label for="form1" class="color-highlight"></label>
-                                    </div>
+                                    <?php
+                                    if (isset($_GET["id"]) && $_GET["id"] != "") { ?>
+                                        <div class="input-style input1  has-icon validate-field mb-4">
+                                            <input type="name" class="form-control validate-name" id="form1" value="<?= $estatuto ?>">
+                                            <label for="form1" class="color-highlight"></label>
+                                        </div>
+                                    <?php } else { ?>
+                                        <div class="input-style input1  has-icon validate-field mb-4">
+                                            <input type="name" class="form-control validate-name" id="form1">
+                                            <label for="form1" class="color-highlight"></label>
+                                        </div>
+                                    <?php } ?>
                                     <p class="color-amarelo font-18 mb-2">data</p>
                                     <hr class="mt-1 mb-1">
                                     <div class="input-style input1 no-icon mb-4">
@@ -148,11 +255,30 @@
                                         <label for="form5" class="color-highlight"></label>
                                         <select id="form5">
                                             <option value="default" disabled selected>Select a Value</option>
-                                            <option value="iOS">iOS</option>
-                                            <option value="Linux">Linux</option>
-                                            <option value="MacOS">MacOS</option>
-                                            <option value="Android">Android</option>
-                                            <option value="Windows">Windows</option>
+                                            <?php
+                                            require_once('connections/connection.php');
+                                            $link = new_db_connection();
+                                            /* create a prepared statement */
+                                            $stmt3 = mysqli_stmt_init($link);
+                                            $query = "SELECT id_distrito, distrito FROM distritos ORDER BY id_distrito ASC";
+
+                                            if (mysqli_stmt_prepare($stmt3, $query)) {
+                                                /* execute the prepared statement */
+                                                if (mysqli_stmt_execute($stmt3)) {
+                                                    /* bind result variables */
+                                                    mysqli_stmt_bind_result($stmt3, $id_distrito, $distrito);
+                                                    while (mysqli_stmt_fetch($stmt3)) { ?>
+                                                        <option value="<?= $id_distrito ?>"><?= $distrito ?></option>
+                                            <?php }
+                                                } else {
+                                                    echo "Error: " . mysqli_stmt_error($stmt3);
+                                                }
+                                                /* close statement */
+                                                mysqli_stmt_close($stmt3);
+                                            } else {
+                                                echo "Error: " . mysqli_error($link);
+                                            }
+                                            ?>
                                         </select>
                                         <span><i class="fa fa-chevron-down"></i></span>
                                         <i class="fa fa-check disabled valid color-green-dark"></i>
@@ -246,6 +372,7 @@
             </div>
 
         </div>
+
         <script src="scripts/bootstrap.min.js" type="text/javascript"></script>
         <script src="scripts/custom.js" type="text/javascript"></script>
 </body>

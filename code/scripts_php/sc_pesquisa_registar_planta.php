@@ -10,7 +10,7 @@ $query = "SELECT plantas.id_plantas, plantas.nome_cientifico, plantas_vulgares.n
 FROM plantas 
 INNER JOIN plantas_vulgares
 ON plantas.id_plantas = plantas_vulgares.plantas_id_plantas
-WHERE plantas.nome_cientifico LIKE ? OR plantas_vulgares.nome_vulgar LIKE ?
+WHERE plantas.nome_cientifico LIKE ? OR plantas_vulgares.nome_vulgar LIKE ? 
 LIMIT 3";
 
 if (mysqli_stmt_prepare($stmt, $query)) {
@@ -19,7 +19,7 @@ if (mysqli_stmt_prepare($stmt, $query)) {
     /* execute the prepared statement */
     if (mysqli_stmt_execute($stmt)) {
         /* bind result variables */
-        mysqli_stmt_bind_result($stmt, $id, $nome);
+        mysqli_stmt_bind_result($stmt, $id, $nome, $planta_vulgar);
 
         /* fetch values */
         $data = array();
