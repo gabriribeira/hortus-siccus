@@ -60,7 +60,7 @@
                             <p class="font-11 mt-n2 mb-3"></p>
                             <br>
                             <div class="d-flex mt-3">
-                                <div id="imagem_user_div" style="width: 140px; height: 140px; border: 2px solid #2b2b2b; border-radius: 30px;"></div>
+                                <div><img id="blah" src="#" alt="" width="140px" height="140px" style="border-radius: 20px;"></div>
                                 <div style="margin-left: 15px; margin-top: 10px;">
                                     <?php
                                     if (isset($_GET["user"])) {
@@ -108,6 +108,15 @@
         <!-- Page content ends here-->
 
     </div>
+
+    <script>
+            fileToUpload.onchange = evt => {
+                const [file] = fileToUpload.files
+                if (file) {
+                    blah.src = URL.createObjectURL(file)
+                }
+            }
+        </script>
 
     <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="scripts/custom.js"></script>
