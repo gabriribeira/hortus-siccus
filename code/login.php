@@ -41,7 +41,6 @@
                     }else{
                         $msg = "";
                     }
-
                     ?>
                     <form action="scripts_php/sc_login.php" method="post">
                     <h1>Login</h1>
