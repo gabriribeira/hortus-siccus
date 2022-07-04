@@ -16,7 +16,7 @@ if (isset($_POST["comentario"]) && isset($_SESSION["id_utilizador"]) ) {
         //$data = date("Y-m-d");
         mysqli_stmt_bind_param($stmt, 'sii', $comentario,  $id_user, $id_user_destino);
         if (mysqli_stmt_execute($stmt)) {
-            header("Location: ../perfil.php?id_user=$id_user_destino#comentarios");
+            header("Location: ../perfil.php?id=$id_user_destino#comentarios");
         } else {
             // Acção de erro da stmt
             //echo "Error:" . mysqli_stmt_error($stmt);

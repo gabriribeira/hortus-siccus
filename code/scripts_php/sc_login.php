@@ -25,7 +25,7 @@ if (isset($_POST["username"]) && isset($_POST["password"]) && ($_POST["username"
                     $_SESSION["nome_utilizador"] = $nome_user;
                     $_SESSION["imagem_utilizador"] = $imagem_user;
                     $_SESSION["role"] = $role;
-                    header("Location: ../feed.html");
+                    header("Location: ../feed.php");
                 } else {
                     header("Location: ../login.php?msg=1");
                 }

@@ -30,20 +30,16 @@ session_start();
 require_once("connections/connection.php");
 include_once("scripts_php/sc_badges.php");
 
-if (isset( $_SESSION["username"])) {
-    $user = $_SESSION["username"];
-    $id = $_GET["id_user"];
-
+    $id = $_GET["id"];
     $link = new_db_connection();
     $stmt = mysqli_stmt_init($link);
-    $query = "SELECT  id_user, username, nome_user, email, descricao, roles_id_role FROM users WHERE username = ?";
+    $query = "SELECT  id_user, username, nome_user, email, descricao, roles_id_role FROM users WHERE id_user = ?";
 
     if (mysqli_stmt_prepare($stmt, $query)) {
-        mysqli_stmt_bind_param($stmt, "s",  $user);
+        mysqli_stmt_bind_param($stmt, "s",  $id);
         if (mysqli_stmt_execute($stmt)) {
-            mysqli_stmt_bind_result($stmt, $id, $username, $nome, $email, $descricao, $role);
+            mysqli_stmt_bind_result($stmt, $id_utilizador, $username, $nome, $email, $descricao, $role);
             mysqli_stmt_fetch($stmt);
-            $_SESSION["id_user"] = $id;
             $_SESSION['role'] = $role;
         } else {
             echo "Error: " . mysqli_error($stmt);
@@ -53,9 +49,7 @@ if (isset( $_SESSION["username"])) {
         echo("Error description: " . mysqli_error($link));
     }
     mysqli_close($link);
-}else{
-   //header("Location: login.php");
-}
+
 ?>
 <div id="page">
     <!-- FOOTER MENU-->
@@ -93,8 +87,7 @@ if (isset( $_SESSION["username"])) {
                 ></div>
 
                 <?php
-                //esta parte ainda não pus no github. NO PERFIL FICA A FALTAR
-                // montra dinâmica + badges dinâmicos + count colheitas + adicionar comentários
+
                 $link = new_db_connection();
                 $stmt = mysqli_stmt_init($link);
                 $query = "SELECT COUNT(data_registo)
@@ -132,12 +125,9 @@ if (isset( $_SESSION["username"])) {
 
             <!--MONTRA-->
 
-            <div class="splide single-slider slider-arrows mt-4" id="single-slider-3">
-                <div class="splide__track">
-                    <div class="splide__list">
+
             <?php
-            //esta parte ainda não pus no github. NO PERFIL FICA A FALTAR
-            // montra dinâmica + badges dinâmicos + count colheitas + adicionar comentários
+
             $link = new_db_connection();
             $stmt2 = mysqli_stmt_init($link);
             $query = "SELECT COUNT(id_registo) FROM registos WHERE users_id_user=? AND registos.montra=1";
@@ -161,6 +151,11 @@ if (isset( $_SESSION["username"])) {
                             INNER JOIN plantas ON plantas_id_plantas=id_plantas
                             WHERE users_id_user=? AND registos.montra=1";
 
+                echo " <div class='splide single-slider slider-arrows mt-4' id='single-slider-3'>
+                <div class='splide__track'>
+                    <div class='splide__list'>";
+
+
                 if (mysqli_stmt_prepare($stmt, $query)) {
                     mysqli_stmt_bind_param($stmt, "i",  $id);
                     if (mysqli_stmt_execute($stmt)) {
@@ -180,6 +175,11 @@ if (isset( $_SESSION["username"])) {
                             }
                         }
 
+                        echo " </div>
+                               </div>
+                               </div>
+                                        ";
+
 
                     } else {
                         echo "Error: " . mysqli_error($stmt);
@@ -190,22 +190,20 @@ if (isset( $_SESSION["username"])) {
                 }
                 mysqli_close($link);
             }else {
-                echo "Ainda não há nada na montra";
+                if ($id==$_SESSION["id_utilizador"]){
+                    echo "Ainda não tens nada na montra... Adiciona um novo registo.";
+                }
             }
 
 
 
             ?>
 
-                    </div>
-                </div>
-            </div>
 
 
             <!-- BADGES -->
             <?php
-            //esta parte ainda não pus no github. NO PERFIL FICA A FALTAR
-            // montra dinâmica + badges dinâmicos + count colheitas + adicionar comentários
+
             $link = new_db_connection();
             $stmt = mysqli_stmt_init($link);
             $query = "SELECT badges.nome_badge, badges.descricao_badge, badges.imagem_badge
@@ -245,8 +243,7 @@ if (isset( $_SESSION["username"])) {
                         <div class="col-sm-5 col-md-6 col-12 pb-4">
                             <p class="font-18 mt-1 ">Comentários</p>
                                     <?php
-                                    //esta parte ainda não pus no github. NO PERFIL FICA A FALTAR
-                                    // montra dinâmica + badges dinâmicos + count colheitas + adicionar comentários
+
                                     $link = new_db_connection();
                                     $stmt = mysqli_stmt_init($link);
                                     $query = "SELECT comentarios.id_comentario, comentarios.comentario, comentarios.data_comentario, users.nome_user, users.imagem_user, users.id_user FROM comentarios 
