@@ -102,18 +102,17 @@
 
 <body class="theme-light feed-7">
 
-    <div id="preloader">
-        <div class="spinner-border color-red-dark" role="status"></div>
-    </div>
+<!-- PRELOADER-->
+<?php
+include_once "components/cp_preloader.php";
+?>
 
 
     <div id="page">
         <!-- FOOTER MENU-->
-        <div class="footer-bar-4 " id="footer-bar">
-            <a href="perfil.html"><i><img id="demo" onclick="myFunction()" class="icons2" src="images/icons/perfil_Prancheta%201.png"></i></a>
-            <a class="active-nav" href="feed.html.html"><img id="click2" class="icons2" src="images/icons/home_Prancheta%201.png"></i></a>
-            <a href="herbario-UA.html"><img id="click3" class="icons2" src="images/icons/herbario_Prancheta%201.png"></i></a>
-        </div>
+        <?php
+        include_once "components/cp_footer_menu.php";
+        ?>
 
         <!-- Global Menus-->
         <div class="menu menu-box-modal menu-gradient" data-menu-height="cover" data-menu-load="menu-color.html" data-menu-width="cover" id="menu-color"></div>
@@ -121,7 +120,7 @@
 
         <!--HEADER: LOGO E MENU DE CIMA-->
         <div class="header-logo-app header2 ms-4 mt-4 mb-0 ">
-            <a class="header-icon header-icon-1" href="editar_perfil.html"><i><img class="icons" src="images/icons/undo.png"></i></a>
+            <a class="header-icon header-icon-1" href="herbario_indiv.php"><i><img class="icons" src="images/icons/undo.png"></i></a>
         </div>
 
         <!--PLANTA-->
@@ -172,7 +171,7 @@
                                 ?>
 
                                 <div class="text-center justify-content-center">
-                                    <div id="div-imagem" style="border: 3px solid black; width: 200px ;height: 230px; display: block; text-align: center; justify-content: center; margin:auto;" class="rounded-m preload-img  img-fluid"></div>
+                                    <div id="div-imagem" style="border: 1px solid black; width: 200px ;height: 230px; display: block; text-align: center; justify-content: center; margin:auto;" class="rounded-m preload-img  img-fluid"></div>
                                     <img id="blah" src="#" style=" width: 200px ;height: 230px; display: none; margin: auto;" class="rounded-m preload-img  img-fluid">
                                     <div class="mt-2">
                                         <input type="file" name="fileToUpload" id="fileToUpload" style="width: 0.1px; height: 0.1px; opacity: 0; overflow: hidden; position: absolute; z-index: -1;">

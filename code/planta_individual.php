@@ -128,7 +128,7 @@ include_once "components/cp_preloader.php";
                 <div class=" rounded-m">
                     <div class="content mb-5">
                         <div class="text-center">
-                            <img src="images/uploads/registos_plantas/<?=$imagem?>" data-src="images/uploads/registos_plantas/<?=$imagem?>" style=" width: 200px ;height: 230px" class="rounded-m preload-img  img-fluid" alt="img">
+                            <img src="images/uploads/registos_plantas/medium/<?=$imagem?>" data-src="images/uploads/registos_plantas/<?=$imagem?>" style=" width: 200px ;height: 230px" class="rounded-m preload-img  img-fluid" alt="img">
                             <p class="pt-3 color-amarelo font-30 mb-2" style="font-style: italic; font-family: Georgia, sans-serif;"  ><?=$p_nome_cientifico?></p>
                             <p class="color-amarelo font-18 mt-0 mb-3" ><i>Nome comum</i></p>
                         </div>
