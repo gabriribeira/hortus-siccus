@@ -3,8 +3,6 @@
 require_once "../connections/connection.php";
 session_start();
 
-
-
 if ( isset($_SESSION["id_utilizador"]) ) {
     $id_user=$_SESSION['id_utilizador'];
     $id_c = $_GET['id_c'];
@@ -19,7 +17,7 @@ if ( isset($_SESSION["id_utilizador"]) ) {
 
         mysqli_stmt_bind_param($stmt, 'ii', $id_c, $id_user);
         if (mysqli_stmt_execute($stmt)) {
-            header("Location: ../perfil.php?id=$id_user#comentarios");
+            header("Location: ../perfil.php?id=" . $_GET["id_p"] . "#comentarios");
         } else {
             // Acção de erro da stmt
             //echo "Error:" . mysqli_stmt_error($stmt);

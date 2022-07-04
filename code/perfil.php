@@ -285,7 +285,7 @@
                                                 <div class='comment mt-2 text-justify float-left mb-1'>";
 
                                             if ($iduser_c == $_SESSION["id_utilizador"]) {
-                                                echo " <a class='font-18 float-right' href='scripts_php/sc_comentario_remove.php?id_c=$id_c'><i><img class='icons'
+                                                echo " <a class='font-18 float-right' href='scripts_php/sc_comentario_remove.php?id_c=$id_c&id_p=$id'><i><img class='icons'
                                                                                    src='images/icons/apagar_Prancheta%201.png'></i></a>";
                                             }
 
@@ -310,7 +310,7 @@
                             </div>
 
                             <?php
-                            if (isset($_SESSION["id_utilizador"]) /*&& $id!=$_SESSION["id_utilizador"]*/) {
+                            if (isset($_SESSION["id_utilizador"]) && $id!=$_SESSION["id_utilizador"]) {
                                 //assim o campo de adicionar comentario so aparece se alguem tiver logado e nao vai aparecer caso estejas a visitar o teu proprio perfil
                                 echo "
                              <div class='col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4'>
