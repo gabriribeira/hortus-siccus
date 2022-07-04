@@ -418,7 +418,7 @@
                                             if (isset($_GET["id"]) && $_GET["id"] != "") { ?>
                                                 <label for="form5" class="color-highlight"></label>
                                                 <select id="estatuto" name="estatuto">
-                                                    <option value="" disabled selected><?= $estatuto ?></option>
+                                                    <option value="<?=$id_estatuto?>" selected><?= $estatuto ?></option>
                                                     <option value="" disabled>Select a Value</option>
                                                     <?php
                                                     require_once('connections/connection.php');
@@ -448,7 +448,7 @@
                                             <?php } else { ?>
                                                 <label for="form5" class="color-highlight"></label>
                                                 <select id="estatuto" name="estatuto">
-                                                    <option value="<?=$id_estatuto?>" disabled selected>Select a Value</option>
+                                                    <option value="" disabled selected>Select a Value</option>
                                                     <?php
                                                     require_once('connections/connection.php');
                                                     $link = new_db_connection();
@@ -662,7 +662,7 @@
             fileToUpload.onchange = evt => {
                 const [file] = fileToUpload.files
                 if (file) {
-                    blah.src = URL.createObjectURL(file)
+                    blah.src = URL.createObjectURL(file);
                     document.getElementById("div-imagem").style.display = "none";
                     document.getElementById("blah").style.display = "block";
                 }

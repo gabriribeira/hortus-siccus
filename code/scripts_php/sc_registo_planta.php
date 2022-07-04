@@ -10,7 +10,7 @@ $link = new_db_connection();
 var_dump($_FILES);
 var_dump($_POST);
 
-if (isset($_POST["familia"]) && $_POST["familia"] != "" && isset($_POST["estado"]) && $_POST["estado"] != "" && isset($_POST["origem"]) && $_POST["origem"] != "" && isset($_POST["estatuto"]) && $_POST["estatuto"] != "" && isset($_POST["data"]) && $_POST["data"] != "" && isset($_POST["comum"]) && $_POST["comum"] != "" && isset($_POST["local"]) && $_POST["local"] != "" && isset($_POST["distrito"]) && $_POST["distrito"] != "" && isset($_POST["concelho"]) && $_POST["concelho"] != "" && isset($_POST["freguesia"]) && $_POST["freguesia"] != "" && isset($_POST["referencia"]) && $_POST["referencia"] != "" && isset($_POST["descricao"]) && $_POST["descricao"] != "" && isset($_POST["pasta"]) && $_POST["pasta"] != "") {
+if (isset($_POST["familia"]) && $_POST["familia"] != "" && isset($_POST["estado"]) && $_POST["estado"] != "" && isset($_POST["origem"]) && $_POST["origem"] != "" && isset($_POST["estatuto"]) && $_POST["estatuto"] != "" && isset($_POST["data"]) && $_POST["data"] != "" && isset($_POST["local"]) && $_POST["local"] != "" && isset($_POST["distrito"]) && $_POST["distrito"] != "" && isset($_POST["concelho"]) && $_POST["concelho"] != "" && isset($_POST["freguesia"]) && $_POST["freguesia"] != "" && isset($_POST["referencia"]) && $_POST["referencia"] != "" && isset($_POST["descricao"]) && $_POST["descricao"] != "" && isset($_POST["pasta"]) && $_POST["pasta"] != "") {
 
     if (isset($_POST["check_nova_planta"]) && $_POST["check_nova_planta"] == "on" && isset($_POST["nome_cientifico"]) && isset($_POST["comum"])) {
 
@@ -149,6 +149,7 @@ if (isset($_POST["familia"]) && $_POST["familia"] != "" && isset($_POST["estado"
             header("Location: registar-planta.php?msg=" . $msg);
         }
         mysqli_close($link); // Close connection
+
     } else {
 
         if (isset($_FILES["fileToUpload"]["name"]) && $_FILES["fileToUpload"]["name"] != "") {
@@ -213,25 +214,24 @@ if (isset($_POST["familia"]) && $_POST["familia"] != "" && isset($_POST["estado"
                             $query = "INSERT INTO registos(users_id_user, plantas_id_plantas, descricao, imagem_registo, estados_id_estado, distrito_id_distrito, concelhos_id_concelho, freguesias_id_freguesia, ponto_referencia, local_colheita, montra, herbario_ua, pastas_id_pasta) 
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                             if (mysqli_stmt_prepare($stmt3, $query)) {
-                                mysqli_stmt_bind_param($stmt3, 'iissiiiissiii', $_SESSION["id_utilizador"], $_POST["id_planta"], $_POST["descricao"], $filename, $_POST["estado"], $_POST["distrito"], $_POST["concelhos"], $_POST["freguesias"], $_POST["referencias"], $_POST["local"], $_POST["montra"], $_POST["herbario"], $_POST["pasta"]);
+                                mysqli_stmt_bind_param($stmt3, 'iissiiiissiii', $_SESSION["id_utilizador"], $_POST["id_planta"], $_POST["descricao"], $filename, $_POST["estado"], $_POST["distrito"], $_POST["concelho"], $_POST["freguesia"], $_POST["referencias"], $_POST["local"], $_POST["montra"], $_POST["herbario"], $_POST["pasta"]);
                                 mysqli_stmt_execute($stmt3);
                                 mysqli_stmt_close($stmt3);
                             } else {
                                 echo "Error: " . mysqli_error($link);
                             }
-                            mysqli_stmt_close($stmt3);
 
                             $stmt9 = mysqli_stmt_init($link);
                             $query = "SELECT id_registo FROM registos WHERE users_id_user = ? AND imagem_registo = ?";
                             if (mysqli_stmt_prepare($stmt9, $query)) {
                                 mysqli_stmt_bind_param($stmt9, 'is', $_SESSION["id_utilizador"], $filename);
                                 mysqli_stmt_execute($stmt9);
-                                mysqli_stmt_bind_result($stmt, $id_registo);
+                                mysqli_stmt_bind_result($stmt9, $id_registo);
+                                mysqli_stmt_fetch($stmt9);
                                 mysqli_stmt_close($stmt9);
                             } else {
                                 echo "Error: " . mysqli_error($link);
                             }
-                            mysqli_stmt_close($stmt9);
                         }
 
                         move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
@@ -257,5 +257,5 @@ if (isset($_POST["familia"]) && $_POST["familia"] != "" && isset($_POST["estado"
     }
 } else {
     $msg = 1;
-    //header("Location: registar-planta.php?msg=" . $msg);
+    header("Location: registar-planta.php?msg=" . $msg);
 }
