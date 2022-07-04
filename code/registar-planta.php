@@ -376,7 +376,7 @@
 
                                                 <label for="form5" class="color-highlight"></label>
                                                 <select id="origem" name="origem">
-                                                    <option value="" disabled selected>Select a Value</option>
+                                                    <option value="" disabled>Select a Value</option>
                                                     <?php
                                                     require_once('connections/connection.php');
                                                     $link = new_db_connection();
@@ -562,7 +562,7 @@
                                         <hr class="mt-1 mb-1">
                                         <div class="input-style input1 no-icon mb-4">
                                             <label for="" class="color-highlight"></label>
-                                            <select id="freguesia-option" name="fregeuesia">
+                                            <select id="freguesia-option" name="freguesia">
                                                 <option value="" disabled selected>Select a Value</option>
                                             </select>
                                             <span><i class="fa fa-chevron-down"></i></span>
