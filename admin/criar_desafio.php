@@ -1,8 +1,4 @@
-<?php
-
-session_start();
-
-?>
+<?php session_start(); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,19 +11,19 @@ session_start();
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Administação - Utilizadores</title>
+    <title>Administação - Utilizador</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" type="text/javascript"></script>
 
 </head>
 
@@ -36,7 +32,7 @@ session_start();
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <?php include_once "components/cp_sidebar.php";?>
+        <?php include_once "components/cp_sidebar.php"; ?>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -55,11 +51,9 @@ session_start();
                     </form>
 
                     <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">
                                     <i class="fas fa-search fa-sm"></i>
@@ -73,18 +67,14 @@ session_start();
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                         <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
                             </a>
                             <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
+                                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button">
                                                 <i class="fas fa-search fa-sm"></i>
@@ -97,15 +87,13 @@ session_start();
 
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
                                 <span class="badge badge-danger badge-counter">3+</span>
                             </a>
                             <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
                                     Alerts Center
                                 </h6>
@@ -150,15 +138,12 @@ session_start();
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
@@ -189,65 +174,95 @@ session_start();
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-2">
-                        <h1 class="h3 mb-0 text-gray-800">Gerir Utilizadores</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Criar Desafio</h1>
                     </div>
 
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>User ID</th>
-                                            <th>Username</th>
-                                            <th>Nome</th>
-                                            <th>Email</th>
-                                            <th>Atividade</th>
-                                            <th>Role</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        require_once "../code/connections/connection.php";
-                                        $link = new_db_connection();
-                                        $stmt = mysqli_stmt_init($link);
-                                        $query = "SELECT id_user, username, nome_user, email, active, roles.role_description FROM users
-                                        INNER JOIN roles
-                                        ON users.roles_id_role = roles.id_role
-                                        ORDER BY id_user ASC";
-                                        mysqli_stmt_prepare($stmt, $query);
-                                        mysqli_stmt_execute($stmt);
-                                        mysqli_stmt_bind_result($stmt, $id_user, $username, $nome, $email, $active, $role);
-                                        while(mysqli_stmt_fetch($stmt)){
-                                        ?>
+                    <div class="row">
 
-                                        <tr>
-                                            <td><a href="user-edit.php?id=<?=$id_user?>"><?=$id_user?></a></td>
-                                            <td><a href="user-edit.php?id=<?=$id_user?>"><?=$username?></a></td>
-                                            <td><a href="user-edit.php?id=<?=$id_user?>"><?=$nome?></a></td>
-                                            <td><a href="user-edit.php?id=<?=$id_user?>"><?=$email?></a></td>
-                                            <td>
-                                            <?php
-                                            if($active == 1){?>
-                                                Ativo
-                                            <?php
-                                            }else{?>
-                                                Inativo
-                                            <?php
-                                            }
-                                            ?>
-                                            </td>
-                                            <td><?=$role?></td>
-                                        </tr>
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
 
-                                        <?php 
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
+                                    <form role="form" method="post" action="scripts_php/sc_criar_desafio.php">
+
+                                        <div class='form-group mt-3'>
+                                            <label style="font-weight: bold;">Nome do Desafio</label>
+                                            <input class='form-control' name='nome_desafio'>
+                                        </div>
+                                        <div class='form-group'>
+                                            <label style="font-weight: bold;">Descrição do Desafio</label>
+                                            <input class='form-control' name='descricao_desafio'>
+                                        </div>
+                                        <div>
+
+                                            <div class='form-group' id="data_inicio" style="display: block;">
+                                                <label style="font-weight: bold; display: block;">Data Início Desafio</label>
+                                                <input type="date" name="data_inicio">
+                                            </div>
+
+                                            <div class='form-group mr-5'>
+                                                <div class='checkbox'>
+                                                    <label>
+                                                        <input id="current_time" type='checkbox' name='current_time'><span style="font-weight: bold;"> Usar Dia Atual </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class='form-group'>
+                                            <label style="font-weight: bold; display: block;">Data Fim Desafio</label>
+                                            <input type="date" name="data_fim">
+                                        </div>
+
+                                        <div class='form-group' id="local-definido">
+                                            <label style="font-weight: bold;">Local do Desafio</label>
+                                            <select class='form-control' name='local'>
+                                                <option value=''></option>
+                                                <?php
+
+                                                require_once("../code/connections/connection.php"); // We need the function!
+                                                $link = new_db_connection(); // Create a new DB connection
+                                                $stmt = mysqli_stmt_init($link); // create a prepared statement
+                                                $query = "SELECT id_local, local FROM locais"; // Define the query
+
+                                                if (mysqli_stmt_prepare($stmt, $query)) { // Prepare the statement
+                                                    mysqli_stmt_execute($stmt); // Execute the prepared statement
+                                                    mysqli_stmt_bind_result($stmt, $id_local, $local);
+                                                    while (mysqli_stmt_fetch($stmt)) { ?>
+                                                        <option value='<?= $id_local ?>'><?= $local ?></option>
+                                                <?php }
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+
+                                        <div class='form-group'>
+                                            <div class='checkbox'>
+                                                <label>
+                                                    <input id="novo_local_check" type='checkbox' name='novo_local_check'><span style="font-weight: bold;"> Novo Local ? </span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div id="novo_local" style="display: none;">
+                                            <div class='form-group mt-3'>
+                                                <label style='font-weight: bold;'>Nome do Novo Local</label>
+                                                <input class='form-control' name='nome_local_novo'>
+                                            </div>
+                                        </div>
+
+                                        <button type='submit' class='btn' style="background-color: black; color: white">Submeter alterações</button>
+
+                                    </form>
+                                    <!-- /.table-responsive -->
+                                </div>
+                                <!-- /.panel-body -->
                             </div>
+                            <!-- /.panel -->
                         </div>
+
                     </div>
 
                 </div>
@@ -268,8 +283,7 @@ session_start();
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -286,6 +300,26 @@ session_start();
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        document.getElementById("novo_local_check").onclick = function() {
+            if (document.getElementById("novo_local_check").checked == true) {
+                document.getElementById("novo_local").style.display = "block";
+                document.getElementById("local-definido").style.display = "none";
+            } else {
+                document.getElementById("novo_local").style.display = "none";
+                document.getElementById("local-definido").style.display = "block";
+            }
+        }
+
+        document.getElementById("current_time").onclick = function() {
+            if (document.getElementById("current_time").checked == true) {
+                document.getElementById("data_inicio").style.display = "none";
+            } else {
+                document.getElementById("data_inicio").style.display = "block";
+            }
+        }
+    </script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
