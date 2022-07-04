@@ -160,8 +160,12 @@
                                                 </a>
                                         ";
 
-                        if ($bool2 == 0) {
-                            echo "           </div>
+
+
+                        $bool2 = 1;
+                    }
+                    if ($bool2 == 1) {
+                        echo "           </div>
                                          </div>
                                          <div class='col-4'>
                                                 <p class='font-biblio'>$array</p>
@@ -171,9 +175,6 @@
                                        </div>
                                         </div>";
 
-                        }
-
-                        $bool2 = 1;
                     }
 
                 } else {
@@ -184,6 +185,10 @@
                 echo("Error description: " . mysqli_error($link));
             }
             mysqli_close($link);
+
+
+
+
         }
 
 

@@ -131,7 +131,40 @@
                         <div class="text-center">
                             <img src="images/profile/bruna.jpg" data-src="images/uploads/registos_plantas/<?=$imagem?>" style=" width: 200px ;height: 230px" class="rounded-m preload-img  img-fluid" alt="img">
                             <p class="pt-3 font-30 mb-2 text-white" style="font-style: italic; font-family: Georgia, sans-serif;"  ><?=$p_nome_cientifico?></p>
-                            <p class="font-18 mt-0 mb-3 text-white" ><i>Nome comum</i></p>
+
+                            <p class='font-18 mt-0 mb-3 text-white' ><i>
+                            <?php
+
+
+
+                            $link = new_db_connection();
+                            $stmt = mysqli_stmt_init($link);
+
+                            $query= "SELECT nome_vulgar FROM plantas_vulgares WHERE plantas_id_plantas=?";
+
+                            if (mysqli_stmt_prepare($stmt, $query)) {
+                                mysqli_stmt_bind_param($stmt, 'i', $idplanta);
+                                if (mysqli_stmt_execute($stmt)){
+                                    mysqli_stmt_bind_result($stmt, $nome_vulg);
+                                    while (mysqli_stmt_fetch($stmt)){
+                                        echo "$nome_vulg ";
+                                    };
+
+                                }else {
+                                    echo "Error: " . mysqli_error($stmt);
+                                }
+
+                            }else {
+                                echo("Error description: " . mysqli_error($link));
+                            }
+
+                            mysqli_stmt_close($stmt);
+                            mysqli_close($link);
+
+
+                            ?>
+                                </i></p>
+
                         </div>
                         <p class="font-11 mt-n2 mb-3"></p>
                         <br/>
@@ -170,13 +203,13 @@
                                 <hr  class="mt-1 mb-1 text-white">
                                 <p class="font-22 mt-1 text-white"><?=$ponto_referencia?></p>
                             </div>
-                            <div class="mt-2 row col-12 p-0 m-0">
+                            <div class="mt-2 row col-12 p-0 m-0  mb-4">
                                 <p class="font-18 text-white mb-2">descrição de observação</p>
                                 <hr class="mt-1 mb-1 text-white">
                                 <p class="font-22 mt-1 text-white"><?=$descricao?>
                                 </p>
                             </div>
-                            <div class="mt-2 row col-12 p-0 m-0 mb-4">
+                            <div class="mt-2 row col-12 p-0 m-0">
                                 <p class="font-18 text-white mb-2">curiosidades</p>
                                 <hr class="mt-1 mb-1 text-white">
                                 <p class="font-22 mt-1 text-white"><?=$p_curiosidades?>
