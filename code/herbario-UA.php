@@ -127,7 +127,9 @@
 
             $link = new_db_connection();
             $stmt = mysqli_stmt_init($link);
-            $query = "SELECT  id_plantas, nome_cientifico, imagem FROM plantas WHERE nome_cientifico LIKE ?";
+            $query = "SELECT  id_plantas, nome_cientifico, registos.imagem_registo FROM plantas 
+                      INNER JOIN registos ON plantas_id_plantas=plantas.id_plantas
+                      WHERE nome_cientifico LIKE ? AND registos.users_id_user=3 ";
 
             $pesquisa = $array . "%";
             $bool = 0;
@@ -152,7 +154,7 @@
                         $bool = 1;
                         echo "
                                                 <a href='plantaherbario.php?id_planta=$id_planta'>
-                                                    <img class='rounded rounded-m' style='height:35px 'src='images/uploads/plantas_UA/$imagem'>
+                                                    <img class='rounded rounded-m' style='height:35px 'src='images/uploads/registos_plantas/$imagem'>
                                                     <span class='font15 color-branco' style='font-family: Georgia, sans-serif; font-style: italic'>$nome_cientifico</span>
                                                     <i class='color-branco fa fa-angle-right'></i>
                                                 </a>

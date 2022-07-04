@@ -22,6 +22,8 @@
 
 </head>
 <body class="theme-light ">
+<div id="preloader"><div class="spinner-border color-red-dark" role="status"></div></div>
+
 
 <div id="page" class="feed-2">
     <!-- FOOTER MENU-->
@@ -41,13 +43,15 @@
     <div class="header-logo-app header2 ms-4 mt-4 mb-0 ">
         <a class="header-icon header-icon-1" href="herbario-UA.php"><i><img class="icons fa-rotate-180"
                                                                             src="images/icons/seta_white_Prancheta%201.png"></i></a>
-        <a class="header-icon header-icon-1 margem-planta" href="editar_perfil.html"><i><img class="icons"
-                                                                                             src="images/icons/editarbranco.png"></i></a>
+
     </div>
 
     <?php
+    require_once("connections/connection.php");
+
 
     $idplanta=$_GET["id_planta"];
+
 
     $link = new_db_connection();
     $stmt = mysqli_stmt_init($link);
@@ -81,6 +85,43 @@
 
     ?>
 
+
+    <?php
+
+
+
+    $link = new_db_connection();
+    $stmt = mysqli_stmt_init($link);
+
+    $query= "SELECT registos.data_registo, registos.descricao, registos.imagem_registo, registos.ponto_referencia, registos.local_colheita, estados.estado, distritos.distrito, concelhos.concelho, freguesias.freguesia   FROM registos
+             INNER JOIN estados ON estados_id_estado=id_estado
+             INNER JOIN distritos ON distrito_id_distrito=id_distrito
+             INNER JOIN concelhos ON concelhos_id_concelho=id_concelho
+             INNER JOIN freguesias ON freguesias_id_freguesia=id_freguesia
+             WHERE registos.plantas_id_plantas=? AND users_id_user=3";
+
+    if (mysqli_stmt_prepare($stmt, $query)) {
+        mysqli_stmt_bind_param($stmt, 'i', $idplanta);
+        if (mysqli_stmt_execute($stmt)){
+            mysqli_stmt_bind_result($stmt, $data_registo, $descricao, $imagem, $ponto_referencia, $local_colheita, $estado, $distrito, $concelho, $freguesia);
+            mysqli_stmt_fetch($stmt);
+
+        }else {
+            echo "Error: " . mysqli_error($stmt);
+        }
+
+    }else {
+        echo("Error description: " . mysqli_error($link));
+    }
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($link);
+
+
+    ?>
+
+
+
     <!--PLANTA-->
     <div class="page-content has-footer-menu pb-0">
         <div class="pb-0 mt-2">
@@ -88,7 +129,7 @@
                 <div class="rounded-m">
                     <div class="content mb-5">
                         <div class="text-center">
-                            <img src="images/profile/bruna.jpg" data-src="images/pictures/25t.jpg" style=" width: 200px ;height: 230px" class="rounded-m preload-img  img-fluid" alt="img">
+                            <img src="images/profile/bruna.jpg" data-src="images/uploads/registos_plantas/<?=$imagem?>" style=" width: 200px ;height: 230px" class="rounded-m preload-img  img-fluid" alt="img">
                             <p class="pt-3 font-30 mb-2 text-white" style="font-style: italic; font-family: Georgia, sans-serif;"  ><?=$p_nome_cientifico?></p>
                             <p class="font-18 mt-0 mb-3 text-white" ><i>Nome comum</i></p>
                         </div>
@@ -101,7 +142,7 @@
                                 <p class="font-22 mt-1 text-white"><?=$p_familia?></p>
                                 <p class="text-white font-18 mb-2">estado</p>
                                 <hr  class="mt-1 mb-1 text-white">
-                                <p class="font-22 mt-1 text-white">vegetativo</p>
+                                <p class="font-22 mt-1 text-white"><?=$estado?></p>
                                 <p class="text-white font-18 mb-2">origem</p>
                                 <hr  class="mt-1 mb-1 text-white">
                                 <p class="font-22 mt-1 text-white"><?=$p_origem?></p>
@@ -110,36 +151,36 @@
                                 <p class="font-22 mt-1 text-white"><?=$p_estatuto?></p>
                                 <p class="text-white font-18 mb-2">data</p>
                                 <hr  class="mt-1 mb-1 text-white">
-                                <p class="font-22 mt-1 text-white">12/12/22</p>
+                                <p class="font-22 mt-1 text-white"><?=$data_registo?></p>
                             </div>
                             <div class="mt-2 col-6 mb-4">
                                 <p class="text-white font-18 mb-2">local da colheita</p>
                                 <hr  class="mt-1 mb-1 text-white">
-                                <p class="font-22 mt-1 text-white">floresta</p>
+                                <p class="font-22 mt-1 text-white"><?=$local_colheita?></p>
                                 <p class="text-white font-18 mb-2">distrito</p>
                                 <hr  class="mt-1 mb-1 text-white">
-                                <p class="font-22 mt-1 text-white">Aveiro</p>
+                                <p class="font-22 mt-1 text-white"><?=$distrito?></p>
                                 <p class="text-white font-18 mb-2">concelho</p>
                                 <hr  class="mt-1 mb-1 text-white">
-                                <p class="font-22 mt-1 text-white">Sever-do-Vouga</p>
+                                <p class="font-22 mt-1 text-white"><?=$concelho?></p>
                                 <p class="text-white font-18 mb-2">freguesia</p>
                                 <hr  class="mt-1 mb-1 text-white">
-                                <p class="font-22 mt-1 text-white">sfaf</p>
+                                <p class="font-22 mt-1 text-white"><?=$freguesia?></p>
                                 <p class="text-white font-18 mb-2">referência local</p>
                                 <hr  class="mt-1 mb-1 text-white">
-                                <p class="font-22 mt-1 text-white">pinheiro</p>
+                                <p class="font-22 mt-1 text-white"><?=$ponto_referencia?></p>
+                            </div>
+                            <div class="mt-2 row col-12 p-0 m-0">
+                                <p class="font-18 text-white mb-2">descrição de observação</p>
+                                <hr class="mt-1 mb-1 text-white">
+                                <p class="font-22 mt-1 text-white"><?=$descricao?>
+                                </p>
                             </div>
                             <div class="mt-2 row col-12 p-0 m-0 mb-4">
                                 <p class="font-18 text-white mb-2">curiosidades</p>
                                 <hr class="mt-1 mb-1 text-white">
                                 <p class="font-22 mt-1 text-white"><?=$p_curiosidades?>
-                                    ejem n wjfbwwjfeu ponjdjhi</p>
-                            </div>
-                            <div class="mt-2 row col-12 p-0 m-0">
-                                <p class="font-18 text-white mb-2">descrição de observação</p>
-                                <hr class="mt-1 mb-1 text-white">
-                                <p class="font-22 mt-1 text-white">bifjefu hf jfeiwbqkqowi dhwbe fcheheme dhd jeheb jshwheiienf cnd dh jdehwj
-                                    ejem n wjfbwwjfeu ponjdjhi</p>
+                                </p>
                             </div>
                         </div>
                     </div>
