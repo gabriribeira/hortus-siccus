@@ -6938,9 +6938,11 @@ label{
   margin-top: 120px;
 }
 
-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+.place::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
   color: white;
 }
+
 
 .slider {
   width: 700px;

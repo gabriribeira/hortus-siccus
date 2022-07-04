@@ -63,7 +63,7 @@
                     </div>
                     <div class="row mb-0">
                         <a href="#" class="col-6 text-start font-15 pt-2 pb-2 color-theme ">Forgot Password?</a>
-                        <a href="registo.html" class="col-6 text-end font-15 pt-2 pb-2 color-theme ">Regista-te</a>
+                        <a href="registo.php" class="col-6 text-end font-15 pt-2 pb-2 color-theme ">Regista-te</a>
                     </div>
                         <button type="submit" class="btn btn-full btn-l bg-green-dark  mt-3 mb-n2  text-uppercase col-12">Entrar</button>
                     </form>

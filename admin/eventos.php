@@ -189,7 +189,7 @@ session_start();
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-2">
-                        <h1 class="h3 mb-0 text-gray-800">Gerir Utilizadores</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Gerir Eventos</h1>
                     </div>
 
                     <!-- DataTales Example -->
@@ -199,12 +199,12 @@ session_start();
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>User ID</th>
-                                            <th>Username</th>
-                                            <th>Nome</th>
-                                            <th>Email</th>
-                                            <th>Atividade</th>
-                                            <th>Role</th>
+                                            <th>ID do Evento</th>
+                                            <th>Nome Evento</th>
+                                            <th>Descrição Evento</th>
+                                            <th>Data Inicio</th>
+                                            <th>Data Fim</th>
+                                            <th>Local</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -212,33 +212,23 @@ session_start();
                                         require_once "../code/connections/connection.php";
                                         $link = new_db_connection();
                                         $stmt = mysqli_stmt_init($link);
-                                        $query = "SELECT id_user, username, nome_user, email, active, roles.role_description FROM users
-                                        INNER JOIN roles
-                                        ON users.roles_id_role = roles.id_role
-                                        ORDER BY id_user ASC";
+                                        $query = "SELECT id_eventos, evento, descricao, data_inicio, data_fim, locais.local FROM eventos
+                                        INNER JOIN locais
+                                        ON eventos.locais_id_local = locais.id_local
+                                        ORDER BY id_eventos ASC";
                                         mysqli_stmt_prepare($stmt, $query);
                                         mysqli_stmt_execute($stmt);
-                                        mysqli_stmt_bind_result($stmt, $id_user, $username, $nome, $email, $active, $role);
+                                        mysqli_stmt_bind_result($stmt, $id_evento, $evento, $descricao, $data_inicio, $data_fim, $local);
                                         while(mysqli_stmt_fetch($stmt)){
                                         ?>
 
                                         <tr>
-                                            <td><a href="user-edit.php?id=<?=$id_user?>"><?=$id_user?></a></td>
-                                            <td><a href="user-edit.php?id=<?=$id_user?>"><?=$username?></a></td>
-                                            <td><a href="user-edit.php?id=<?=$id_user?>"><?=$nome?></a></td>
-                                            <td><a href="user-edit.php?id=<?=$id_user?>"><?=$email?></a></td>
-                                            <td>
-                                            <?php
-                                            if($active == 1){?>
-                                                Ativo
-                                            <?php
-                                            }else{?>
-                                                Inativo
-                                            <?php
-                                            }
-                                            ?>
-                                            </td>
-                                            <td><?=$role?></td>
+                                            <td><a href="user-edit.php?id=<?=$id_evento?>"><?=$id_evento?></a></td>
+                                            <td><a href="user-edit.php?id=<?=$id_evento?>"><?=$evento?></a></td>
+                                            <td><?=$descricao?></td>
+                                            <td><?=$data_inicio?></td>
+                                            <td><?=$data_fim?></td>
+                                            <td><?=$local?></td>
                                         </tr>
 
                                         <?php 
