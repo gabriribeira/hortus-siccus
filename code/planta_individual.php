@@ -25,14 +25,17 @@ session_start();
 
 </head>
 <body class="theme-light feed-7">
-<div id="preloader"><div class="spinner-border color-red-dark" role="status"></div></div>
+
+<!-- PRELOADER-->
+<?php
+include_once "components/cp_preloader.php";
+?>
+
 <div id="page">
     <!-- FOOTER MENU-->
-    <div class="footer-bar-4 " id="footer-bar">
-        <a href="perfil.html"><i><img id="demo" onclick="myFunction()" class="icons2" src="images/icons/perfil_Prancheta%201.png"></i></a>
-        <a class="active-nav" href="feed.html.html"><img id="click2" class="icons2"  src="images/icons/home_Prancheta%201.png"></i></a>
-        <a href="herbario-UA.html"><img id="click3"  class="icons2" src="images/icons/herbario_Prancheta%201.png"></i></a>
-    </div>
+    <?php
+    include_once "components/cp_footer_menu.php";
+    ?>
 
     <!-- Global Menus-->
     <div class="menu menu-box-modal menu-gradient" data-menu-height="cover" data-menu-load="menu-color.html"
@@ -42,9 +45,9 @@ session_start();
 
     <!--HEADER: LOGO E MENU DE CIMA-->
     <div class="header-logo-app header2 ms-4 mt-4 mb-0 ">
-        <a class="header-icon header-icon-1" href="editar_perfil.html"><i><img class="icons"
+        <a class="header-icon header-icon-1" href="herbario_indiv.php"><i><img class="icons"
                                                                                src="images/icons/undo.png"></i></a>
-        <a class="header-icon header-icon-1 margem-planta" href="editar_perfil.html"><i><img class="icons"
+        <a class="header-icon header-icon-1 margem-planta" href="editar_planta.html"><i><img class="icons"
                                                                                              src="images/icons/editar_perfil_Prancheta%201.png"></i></a>
     </div>
 

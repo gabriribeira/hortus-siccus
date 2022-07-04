@@ -23,22 +23,27 @@
 </head>
 
 <body class="theme-light feed-7">
-<div id="preloader"><div class="spinner-border color-red-dark" role="status"></div></div>
+<!-- PRELOADER-->
+<?php
+include_once "components/cp_preloader.php";
+?>
 
 <?php
 session_start();
 require_once("connections/connection.php");
 include_once("scripts_php/sc_badges.php");
 
+
+
     $id = $_GET["id"];
     $link = new_db_connection();
     $stmt = mysqli_stmt_init($link);
-    $query = "SELECT  id_user, username, nome_user, email, descricao, roles_id_role FROM users WHERE id_user = ?";
+    $query = "SELECT  id_user, imagem_user, username, nome_user, email, descricao, roles_id_role FROM users WHERE id_user = ?";
 
     if (mysqli_stmt_prepare($stmt, $query)) {
         mysqli_stmt_bind_param($stmt, "s",  $id);
         if (mysqli_stmt_execute($stmt)) {
-            mysqli_stmt_bind_result($stmt, $id_utilizador, $username, $nome, $email, $descricao, $role);
+            mysqli_stmt_bind_result($stmt, $id_utilizador, $imagem_user, $username, $nome, $email, $descricao, $role);
             mysqli_stmt_fetch($stmt);
             $_SESSION['role'] = $role;
         } else {
@@ -53,11 +58,9 @@ include_once("scripts_php/sc_badges.php");
 ?>
 <div id="page">
     <!-- FOOTER MENU-->
-    <div class="footer-bar-4 " id="footer-bar">
-        <a href="perfil.html"><i><img id="demo" onclick="myFunction()" class="icons2" src="images/icons/perfil_Prancheta%201.png"></i></a>
-        <a class="active-nav" href="feed.html.html"><img id="click2" class="icons2"  src="images/icons/home_Prancheta%201.png"></i></a>
-        <a href="herbario-UA.html"><img id="click3"  class="icons2" src="images/icons/herbario_Prancheta%201.png"></i></a>
-    </div>
+    <?php
+    include_once "components/cp_footer_menu.php";
+    ?>
 
     <!-- Global Menus-->
     <div class="menu menu-box-modal menu-gradient" data-menu-height="cover" data-menu-load="menu-color.html"
@@ -67,9 +70,9 @@ include_once("scripts_php/sc_badges.php");
 
     <!--HEADER: LOGO E MENU DE CIMA-->
     <div class="header-logo-app header mt-4 mb-4 ">
-        <a class="header-icon header-icon-1" href="editar_perfil.html"><i><img class="icons"
+        <a class="header-icon header-icon-1" href="editor_perfil.html"><i><img class="icons"
                                                                                src="images/icons/editar_perfil_Prancheta%201.png"></i></a>
-        <a class="header-icon header-icon-1 ms-5" href="editar_perfil.html"><i><img class="icons"
+        <a class="header-icon header-icon-1 ms-5" href="amigos.html"><i><img class="icons"
                                                                                     src="images/icons/amigos_Prancheta%201.png"></i></a>
         <p class="header-icon font-barra font-31 margem-perfil mt-1 ">Olá!</p>
     </div>
@@ -77,14 +80,6 @@ include_once("scripts_php/sc_badges.php");
     <!--PERFIL-->
     <div class="page-content has-footer-menu ">
         <div class="row mb-0 margem0 ">
-            <!-- FOTO DE PERFIL -->
-            <div class="col-6 card card-style  mt-4 feed-0"   data-card-height="390">
-                <div style=" border-radius: 90px; height: 190px;
-                background-image: url('https://avatars.dicebear.com/api/croodles/bruna.svg');
-                background-position: center;
-                background-size: cover;
-                background-color: white;"
-                ></div>
 
                 <?php
 
@@ -111,11 +106,19 @@ include_once("scripts_php/sc_badges.php");
 
                 ?>
 
+            <!-- FOTO DE PERFIL -->
+            <div class="col-6 card card-style  mt-4 feed-0"   data-card-height="390">
+                <div style=" border-radius: 90px; height: 190px;
+                background-image: url('images/uploads/medium/<?=$imagem_user?>');
+                background-position: center;
+                background-size: cover;
+                background-color: white;"
+                ></div>
                 <p class="font-26 mt-3 mb-0"><?=$nome?></p>
                 <a class="font-18  mt-1 mb-0 color-dark-dark" style="font-style: italic"><?=$email?></a>
                 <p class="font-16  mb-0" ><?=$descricao?></p>
                 <p class="font-18  mt-1 mb-0 color-amarelo"><?=$total_colheitas?> colheitas</p>
-                <button type="button" class="float-right contato1 me-4 mt-1  "><a href="about.html" class="font-16  p-2 color-dark-dark " >a seguir</a></button>
+                <!--<button type="button" class="float-right contato1 me-4 mt-1  "><a href="about.html" class="font-16  p-2 color-dark-dark " >a seguir</a></button>-->
             </div>
             <!-- AVATAR -->
             <div class="col-6 card card-style feed-0 mt-4" data-card-height="350">
@@ -146,7 +149,7 @@ include_once("scripts_php/sc_badges.php");
                 $link2 = new_db_connection();
 
                 $stmt = mysqli_stmt_init($link2);
-                $query = "SELECT registos.imagem_registo, plantas.nome_cientifico
+                $query = "SELECT registos.id_registo, registos.imagem_registo, plantas.nome_cientifico
                             FROM registos
                             INNER JOIN plantas ON plantas_id_plantas=id_plantas
                             WHERE users_id_user=? AND registos.montra=1";
@@ -159,14 +162,14 @@ include_once("scripts_php/sc_badges.php");
                 if (mysqli_stmt_prepare($stmt, $query)) {
                     mysqli_stmt_bind_param($stmt, "i",  $id);
                     if (mysqli_stmt_execute($stmt)) {
-                        mysqli_stmt_bind_result($stmt, $imagem_registo, $nome_cientifico);
+                        mysqli_stmt_bind_result($stmt, $id_registo, $imagem_registo, $nome_cientifico);
                         while (mysqli_stmt_fetch($stmt)) {
                             if ($total>=1){
                                 echo "
                                  <div class='splide__slide'>
                                     <div data-card-height='320'  class='card mx-2 ' style='background-image: url(images/uploads/registos_plantas/$imagem_registo); border-radius: 15px'>
                                         <div class='card-bottom text-center mb-4'>
-                                            <p class='color-white text-uppercase font-16 mb-0'>$nome_cientifico</p>
+                                            <a href='planta_individual.php?id_registo=$id_registo'><p class='color-white text-uppercase font-16 mb-0'>$nome_cientifico</p></a>
                                         </div>
                                     </div>
                                 </div>

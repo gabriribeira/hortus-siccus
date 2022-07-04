@@ -22,7 +22,7 @@ if (mysqli_stmt_prepare($stmt, $query)) { // Prepare the statement
 
 switch ($active_badge) {
     case 1:
-        if ( $total_registos >= 2 && $total_registos < 3) {
+        if ( $total_registos >= 5 && $total_registos < 10) {
             $novo_badge = 2;
             $stmt = mysqli_stmt_init($link);
 
@@ -33,7 +33,7 @@ switch ($active_badge) {
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
             }
-        }else if($total_registos >= 3 && $total_registos < 4){
+        }else if($total_registos >= 10 && $total_registos < 15){
             $novo_badge = 3;
             $stmt = mysqli_stmt_init($link);
 
@@ -44,7 +44,7 @@ switch ($active_badge) {
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
             }
-        }else if($total_registos >= 4 && $total_registos < 5) {
+        }else if($total_registos >= 15 && $total_registos < 20) {
             $novo_badge = 4;
             $stmt = mysqli_stmt_init($link);
 
@@ -55,7 +55,7 @@ switch ($active_badge) {
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
             }
-        }else if($total_registos >= 5 && $total_registos < 6) {
+        }else if($total_registos >= 20 && $total_registos < 25) {
             $novo_badge = 5;
             $stmt = mysqli_stmt_init($link);
 
@@ -66,7 +66,7 @@ switch ($active_badge) {
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
             }
-        }else if($total_registos >= 6) {
+        }else if($total_registos >= 25) {
             $novo_badge = 6;
             $stmt = mysqli_stmt_init($link);
 
@@ -81,7 +81,7 @@ switch ($active_badge) {
 
         break;
     case 2:
-        if($total_registos >= 3 && $total_registos < 4){
+        if($total_registos >= 10 && $total_registos < 15){
             $novo_badge = 3;
             $stmt = mysqli_stmt_init($link);
 
@@ -92,7 +92,7 @@ switch ($active_badge) {
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
             }
-        }else if($total_registos >= 4 && $total_registos < 5) {
+        }else if($total_registos >= 15 && $total_registos < 20) {
             $novo_badge = 4;
             $stmt = mysqli_stmt_init($link);
 
@@ -103,7 +103,7 @@ switch ($active_badge) {
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
             }
-        }else if($total_registos >= 5 && $total_registos < 6) {
+        }else if($total_registos >= 20 && $total_registos < 25) {
             $novo_badge = 5;
             $stmt = mysqli_stmt_init($link);
 
@@ -114,7 +114,7 @@ switch ($active_badge) {
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
             }
-        }else if($total_registos >= 6) {
+        }else if($total_registos >= 25) {
             $novo_badge = 6;
             $stmt = mysqli_stmt_init($link);
 
@@ -130,7 +130,7 @@ switch ($active_badge) {
         break;
 
     case "3":
-        if($total_registos >= 4 && $total_registos < 5) {
+        if($total_registos >= 15 && $total_registos < 20) {
             $novo_badge = 4;
             $stmt = mysqli_stmt_init($link);
 
@@ -141,7 +141,7 @@ switch ($active_badge) {
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
             }
-        }else if($total_registos >= 5 && $total_registos < 6) {
+        }else if($total_registos >= 20 && $total_registos < 25) {
             $novo_badge = 5;
             $stmt = mysqli_stmt_init($link);
 
@@ -152,7 +152,7 @@ switch ($active_badge) {
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
             }
-        }else if($total_registos >= 6) {
+        }else if($total_registos >= 25) {
             $novo_badge = 6;
             $stmt = mysqli_stmt_init($link);
 
@@ -168,7 +168,7 @@ switch ($active_badge) {
         break;
 
     case "4":
-        if($total_registos >= 5 && $total_registos < 6) {
+        if($total_registos >= 20 && $total_registos < 25) {
             $novo_badge = 5;
             $stmt = mysqli_stmt_init($link);
 
@@ -179,7 +179,7 @@ switch ($active_badge) {
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
             }
-        }else if($total_registos >= 6) {
+        }else if($total_registos >= 25) {
             $novo_badge = 6;
             $stmt = mysqli_stmt_init($link);
 
@@ -195,7 +195,7 @@ switch ($active_badge) {
         break;
 
     case "5":
-        if($total_registos >= 6) {
+        if($total_registos >= 25) {
             $novo_badge = 6;
             $stmt = mysqli_stmt_init($link);
 

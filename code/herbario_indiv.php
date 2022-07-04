@@ -45,7 +45,7 @@ include_once "components/cp_preloader.php";
 
     <!--HEADER: LOGO E MENU DE CIMA-->
     <div class="header-logo-app header mt-4 mb-4 ">
-        <a class="header-icon header-icon-1" href="editar_perfil.html"><i><img class="icons"
+        <a class="header-icon header-icon-1" href="menu_herbarios.html"><i><img class="icons"
                                                                                src="images/icons/undo.png"></i></a>
 
         <p class="header-icon font-barra font-31 margem-herbario mt-1 ">HERBÁRIO</p>
