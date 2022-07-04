@@ -22,16 +22,16 @@
 
 </head>
 <body class="theme-light ">
-<div id="preloader"><div class="spinner-border color-red-dark" role="status"></div></div>
-
+<!-- PRELOADER-->
+<?php
+include_once "components/cp_preloader.php";
+?>
 
 <div id="page" class="feed-2">
     <!-- FOOTER MENU-->
-    <div class="footer-bar-4 " id="footer-bar">
-        <a href="perfil.html"><i><img id="demo" onclick="myFunction()" class="icons2" src="images/icons/perfil_Prancheta%201.png"></i></a>
-        <a class="active-nav" href="feed.html.html"><img id="click2" class="icons2"  src="images/icons/home_Prancheta%201.png"></i></a>
-        <a href="herbario-UA.html"><img id="click3"  class="icons2" src="images/icons/herbario_Prancheta%201.png"></i></a>
-    </div>
+    <?php
+    include_once "components/cp_footer_menu.php";
+    ?>
 
     <!-- Global Menus-->
     <div class="menu menu-box-modal menu-gradient" data-menu-height="cover" data-menu-load="menu-color.html"
@@ -224,7 +224,7 @@
     <div class="bg-white row p-0 m-0 mb-4 col-12" style="border-radius: 15px;">
         <div class="header-logo-app header-amigos mt-4 mb-3">
             <p class=" p-0 mb-0 " style="font-size: 18px">
-                colectores
+                coletores
             </p>
         </div>
         <div class="splide single-slider mt-4" id="single-slider-3" style="padding-bottom: 70px">
@@ -234,47 +234,23 @@
                         <div data-card-height="320"  class="card mx-2 bg-18" style="border-radius: 15px">
                             <div class="card-bottom text-center mb-4">
                                 <p class="color-white text-uppercase font-22 mb-0 float-left fa fa-circle px-4"></p>
-                                <p class="color-white text-uppercase font-22 mb-0 float-left">user</p>
+                                <p class="color-white text-uppercase font-22 mb-0 float-left">rita</p>
                             </div>
                         </div>
                     </div>
                     <div class="splide__slide">
-                        <div data-card-height="320"  class="card mx-2 bg-18  " style="border-radius: 15px">
+                        <div data-card-height="320"  class="card mx-2 feed-33  " style="border-radius: 15px">
                             <div class="card-bottom text-center mb-4">
                                 <p class="color-white text-uppercase font-22 mb-0 float-left fa fa-circle px-4"></p>
-                                <p class="color-white text-uppercase font-22 mb-0 float-left">user</p>
+                                <p class="color-white text-uppercase font-22 mb-0 float-left">candy</p>
                             </div>
                         </div>
                     </div>
                     <div class="splide__slide">
-                        <div data-card-height="320"  class="card mx-2 bg-18  " style="border-radius: 15px">
+                        <div data-card-height="320"  class="card mx-2 feed-333 " style="border-radius: 15px">
                             <div class="card-bottom text-center mb-4">
                                 <p class="color-white text-uppercase font-22 mb-0 float-left fa fa-circle px-4"></p>
-                                <p class="color-white text-uppercase font-22 mb-0 float-left">user</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="splide__slide">
-                        <div data-card-height="320"  class="card mx-2 bg-18  " style="border-radius: 15px">
-                            <div class="card-bottom text-center mb-4">
-                                <p class="color-white text-uppercase font-22 mb-0 float-left fa fa-circle px-4"></p>
-                                <p class="color-white text-uppercase font-22 mb-0 float-left">user</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="splide__slide">
-                        <div data-card-height="320"  class="card mx-2 bg-18  " style="border-radius: 15px">
-                            <div class="card-bottom text-center mb-4">
-                                <p class="color-white text-uppercase font-22 mb-0 float-left fa fa-circle px-4"></p>
-                                <p class="color-white text-uppercase font-22 mb-0 float-left">user</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="splide__slide">
-                        <div data-card-height="320"  class="card mx-2 bg-18  " style="border-radius: 15px">
-                            <div class="card-bottom text-center mb-4">
-                                <p class="color-white text-uppercase font-22 mb-0 float-left fa fa-circle px-4"></p>
-                                <p class="color-white text-uppercase font-22 mb-0 float-left">user</p>
+                                <p class="color-white text-uppercase font-22 mb-0 float-left">benny</p>
                             </div>
                         </div>
                     </div>

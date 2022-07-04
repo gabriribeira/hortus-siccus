@@ -19,19 +19,18 @@
 
 <body class="theme-light">
 
-<div id="preloader"><div class="spinner-border color-red-dark" role="status"></div></div>
+<!-- PRELOADER-->
+<?php
+include_once "components/cp_preloader.php";
+?>
+
+
 <div id="page" class="has-footer-menu feed-2">
 
-
     <!-- FOOTER MENU-->
-    <div class="footer-bar-4 " id="footer-bar">
-        <a href="perfil.html"><i><img id="demo" onclick="myFunction()" class="icons2"
-                                      src="images/icons/perfil_Prancheta%201.png"></i></a>
-        <a class="active-nav" href="feed.html"><img id="click2" class="icons2"
-                                                    src="images/icons/home_Prancheta%201.png"></i></a>
-        <a href="herbario-UA.html"><img id="click3" class="icons2" src="images/icons/herbario_Prancheta%201.png"></i>
-        </a>
-    </div>
+    <?php
+    include_once "components/cp_footer_menu.php";
+    ?>
 
     <!-- Global Menus-->
     <div class="menu menu-box-modal menu-gradient" data-menu-height="cover" data-menu-load="menu-color.html"
@@ -41,9 +40,9 @@
 
     <!--HEADER: LOGO E MENU DE CIMA-->
     <div class="header-logo-app header1 mt-4 mb-4 ">
-        <a class="header-icon header-icon-1" href="evento.html"><i><img class="icons"
-                                                                        src="images/icons/event_Prancheta%201.png"></i></a>
-        <a class="header-icon header-icon-1" href="evento.html"><i><img class="icons"
+        <a class="header-icon header-icon-1 " href="menu_herbarios.html"><i><img class="icons"
+                                                                             src="images/icons/undo_branco.png"></i></a>
+        <a class="header-icon header-icon-1 ms-5" href="eventos.php"><i><img class="icons"
                                                                         src="images/icons/event_Prancheta%201.png"></i></a>
         <p class="header-icon font-barra font-31 margem-biblio mt-1 ">BIBLIOTECA</p>
 
@@ -51,14 +50,14 @@
 
 
     <!-- BARRA PESQUISA -->
-    <div class="page-content search-page mt-4">
+    <div class="page-content has-footer-menu search-page mt-4">
         <!-- PESQUISA E ICONS -->
         <div class="search-box search-header feed-0 card-style me-4 ms-4">
-            <a onclick="display3()" class="header-icon header-icon-1" ><i><img class="icons"
+            <a class="header-icon header-icon-1"href="#"> <i><img class="icons"
                                                                                                 src="images/icons/zoom_Prancheta%201.png"></i></a>
-            <a onclick="display()" class="header-icon header-icon-1 me-5" href="login.html"><i><img class="icons"
+            <a  class="header-icon header-icon-1 me-5" href="#"><i><img class="icons"
                                                                                                     src="images/icons/filter_b.png"></i></a>
-            <a onclick="display1()" class="header-icon header-icon-1 margem_lupa" href="login.html"><i><img id="icon-s"
+            <a  class="header-icon header-icon-1 margem_lupa" href="#"><i><img id="icon-s"
                                                                                                             class="icons"
                                                                                                             src="images/icons/search-white_Prancheta%201.png"></i></a>
             <!--<i class="ms-2"><img class="icons"
@@ -112,8 +111,8 @@
                 </a>
             </div>
         </div>
-    </div>
 
+    </div>
 
     <!-- BIBLIOTECA MINI-->
     <div id="biblioteca">
@@ -193,6 +192,7 @@
 
 
         ?>
+
 
     </div>
 

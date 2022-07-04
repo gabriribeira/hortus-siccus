@@ -212,13 +212,18 @@
 </head>
 <body class="theme-light feed-7">
 
+<!-- PRELOADER-->
+<?php
+include_once "components/cp_preloader.php";
+?>
+
+
 <div id="page" style="background-image: url('images/DECO/evento.png');  background-size: 90%;background-repeat: no-repeat; background-position: 20px 490px;" class="has-footer-menu">
+
     <!-- FOOTER MENU-->
-    <div class="footer-bar-4 " id="footer-bar">
-        <a href="perfil.html"><i><img id="demo" onclick="myFunction()" class="icons2" src="images/icons/perfil_Prancheta%201.png"></i></a>
-        <a class="active-nav" href="feed.html.html"><img id="click2" class="icons2"  src="images/icons/home_Prancheta%201.png"></i></a>
-        <a href="herbario-UA.html"><img id="click3"  class="icons2" src="images/icons/herbario_Prancheta%201.png"></i></a>
-    </div>
+    <?php
+    include_once "components/cp_footer_menu.php";
+    ?>
 
     <!-- Global Menus-->
     <div class="menu menu-box-modal menu-gradient" data-menu-height="cover" data-menu-load="menu-color.html"
@@ -229,7 +234,7 @@
     <!--HEADER: LOGO E MENU DE CIMA-->
     <div class="header-logo-app header mt-4 mb-4 ">
         <a class="header-icon header-icon-1" href="herbario-UA.php"><i><img class="icons"
-                                                                            src="images/icons/undo.png"></i></a>
+                                                                               src="images/icons/undo.png"></i></a>
 
         <p class="header-icon font-barra font-31 margem-eventos mt-1 ">EVENTOS</p>
     </div>

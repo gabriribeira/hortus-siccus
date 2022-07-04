@@ -49,11 +49,18 @@ body {
   color: #9e8035;
 }
 .margem-biblio{
-  margin-left: 210px;
+  margin-left: 200px;
 }
 .margem-perfil{
   margin-left: 290px;
 }
+
+.margem-eventos{
+  margin-left: 280px;
+
+}
+
+
 .margem-amigos{
   margin-left: 230px;
 }
