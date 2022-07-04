@@ -66,7 +66,7 @@
                         }
                     })
                     .fail(function() { // Se existir um erro no pedido
-                        $('#concelho-option').html('Data error'); // Escreve mensagem de erro na listagem de vinhos
+                        $('#concelho-option').append('<p>Erro a Processar o Pedido</p>');
                     });
                 return false; // keeps the page from not refreshing
             });
@@ -91,7 +91,7 @@
                         }
                     })
                     .fail(function() { // Se existir um erro no pedido
-                        $('#freguesia-option').html('Data error'); // Escreve mensagem de erro na listagem de vinhos
+                        $('#freguesia-option').append('<p>Erro a Processar o Pedido</p>');
                     });
                 return false; // keeps the page from not refreshing
             });
@@ -376,7 +376,7 @@
 
                                                 <label for="form5" class="color-highlight"></label>
                                                 <select id="origem" name="origem">
-                                                    <option value="" disabled selected>Select a Value</option>
+                                                    <option value="" disabled>Select a Value</option>
                                                     <?php
                                                     require_once('connections/connection.php');
                                                     $link = new_db_connection();
@@ -487,7 +487,7 @@
                                         <hr class="mt-1 mb-1">
                                         <div class="input-style input1 no-icon mb-4">
                                             <input type="date" value="2030-12-31" name="data" value="2030-12-31" max="2030-01-01" min="2021-01-01" class="form-control validate-text" id="form6" placeholder="Phone">
-                                            <label for="form6" class="color-highlight">Select Date</label>
+                                            <label for="form6" class="color-highlight"></label>
                                             <i class="fa fa-check disabled valid me-4 pe-3 font-12 color-green-dark"></i>
                                             <i class="fa fa-check disabled invalid me-4 pe-3 font-12 color-red-dark"></i>
                                         </div>
@@ -562,7 +562,7 @@
                                         <hr class="mt-1 mb-1">
                                         <div class="input-style input1 no-icon mb-4">
                                             <label for="" class="color-highlight"></label>
-                                            <select id="freguesia-option" name="fregeuesia">
+                                            <select id="freguesia-option" name="freguesia">
                                                 <option value="" disabled selected>Select a Value</option>
                                             </select>
                                             <span><i class="fa fa-chevron-down"></i></span>
