@@ -6327,11 +6327,15 @@ input[type=number] {
   background-color: #9b8035 ;
 }
 
-.feed-a{
-  background-color: #9b8035 ;
-
-
+.feed-a {
+  background-color: #9b8035;
 }
+.feed-ind{
+  background-color: #9b8035 ;
+  background-image: url(../images/flores/fundo.png);
+}
+
+
 .feed-4{
   background-color: #ab7558 ;
 }
