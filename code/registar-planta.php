@@ -48,6 +48,56 @@
         });
     </script>
 
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#distrito').on('change', function() {
+                var value = $(this).val();
+                console.log(value)
+                $.ajax({ // ajax call starts
+                        url: 'scripts_php/sc_restringir_distritos.php', // JQuery loads serverside.php
+                        data: 'value=' + value, // Send value of the clicked button
+                        dataType: 'json', // Choosing a JSON datatype
+                        type: 'POST', // Default is GET
+                    })
+                    .done(function(data) {
+                        for (var i in data) {
+                            $('#concelho-option').append('<option value="' + data[i]["id"] + '">' + data[i]["nome"] + '</option>');
+                            $('#concelho-option').append('<hr>');
+                        }
+                    })
+                    .fail(function() { // Se existir um erro no pedido
+                        $('#concelho-option').html('Data error'); // Escreve mensagem de erro na listagem de vinhos
+                    });
+                return false; // keeps the page from not refreshing
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#concelho-option').on('change', function() {
+                var value = $(this).val();
+                console.log(value)
+                $.ajax({ // ajax call starts
+                        url: 'scripts_php/sc_restringir_concelhos.php', // JQuery loads serverside.php
+                        data: 'value2=' + value, // Send value of the clicked button
+                        dataType: 'json', // Choosing a JSON datatype
+                        type: 'POST', // Default is GET
+                    })
+                    .done(function(data) {
+                        for (var i in data) {
+                            $('#freguesia-option').append('<option value="' + data[i]["id"] + '">' + data[i]["nome"] + '</option>');
+                            $('#freguesia-option').append('<hr>');
+                        }
+                    })
+                    .fail(function() { // Se existir um erro no pedido
+                        $('#freguesia-option').html('Data error'); // Escreve mensagem de erro na listagem de vinhos
+                    });
+                return false; // keeps the page from not refreshing
+            });
+        });
+    </script>
+
 </head>
 
 <body class="theme-light feed-7">
@@ -82,14 +132,16 @@
                     <div class=" rounded-m">
                         <div class="content mb-5">
 
-                            <?php
+                            <form action="scripts_php/sc_registo_planta.php" method="post" enctype="multipart/form-data">
 
-                            if (isset($_GET["id"]) && $_GET["id"] != "") {
-                                require_once('connections/connection.php');
-                                $link = new_db_connection();
-                                /* create a prepared statement */
-                                $stmt = mysqli_stmt_init($link);
-                                $query = "SELECT id_plantas, nome_cientifico, origens.origem, estatutos.estatuto, familias_plantas.familia, plantas_vulgares.nome_vulgar
+                                <?php
+
+                                if (isset($_GET["id"]) && $_GET["id"] != "") {
+                                    require_once('connections/connection.php');
+                                    $link = new_db_connection();
+                                    /* create a prepared statement */
+                                    $stmt = mysqli_stmt_init($link);
+                                    $query = "SELECT id_plantas, nome_cientifico, origens.origem, estatutos.estatuto, familias_plantas.familia, plantas_vulgares.nome_vulgar
                                 FROM plantas 
                                 INNER JOIN origens
                                 ON plantas.origens_id_origem = origens.id_origem
@@ -101,270 +153,358 @@
                                 ON plantas.id_plantas = plantas_vulgares.plantas_id_plantas
                                 WHERE id_plantas = ?";
 
-                                if (mysqli_stmt_prepare($stmt, $query)) {
-                                    mysqli_stmt_bind_param($stmt, 's', $_GET["id"]);
-                                    /* execute the prepared statement */
-                                    if (mysqli_stmt_execute($stmt)) {
-                                        /* bind result variables */
-                                        mysqli_stmt_bind_result($stmt, $id, $nome, $origem, $estatuto, $familia, $vulgar);
-                                        mysqli_stmt_fetch($stmt);
-                                    } else {
-                                        echo "Error: " . mysqli_stmt_error($stmt);
-                                    }
-                                    /* close statement */
-                                    mysqli_stmt_close($stmt);
-                                } else {
-                                    echo "Error: " . mysqli_error($link);
-                                }
-                            }
-
-                            ?>
-
-                            <div class="text-center">
-                                <img src="images/profile/bruna.jpg" data-src="images/pictures/25t.jpg" style=" width: 200px ;height: 230px" class="rounded-m preload-img  img-fluid" alt="img">
-                                <div class="mt-2">
-                                    <input class="btn " style="border: none" type="file">
-                                    </input>
-                                </div>
-                                <p class="pt-3 color-amarelo font-30 mb-2" style="font-style: italic; font-family: Georgia, sans-serif;">
-                                    <?php if (isset($_GET["id"]) && $_GET["id"] != "") {
-                                        echo $nome;
-                                    } else {
-                                        echo "Nome Científico";
-                                    } ?>
-                                </p>
-                                <?php
-                                if (!isset($_GET["id"]) || $_GET["id"] == "") { ?>
-                                    <div class="input-style input2  has-icon validate-field mb-4">
-                                        <input type="text" class="form-control validate-name" id="search">
-                                        <label for="form1" class="color-highlight"></label>
-                                        <div id="resultados-pesquisa"></div>
-                                    </div>
-                                <?php } ?>
-
-                                <p class="color-amarelo font-18 mt-0 mb-3"><i>
-                                        <?php if (isset($_GET["id"]) && $_GET["id"] != "") {
-                                            echo $vulgar;
+                                    if (mysqli_stmt_prepare($stmt, $query)) {
+                                        mysqli_stmt_bind_param($stmt, 's', $_GET["id"]);
+                                        /* execute the prepared statement */
+                                        if (mysqli_stmt_execute($stmt)) {
+                                            /* bind result variables */
+                                            mysqli_stmt_bind_result($stmt, $id, $nome, $origem, $estatuto, $familia, $vulgar);
+                                            mysqli_stmt_fetch($stmt);
                                         } else {
-                                            echo "Nome Comum";
+                                            echo "Error: " . mysqli_stmt_error($stmt);
+                                        }
+                                        /* close statement */
+                                        mysqli_stmt_close($stmt);
+                                    } else {
+                                        echo "Error: " . mysqli_error($link);
+                                    }
+                                }
+
+                                ?>
+
+                                <div class="text-center justify-content-center">
+                                    <div id="div-imagem" style="border: 3px solid black; width: 200px ;height: 230px; display: block; text-align: center; justify-content: center; margin:auto;" class="rounded-m preload-img  img-fluid"></div>
+                                    <img id="blah" src="#" style=" width: 200px ;height: 230px; display: none; margin: auto;" class="rounded-m preload-img  img-fluid">
+                                    <div class="mt-2">
+                                        <input type="file" name="fileToUpload" id="fileToUpload" style="width: 0.1px; height: 0.1px; opacity: 0; overflow: hidden; position: absolute; z-index: -1;">
+                                        <label for="fileToUpload" style="border: 2px solid #2b2b2b; padding: 4px 15px; margin-top: 10px; font-weight: bold; color: #eeeee4; background-color: #2b2b2b;">Escolher Imagem</label>
+                                    </div>
+                                    <p class="pt-3 color-amarelo font-30 mb-2" style="font-style: italic; font-family: Georgia, sans-serif;">
+                                        <?php if (isset($_GET["id"]) && $_GET["id"] != "") {
+                                            echo $nome;
+                                        } else {
+                                            echo "Nome Científico";
                                         } ?>
-                                        <i></p>
-                            </div>
-                            <p class="font-11 mt-n2 mb-3"></p>
-                            <br />
-                            <div class="row m-0 p-0">
-                                <div class="mt-2 col-6">
-                                    <p class="color-amarelo font-18 mb-2">
-                                        família</p>
-                                    <hr class="mt-1 mb-1">
+                                    </p>
                                     <?php
-                                    if (isset($_GET["id"]) && $_GET["id"] != "") { ?>
-                                        <div class="input-style input1  has-icon validate-field mb-4">
-                                            <input type="name" class="form-control validate-name" id="form1" value="<?= $familia ?>">
+                                    if (!isset($_GET["id"]) || $_GET["id"] == "") { ?>
+                                        <div class="input-style input2  has-icon validate-field mb-4">
+                                            <input type="text" class="form-control validate-name" id="search" placeholder="Selecionar Planta...">
                                             <label for="form1" class="color-highlight"></label>
-                                        </div>
-                                    <?php } else { ?>
-                                        <div class="input-style input1  has-icon validate-field mb-4">
-                                            <input type="name" class="form-control validate-name" id="form1">
-                                            <label for="form1" class="color-highlight"></label>
+                                            <div id="resultados-pesquisa"></div>
                                         </div>
                                     <?php } ?>
-                                    <p class="color-amarelo font-18 mb-2">estado</p>
-                                    <hr class="mt-1 mb-1">
-                                    <div class="input-style input1 no-icon mb-4">
-                                        <label for="form5" class="color-highlight"></label>
-                                        <select id="form5">
-                                            <option value="default" disabled selected>Select a Value</option>
-                                            <?php
-                                            require_once('connections/connection.php');
-                                            $link = new_db_connection();
-                                            /* create a prepared statement */
-                                            $stmt2 = mysqli_stmt_init($link);
-                                            $query = "SELECT id_estado, estado FROM estados ORDER BY id_estado ASC";
 
-                                            if (mysqli_stmt_prepare($stmt2, $query)) {
-                                                /* execute the prepared statement */
-                                                if (mysqli_stmt_execute($stmt2)) {
-                                                    /* bind result variables */
-                                                    mysqli_stmt_bind_result($stmt2, $id_estado, $estado);
-                                                    while (mysqli_stmt_fetch($stmt2)) { ?>
-                                                        <option value="<?= $id_estado ?>"><?= $estado ?></option>
-                                            <?php }
-                                                } else {
-                                                    echo "Error: " . mysqli_stmt_error($stmt2);
-                                                }
-                                                /* close statement */
-                                                mysqli_stmt_close($stmt2);
+                                    <p class="color-amarelo font-18 mt-0 mb-3"><i>
+                                            <?php if (isset($_GET["id"]) && $_GET["id"] != "") {
+                                                echo $vulgar;
                                             } else {
-                                                echo "Error: " . mysqli_error($link);
-                                            }
-                                            ?>
-                                        </select>
-                                        <span><i class="fa fa-chevron-down"></i></span>
-                                        <i class="fa fa-check disabled valid color-green-dark"></i>
-                                        <i class="fa fa-check disabled invalid color-red-dark"></i>
-                                        <em></em>
-                                    </div>
-                                    <p class="color-amarelo font-18 mb-2">origem</p>
-                                    <hr class="mt-1 mb-1">
-                                    <?php
-                                    if (isset($_GET["id"]) && $_GET["id"] != "") { ?>
-                                        <div class="input-style input1  has-icon validate-field mb-4">
-                                            <input type="name" class="form-control validate-name" id="form1" value="<?= $origem ?>">
-                                            <label for="form1" class="color-highlight"></label>
-                                        </div>
-                                    <?php } else { ?>
-                                        <div class="input-style input1  has-icon validate-field mb-4">
-                                            <input type="name" class="form-control validate-name" id="form1">
-                                            <label for="form1" class="color-highlight"></label>
-                                        </div>
-                                    <?php } ?>
-                                    <p class="color-amarelo font-18 mb-2">estatuto</p>
-                                    <hr class="mt-1 mb-1">
-                                    <?php
-                                    if (isset($_GET["id"]) && $_GET["id"] != "") { ?>
-                                        <div class="input-style input1  has-icon validate-field mb-4">
-                                            <input type="name" class="form-control validate-name" id="form1" value="<?= $estatuto ?>">
-                                            <label for="form1" class="color-highlight"></label>
-                                        </div>
-                                    <?php } else { ?>
-                                        <div class="input-style input1  has-icon validate-field mb-4">
-                                            <input type="name" class="form-control validate-name" id="form1">
-                                            <label for="form1" class="color-highlight"></label>
-                                        </div>
-                                    <?php } ?>
-                                    <p class="color-amarelo font-18 mb-2">data</p>
-                                    <hr class="mt-1 mb-1">
-                                    <div class="input-style input1 no-icon mb-4">
-                                        <input type="date" value="2030-12-31" value="2030-12-31" max="2030-01-01" min="2021-01-01" class="form-control validate-text" id="form6" placeholder="Phone">
-                                        <label for="form6" class="color-highlight">Select Date</label>
-                                        <i class="fa fa-check disabled valid me-4 pe-3 font-12 color-green-dark"></i>
-                                        <i class="fa fa-check disabled invalid me-4 pe-3 font-12 color-red-dark"></i>
-                                    </div>
+                                                echo "Nome Comum";
+                                            } ?>
+                                            <i></p>
                                 </div>
-                                <div class="mt-2 col-6 mb-4">
-                                    <p class="color-amarelo font-18 mb-2">local da colheita</p>
-                                    <hr class="mt-1 mb-1">
-                                    <div class="input-style input1  has-icon validate-field mb-4">
-                                        <input type="name" class="form-control validate-name" id="form1" placeholder="">
-                                        <label for="form1" class="color-highlight"></label>
-                                    </div>
-                                    <p class="color-amarelo font-18 mb-2">distrito</p>
-                                    <hr class="mt-1 mb-1">
-                                    <div class="input-style input1 no-icon mb-4">
-                                        <label for="form5" class="color-highlight"></label>
-                                        <select id="form5">
-                                            <option value="default" disabled selected>Select a Value</option>
-                                            <?php
-                                            require_once('connections/connection.php');
-                                            $link = new_db_connection();
-                                            /* create a prepared statement */
-                                            $stmt3 = mysqli_stmt_init($link);
-                                            $query = "SELECT id_distrito, distrito FROM distritos ORDER BY id_distrito ASC";
+                                <p class="font-11 mt-n2 mb-3"></p>
+                                <br />
 
-                                            if (mysqli_stmt_prepare($stmt3, $query)) {
-                                                /* execute the prepared statement */
-                                                if (mysqli_stmt_execute($stmt3)) {
-                                                    /* bind result variables */
-                                                    mysqli_stmt_bind_result($stmt3, $id_distrito, $distrito);
-                                                    while (mysqli_stmt_fetch($stmt3)) { ?>
-                                                        <option value="<?= $id_distrito ?>"><?= $distrito ?></option>
-                                            <?php }
-                                                } else {
-                                                    echo "Error: " . mysqli_stmt_error($stmt3);
-                                                }
-                                                /* close statement */
-                                                mysqli_stmt_close($stmt3);
-                                            } else {
-                                                echo "Error: " . mysqli_error($link);
-                                            }
-                                            ?>
-                                        </select>
-                                        <span><i class="fa fa-chevron-down"></i></span>
-                                        <i class="fa fa-check disabled valid color-green-dark"></i>
-                                        <i class="fa fa-check disabled invalid color-red-dark"></i>
-                                        <em></em>
-                                    </div>
-                                    <p class="color-amarelo font-18 mb-2">concelho</p>
-                                    <hr class="mt-1 mb-1">
-                                    <div class="input-style input1 no-icon mb-4">
-                                        <label for="form5" class="color-highlight"></label>
-                                        <select id="form5">
-                                            <option value="default" disabled selected>Select a Value</option>
-                                            <option value="iOS">iOS</option>
-                                            <option value="Linux">Linux</option>
-                                            <option value="MacOS">MacOS</option>
-                                            <option value="Android">Android</option>
-                                            <option value="Windows">Windows</option>
-                                        </select>
-                                        <span><i class="fa fa-chevron-down"></i></span>
-                                        <i class="fa fa-check disabled valid color-green-dark"></i>
-                                        <i class="fa fa-check disabled invalid color-red-dark"></i>
-                                        <em></em>
-                                    </div>
-                                    <p class="color-amarelo font-18 mb-2">freguesia</p>
-                                    <hr class="mt-1 mb-1">
-                                    <div class="input-style input1 no-icon mb-4">
-                                        <label for="form5" class="color-highlight"></label>
-                                        <select id="form5">
-                                            <option value="default" disabled selected>Select a Value</option>
-                                            <option value="iOS">iOS</option>
-                                            <option value="Linux">Linux</option>
-                                            <option value="MacOS">MacOS</option>
-                                            <option value="Android">Android</option>
-                                            <option value="Windows">Windows</option>
-                                        </select>
-                                        <span><i class="fa fa-chevron-down"></i></span>
-                                        <i class="fa fa-check disabled valid color-green-dark"></i>
-                                        <i class="fa fa-check disabled invalid color-red-dark"></i>
-                                        <em></em>
-                                    </div>
-                                    <p class="color-amarelo font-18 mb-2">referência local</p>
-                                    <hr class="mt-1 mb-1">
-                                    <div class="input-style input1  has-icon validate-field mb-4">
-                                        <input type="name" class="form-control validate-name" id="form1" placeholder="">
-                                        <label for="form1" class="color-highlight"></label>
-                                    </div>
-                                </div>
-                                <div class="mt-2 row col-12 p-0 m-0 mb-4" style="width: 360px">
-                                    <p class="font-18 color-amarelo mb-2">descrição</p>
-                                    <hr class="mt-1 mb-1">
-                                    <div class="input-style input1 no-icon mb-4">
-                                        <textarea id="form7a" placeholder=""></textarea>
-                                        <label for="form7a" class="color-highlight"></label>
-
-                                    </div>
-                                </div>
-                                <div class="mt-1 row col-12 p-0 m-0 ">
-                                    <p class="font-18 color-amarelo mb-2">observações</p>
-                                    <hr class="mt-1 mb-1">
-                                    <div class="input-style input1 no-icon mb-4">
-                                        <textarea id="form7a" placeholder=""></textarea>
-                                        <label for="form7a" class=""></label>
-                                    </div>
-                                </div>
-                                <div class="row mb-0 mt-2">
+                                <div class="row mb-0 mt-2" style="margin-left: 1px;">
                                     <div class="col-12">
                                         <div class="form-check icon-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="check1">
-                                            <label class="form-check-label text-dark font-18" for="check1">mostrar na montra</label>
+                                            <input class="form-check-input" type="checkbox" name="check_nova_planta" id="check_nova_planta">
+                                            <label class="form-check-label text-dark font-18" for="check_nova_planta">Criar nova planta</label>
                                             <i class="icon-check-1 fa fa-square color-gray-dark font-16"></i>
                                             <i class="icon-check-2 fa fa-check-square font-16 "></i>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mb-0 mt-2">
-                                    <div class="col-12">
-                                        <div class="form-check icon-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="check1">
-                                            <label class="form-check-label text-dark font-18" for="check1">enviar informações para a UA</label>
-                                            <i class="icon-check-1 fa fa-square color-gray-dark font-16"></i>
-                                            <i class="icon-check-2 fa fa-check-square font-16 "></i>
+
+                                <div class="row m-0 p-0">
+                                    <div class="mt-2 col-6">
+
+                                        <div id="criacao-planta" style="display: none;">
+
+                                            <p class="color-amarelo font-18 mb-2">Nome Científico</p>
+                                            <hr class="mt-1 mb-1">
+                                            <div class="input-style input1  has-icon validate-field mb-4">
+                                                <input type="text" name="nome_cientifico" class="form-control validate-name" id="form1" placeholder="">
+                                                <label for="form1" class="color-highlight"></label>
+                                            </div>
+
+                                        </div>
+
+                                        <p class="color-amarelo font-18 mb-2">
+                                            família</p>
+                                        <hr class="mt-1 mb-1">
+                                        <?php
+                                        if (isset($_GET["id"]) && $_GET["id"] != "") { ?>
+                                            <div class="input-style input1  has-icon validate-field mb-4">
+                                                <input type="text" name="familia" class="form-control validate-name" id="form1" value="<?= $familia ?>" disabled>
+                                                <label for="form1" class="color-highlight"></label>
+                                            </div>
+                                        <?php } else { ?>
+                                            <div class="input-style input1  has-icon validate-field mb-4">
+                                                <input type="name" class="form-control validate-name" id="form1">
+                                                <label for="form1" class="color-highlight"></label>
+                                            </div>
+                                        <?php } ?>
+                                        <p class="color-amarelo font-18 mb-2">estado</p>
+                                        <hr class="mt-1 mb-1">
+                                        <div class="input-style input1 no-icon mb-4">
+                                            <label for="form5" class="color-highlight"></label>
+                                            <select id="form5" name="estado">
+                                                <option value="default" disabled selected>Select a Value</option>
+                                                <?php
+                                                require_once('connections/connection.php');
+                                                $link = new_db_connection();
+                                                /* create a prepared statement */
+                                                $stmt2 = mysqli_stmt_init($link);
+                                                $query = "SELECT id_estado, estado FROM estados ORDER BY id_estado ASC";
+
+                                                if (mysqli_stmt_prepare($stmt2, $query)) {
+                                                    /* execute the prepared statement */
+                                                    if (mysqli_stmt_execute($stmt2)) {
+                                                        /* bind result variables */
+                                                        mysqli_stmt_bind_result($stmt2, $id_estado, $estado);
+                                                        while (mysqli_stmt_fetch($stmt2)) { ?>
+                                                            <option value="<?= $id_estado ?>"><?= $estado ?></option>
+                                                <?php }
+                                                    } else {
+                                                        echo "Error: " . mysqli_stmt_error($stmt2);
+                                                    }
+                                                    /* close statement */
+                                                    mysqli_stmt_close($stmt2);
+                                                } else {
+                                                    echo "Error: " . mysqli_error($link);
+                                                }
+                                                ?>
+                                            </select>
+                                            <span><i class="fa fa-chevron-down"></i></span>
+                                            <i class="fa fa-check disabled valid color-green-dark"></i>
+                                            <i class="fa fa-check disabled invalid color-red-dark"></i>
+                                            <em></em>
+                                        </div>
+
+
+                                        <p class="color-amarelo font-18 mb-2">origem</p>
+                                        <hr class="mt-1 mb-1">
+                                        <div class="input-style input1 no-icon mb-4">
+                                            <label for="form5" class="color-highlight"></label>
+                                            <select id="origem" name="origem">
+                                                <option value="" disabled selected>Select a Value</option>
+                                                <?php
+                                                require_once('connections/connection.php');
+                                                $link = new_db_connection();
+                                                /* create a prepared statement */
+                                                $stmt4 = mysqli_stmt_init($link);
+                                                $query = "SELECT id_origem, origem FROM origens ORDER BY origem ASC";
+
+                                                if (mysqli_stmt_prepare($stmt4, $query)) {
+                                                    /* execute the prepared statement */
+                                                    if (mysqli_stmt_execute($stmt4)) {
+                                                        /* bind result variables */
+                                                        mysqli_stmt_bind_result($stmt4, $id_origem, $origem);
+                                                        while (mysqli_stmt_fetch($stmt4)) { ?>
+                                                            <option value="<?= $id_origem ?>"><?= $origem ?></option>
+                                                <?php }
+                                                    } else {
+                                                        echo "Error: " . mysqli_stmt_error($stmt4);
+                                                    }
+                                                    /* close statement */
+                                                    mysqli_stmt_close($stmt4);
+                                                } else {
+                                                    echo "Error: " . mysqli_error($link);
+                                                }
+                                                ?>
+                                            </select>
+                                            <span><i class="fa fa-chevron-down"></i></span>
+                                            <i class="fa fa-check disabled valid color-green-dark"></i>
+                                            <i class="fa fa-check disabled invalid color-red-dark"></i>
+                                            <em></em>
+                                        </div>
+
+
+                                        <p class="color-amarelo font-18 mb-2">estatuto</p>
+                                        <hr class="mt-1 mb-1">
+                                        <div class="input-style input1 no-icon mb-4">
+                                            <label for="form5" class="color-highlight"></label>
+                                            <select id="estatuto" name="estatuto">
+                                                <option value="" disabled selected>Select a Value</option>
+                                                <?php
+                                                require_once('connections/connection.php');
+                                                $link = new_db_connection();
+                                                /* create a prepared statement */
+                                                $stmt5 = mysqli_stmt_init($link);
+                                                $query = "SELECT id_estatuto, estatuto FROM estatutos ORDER BY estatuto ASC";
+
+                                                if (mysqli_stmt_prepare($stmt5, $query)) {
+                                                    /* execute the prepared statement */
+                                                    if (mysqli_stmt_execute($stmt5)) {
+                                                        /* bind result variables */
+                                                        mysqli_stmt_bind_result($stmt5, $id_estatuto, $estatuto);
+                                                        while (mysqli_stmt_fetch($stmt5)) { ?>
+                                                            <option value="<?= $id_estatuto ?>"><?= $estatuto ?></option>
+                                                <?php }
+                                                    } else {
+                                                        echo "Error: " . mysqli_stmt_error($stmt5);
+                                                    }
+                                                    /* close statement */
+                                                    mysqli_stmt_close($stmt5);
+                                                } else {
+                                                    echo "Error: " . mysqli_error($link);
+                                                }
+                                                ?>
+                                            </select>
+                                            <span><i class="fa fa-chevron-down"></i></span>
+                                            <i class="fa fa-check disabled valid color-green-dark"></i>
+                                            <i class="fa fa-check disabled invalid color-red-dark"></i>
+                                            <em></em>
+                                        </div>
+
+
+
+                                        <p class="color-amarelo font-18 mb-2">data</p>
+                                        <hr class="mt-1 mb-1">
+                                        <div class="input-style input1 no-icon mb-4">
+                                            <input type="date" value="2030-12-31" name="data" value="2030-12-31" max="2030-01-01" min="2021-01-01" class="form-control validate-text" id="form6" placeholder="Phone">
+                                            <label for="form6" class="color-highlight">Select Date</label>
+                                            <i class="fa fa-check disabled valid me-4 pe-3 font-12 color-green-dark"></i>
+                                            <i class="fa fa-check disabled invalid me-4 pe-3 font-12 color-red-dark"></i>
                                         </div>
                                     </div>
+                                    <div class="mt-2 col-6 mb-4">
+
+                                        <div id="criacao-planta2" style="display: none;">
+                                            <p class="color-amarelo font-18 mb-2">Nome Comum</p>
+                                            <hr class="mt-1 mb-1">
+                                            <div class="input-style input1  has-icon validate-field mb-4">
+                                                <input type="text" name="comum" class="form-control validate-name" id="form1" placeholder="">
+                                                <label for="form1" class="color-highlight"></label>
+                                            </div>
+                                        </div>
+
+                                        <p class="color-amarelo font-18 mb-2">local da colheita</p>
+                                        <hr class="mt-1 mb-1">
+                                        <div class="input-style input1  has-icon validate-field mb-4">
+                                            <input type="text" name="local" class="form-control validate-name" id="form1" placeholder="">
+                                            <label for="form1" class="color-highlight"></label>
+                                        </div>
+                                        <p class="color-amarelo font-18 mb-2">distrito</p>
+                                        <hr class="mt-1 mb-1">
+                                        <div class="input-style input1 no-icon mb-4">
+                                            <label for="form5" class="color-highlight"></label>
+                                            <select id="distrito" name="distrito">
+                                                <option value="default" disabled selected>Select a Value</option>
+                                                <?php
+                                                require_once('connections/connection.php');
+                                                $link = new_db_connection();
+                                                /* create a prepared statement */
+                                                $stmt3 = mysqli_stmt_init($link);
+                                                $query = "SELECT id_distrito, distrito FROM distritos ORDER BY id_distrito ASC";
+
+                                                if (mysqli_stmt_prepare($stmt3, $query)) {
+                                                    /* execute the prepared statement */
+                                                    if (mysqli_stmt_execute($stmt3)) {
+                                                        /* bind result variables */
+                                                        mysqli_stmt_bind_result($stmt3, $id_distrito, $distrito);
+                                                        while (mysqli_stmt_fetch($stmt3)) { ?>
+                                                            <option value="<?= $id_distrito ?>"><?= $distrito ?></option>
+                                                <?php }
+                                                    } else {
+                                                        echo "Error: " . mysqli_stmt_error($stmt3);
+                                                    }
+                                                    /* close statement */
+                                                    mysqli_stmt_close($stmt3);
+                                                } else {
+                                                    echo "Error: " . mysqli_error($link);
+                                                }
+                                                ?>
+                                            </select>
+                                            <span><i class="fa fa-chevron-down"></i></span>
+                                            <i class="fa fa-check disabled valid color-green-dark"></i>
+                                            <i class="fa fa-check disabled invalid color-red-dark"></i>
+                                            <em></em>
+                                        </div>
+                                        <p class="color-amarelo font-18 mb-2">concelho</p>
+                                        <hr class="mt-1 mb-1">
+                                        <div class="input-style input1 no-icon mb-4">
+                                            <label for="" class="color-highlight"></label>
+                                            <select id="concelho-option" name="concelho">
+                                                <option value="" disabled selected>Select a Value</option>
+
+                                            </select>
+                                            <span><i class="fa fa-chevron-down"></i></span>
+                                            <i class="fa fa-check disabled valid color-green-dark"></i>
+                                            <i class="fa fa-check disabled invalid color-red-dark"></i>
+                                            <em></em>
+                                        </div>
+                                        <p class="color-amarelo font-18 mb-2">freguesia</p>
+                                        <hr class="mt-1 mb-1">
+                                        <div class="input-style input1 no-icon mb-4">
+                                            <label for="" class="color-highlight"></label>
+                                            <select id="freguesia-option" name="fregeuesia">
+                                                <option value="" disabled selected>Select a Value</option>
+                                            </select>
+                                            <span><i class="fa fa-chevron-down"></i></span>
+                                            <i class="fa fa-check disabled valid color-green-dark"></i>
+                                            <i class="fa fa-check disabled invalid color-red-dark"></i>
+                                            <em></em>
+                                        </div>
+                                        <p class="color-amarelo font-18 mb-2">referência local</p>
+                                        <hr class="mt-1 mb-1">
+                                        <div class="input-style input1  has-icon validate-field mb-4">
+                                            <input type="text" name="referencia" class="form-control validate-name" id="form1" placeholder="">
+                                            <label for="form1" class="color-highlight"></label>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2 row col-12 p-0 m-0 mb-4" style="width: 360px">
+                                        <p class="font-18 color-amarelo mb-2">descrição de observação</p>
+                                        <hr class="mt-1 mb-1">
+                                        <div class="input-style input1 no-icon mb-4">
+                                            <textarea name="descricao" id="form7a" placeholder=""></textarea>
+                                            <label for="form7a" class="color-highlight"></label>
+
+                                        </div>
+                                    </div>
+                                    <div class="row mb-0 mt-2">
+                                        <div class="col-12">
+                                            <div class="form-check icon-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="check1" name="montra">
+                                                <label class="form-check-label text-dark font-18" for="check1">mostrar na montra</label>
+                                                <i class="icon-check-1 fa fa-square color-gray-dark font-16"></i>
+                                                <i class="icon-check-2 fa fa-check-square font-16 "></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-0 mt-2">
+                                        <div class="col-12">
+                                            <div class="form-check icon-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="check2" name="herbario">
+                                                <label class="form-check-label text-dark font-18" for="check2">enviar informações para a UA</label>
+                                                <i class="icon-check-1 fa fa-square color-gray-dark font-16"></i>
+                                                <i class="icon-check-2 fa fa-check-square font-16 "></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-0 mt-2 pr-0">
+                                        <p class="color-amarelo font-18 mb-2">Selecionar Pasta</p>
+                                        <hr class="mt-1 mb-1">
+                                        <div class="input-style input1 no-icon mb-4">
+                                            <label for="" class="color-highlight"></label>
+                                            <select id="freguesia-option" name="fregeuesia">
+                                                <option value="" disabled selected>Select a Value</option>
+                                            </select>
+                                            <span><i class="fa fa-chevron-down"></i></span>
+                                            <i class="fa fa-check disabled valid color-green-dark"></i>
+                                            <i class="fa fa-check disabled invalid color-red-dark"></i>
+                                            <em></em>
+                                        </div>
+                                    </div>
+
+
+
+                                    <button type="submit" class="float-right submit1  me-4 font-22 mt-4  p-2">salvar</button>
                                 </div>
-                                <button type="submit" class="float-right submit1  me-4 font-22 mt-4  p-2">salvar</button>
-                            </div>
+                            </form>
 
                         </div>
                     </div>
@@ -372,6 +512,31 @@
             </div>
 
         </div>
+
+        <script>
+            fileToUpload.onchange = evt => {
+                const [file] = fileToUpload.files
+                if (file) {
+                    blah.src = URL.createObjectURL(file)
+                    document.getElementById("div-imagem").style.display = "none";
+                    document.getElementById("blah").style.display = "block";
+                }
+            }
+        </script>
+
+        <script type="text/javascript">
+            document.getElementById("check_nova_planta").onclick = function() {
+                if (document.getElementById("check_nova_planta").checked == true) {
+                    document.getElementById("criacao-planta").style.display = "block";
+                    document.getElementById("criacao-planta2").style.display = "block";
+                    document.getElementById("search").style.display = "none";
+                } else {
+                    document.getElementById("criacao-planta").style.display = "none";
+                    document.getElementById("criacao-planta2").style.display = "none";
+                    document.getElementById("search").style.display = "block";
+                }
+            }
+        </script>
 
         <script src="scripts/bootstrap.min.js" type="text/javascript"></script>
         <script src="scripts/custom.js" type="text/javascript"></script>

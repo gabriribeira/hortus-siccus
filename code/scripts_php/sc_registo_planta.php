@@ -7,10 +7,35 @@ require_once('../connections/connection.php');
 // Create a new DB connection
 $link = new_db_connection();
 
-/* create a prepared statement */
-$stmt = mysqli_stmt_init($link);
 
-if (isset($_FILES["fileToUpload"]["name"]) && $_FILES["fileToUpload"]["name"] != "") {
+if (isset($_POST["familia"]) && isset($_POST["estado"]) && isset($_POST["origem"]) && isset($_POST["estatuto"]) && isset($_POST["data"]) && isset($_POST["local"]) && isset($_POST["distrito"]) && isset($_POST["concelho"]) && isset($_POST["freguesia"]) && isset($_POST["referencia"]) && isset($_POST["descricao"]) && isset($_POST["montra"]) && isset($_POST["hebario"])) {
+
+    if (isset($_POST["check_nova_planta"]) && $_POST["check_nova_planta"] == "on" && isset($_POST["nome_cientifico"]) && isset($_POST["comum"])) {
+
+        /* create a prepared statement */
+        $stmt = mysqli_stmt_init($link);
+        $query = "INSERT INTO plantas(nome_cientifico, origens_id_origem, estatutos_id_estatuto, familias_plantas_id_familia) VALUES (?, ?, ?, ?)";
+        if (mysqli_stmt_prepare($stmt, $query)) {
+            mysqli_stmt_bind_param($stmt, 'ssss', $_POST["nome_cientifico"], $_POST["origem"], $_POST["estatuto"], $_POST["familia"]);
+            /* execute the prepared statement */
+            if (mysqli_stmt_execute($stmt)) {
+                /* bind result variables */
+                mysqli_stmt_bind_result($stmt, $id, $nome, $planta_vulgar);
+                mysqli_stmt_fetch($stmt);
+            } else {
+                echo "Error: " . mysqli_stmt_error($stmt);
+            }
+
+            /* close statement */
+            mysqli_stmt_close($stmt);
+        } else {
+            echo "Error: " . mysqli_error($link);
+        }
+        mysqli_stmt_close($stmt); // Close statement
+
+    }
+
+    if (isset($_FILES["fileToUpload"]["name"]) && $_FILES["fileToUpload"]["name"] != "") {
 
         $target_dir = "../images/uploads/originals/";
         $target_dir_medium = "../images/uploads/medium/";
@@ -32,7 +57,7 @@ if (isset($_FILES["fileToUpload"]["name"]) && $_FILES["fileToUpload"]["name"] !=
                 // Check file size
                 if ($_FILES["fileToUpload"]["size"] <= (5 * MB)) {
                     $uploadOk = 1;
-                // Allow certain file formats
+                    // Allow certain file formats
                     if ($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "gif") {
                         $uploadOk = 1;
 
@@ -62,7 +87,7 @@ if (isset($_FILES["fileToUpload"]["name"]) && $_FILES["fileToUpload"]["name"] !=
                         $filename = "user_" . $username . "_profilepic_" . $uniqid . "." . $imageFileType;
 
                         $query = "INSERT INTO registos(users_id_user, plantas_id_plantas, descricao, imagem_registo, estados_id_estado, distrito_id_distrito, concelhos_id_concelho, freguesias_id_freguesia, ponto_referencia, local_colheita, montra, herbario_ua) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
                         if (mysqli_stmt_prepare($stmt, $query)) {
                             mysqli_stmt_bind_param($stmt, 'iissiiiissii', $_SESSION["id_utilizador"], $_POST[""]);
@@ -71,7 +96,6 @@ if (isset($_FILES["fileToUpload"]["name"]) && $_FILES["fileToUpload"]["name"] !=
                                 /* bind result variables */
                                 mysqli_stmt_bind_result($stmt, $id, $nome, $planta_vulgar);
                                 mysqli_stmt_fetch($stmt);
-
                             } else {
                                 echo "Error: " . mysqli_stmt_error($stmt);
                             }
@@ -81,26 +105,27 @@ if (isset($_FILES["fileToUpload"]["name"]) && $_FILES["fileToUpload"]["name"] !=
                         } else {
                             echo "Error: " . mysqli_error($link);
                         }
-                            mysqli_stmt_close($stmt); // Close statement
+                        mysqli_stmt_close($stmt); // Close statement
                     }
-                        mysqli_close($link); // Close connection
+                    mysqli_close($link); // Close connection
 
-                        move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+                    move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
 
-                        header("Location: ../perfil.php?id=$id_user");
+                    header("Location: ../perfil.php?id=$id_user");
                 } else {
-                        $msg = 9;
-                        header("Location: ../registo2.php?msg=" . $msg);
-                 }
-            } else {
-                    $msg = 8;
+                    $msg = 9;
                     header("Location: ../registo2.php?msg=" . $msg);
+                }
+            } else {
+                $msg = 8;
+                header("Location: ../registo2.php?msg=" . $msg);
             }
         } else {
-                $msg = 7;
-                header("Location: ../registo2.php?msg=" . $msg);
+            $msg = 7;
+            header("Location: ../registo2.php?msg=" . $msg);
         }
-} else {
-    $msg = 4;
-    header("Location: ../registo2.php?msg=" . $msg);
+    } else {
+        $msg = 4;
+        header("Location: ../registo2.php?msg=" . $msg);
+    }
 }
