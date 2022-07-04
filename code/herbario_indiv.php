@@ -18,7 +18,7 @@ session_start();
     <link href="fonts/css/fontawesome-all.min.css" rel="stylesheet" type="text/css">
     <link data-pwa-version="set_in_manifest_and_pwa_js" href="_manifest.json" rel="manifest">
     <link href="app/icons/icon-192x192.png" rel="apple-touch-icon" sizes="180x180">
-    <link rel="icon" type="image/png" href="images/favicon.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="images/favicon.png" sizes="32x32"/>
     <style>
         @import url("https://use.typekit.net/hxx3rxy.css");
     </style>
@@ -27,13 +27,18 @@ session_start();
 </head>
 
 <body class="theme-light feed-7">
-<div id="preloader"><div class="spinner-border color-red-dark" role="status"></div></div>
+<div id="preloader">
+    <div class="spinner-border color-red-dark" role="status"></div>
+</div>
 <div id="page">
     <!-- FOOTER MENU-->
     <div class="footer-bar-4 " id="footer-bar">
-        <a href="perfil.html"><i><img id="demo" onclick="myFunction()" class="icons2" src="images/icons/perfil_Prancheta%201.png"></i></a>
-        <a class="active-nav" href="feed.html.html"><img id="click2" class="icons2"  src="images/icons/home_Prancheta%201.png"></i></a>
-        <a href="herbario-UA.html"><img id="click3"  class="icons2" src="images/icons/herbario_Prancheta%201.png"></i></a>
+        <a href="perfil.html"><i><img id="demo" onclick="myFunction()" class="icons2"
+                                      src="images/icons/perfil_Prancheta%201.png"></i></a>
+        <a class="active-nav" href="feed.html.html"><img id="click2" class="icons2"
+                                                         src="images/icons/home_Prancheta%201.png"></i></a>
+        <a href="herbario-UA.html"><img id="click3" class="icons2" src="images/icons/herbario_Prancheta%201.png"></i>
+        </a>
     </div>
 
     <!-- Global Menus-->
@@ -91,10 +96,10 @@ session_start();
         <!-- ACORDEÃO TIRIRIRI -->
         <div class="accordion " id="accordionExample">
 
-        <?php
-        require_once("connections/connection.php");
+            <?php
+            require_once("connections/connection.php");
 
-        $id_user =$_SESSION ["id_utilizador"];
+            $id_user = $_SESSION ["id_utilizador"];
 
 
             $link = new_db_connection();
@@ -102,107 +107,144 @@ session_start();
             $query = "SELECT  id_pasta, nome_pasta FROM pastas
                       WHERE  pastas.users_id_user=?";
 
-            $res=0;
+            $res = 0;
 
             if (mysqli_stmt_prepare($stmt, $query)) {
                 mysqli_stmt_bind_param($stmt, "i", $id_user);
                 if (mysqli_stmt_execute($stmt)) {
                     mysqli_stmt_bind_result($stmt, $id_pasta, $nome_pasta);
                     while (mysqli_stmt_fetch($stmt)) {
-                        $res=1;
-        ?>
-
-
-
-
-            <div class="accordion-item fee-4 ">
-                <p class="accordion-header" id="heading<?=$id_pasta?>">
-                    <button class="accordion-button collapsed font-18 text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?=$id_pasta?>" aria-expanded="true" aria-controls="collapse1">
-                        <?=$nome_pasta?>
-                    </button>
-                </p>
-                <div id="collapse<?=$id_pasta?>" class="accordion-collapse collapse" aria-labelledby="heading1" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <div class="card card-style">
-                            <div class="row text-center row-cols-3 mb-0">
-
-
-
-
-
-
-
-
-
-                                <a class="col" data-gallery="gallery-1" href="images/pictures/1t.jpg" title="Vynil and Typerwritter">
-                                    <img src="planta_individual.php?id_registo=1" data-src="images/pictures/25t.jpg" style="height: 130px" class="rounded-m preload-img  img-fluid" alt="img">
-                                    <p class=" pb-1">Writer</p>
-                                </a>
-                                <a class="col" data-gallery="gallery-1" href="images/pictures/8t.jpg" title="Cream Cookie">
-                                    <img src="images/empty.png" data-src="images/pictures/25t.jpg" style="height: 130px" class="rounded-m preload-img  img-fluid" alt="img">
-                                    <p class=" pb-1">Cream</p>
-                                </a>
-                                <a class="col" data-gallery="gallery-1" href="images/pictures/14t.jpg" title="Cookies and Flowers">
-                                    <img src="images/empty.png" data-src="images/pictures/25t.jpg" style="height: 130px" class="rounded-m preload-img  img-fluid" alt="img">
-                                    <p class=" pb-1">Cookie</p>
-                                </a>
-                                <a class="col" data-gallery="gallery-1" href="images/pictures/21t.jpg" title="Pots and Pans">
-                                    <img src="images/empty.png" data-src="images/pictures/25t.jpg" style="height: 130px" class="rounded-m preload-img  img-fluid" alt="img">
-                                    <p class=" pb-1">Pots</p>
-                                </a>
-                                <a class="col" data-gallery="gallery-1" href="images/pictures/26t.jpg" title="Berries are Packed with Fiber">
-                                    <img src="images/empty.png" data-src="images/pictures/25t.jpg" style="height: 130px" class="rounded-m preload-img  img-fluid" alt="img">
-                                    <p class=" pb-1">Berry</p>
-                                </a>
-                                <a class="col" data-gallery="gallery-1" href="images/pictures/23t.jpg" title="A beautiful Retro Camera">
-                                    <img src="images/empty.png" data-src="images/pictures/25t.jpg" style="height: 130px" class="rounded-m preload-img  img-fluid" alt="img">
-                                    <p class=" pb-1">Camera</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <?php
-
-                    }
-                    if ($res==0){
+                        $res = 1;
                         ?>
-                        <div class="accordion-item">
-                            <p class="accordion-header" id="heading4">
-                                <button class="accordion-button collapsed font-18" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                                    CRIAR PASTA
+
+
+                        <div class="accordion-item fee-4 ">
+                            <p class="accordion-header" id="heading<?= $id_pasta ?>">
+                                <button class="accordion-button collapsed font-18 text-uppercase" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapse<?= $id_pasta ?>"
+                                        aria-expanded="true" aria-controls="collapse1">
+                                    <?= $nome_pasta ?>
                                 </button>
                             </p>
-                            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#accordionExample">
+                            <div id="collapse<?= $id_pasta ?>" class="accordion-collapse collapse"
+                                 aria-labelledby="heading1" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="card card-style">
                                         <div class="row text-center row-cols-3 mb-0">
-                                            <a class="col" data-gallery="gallery-1" href="images/pictures/1t.jpg" title="Vynil and Typerwritter">
-                                                <img src="images/empty.png" data-src="images/pictures/25t.jpg" style="height: 130px" class="rounded-m preload-img  img-fluid" alt="img">
+
+                                            <?php
+
+                                            $link2 = new_db_connection();
+
+                                            $stmt2 = mysqli_stmt_init($link2);
+
+                                            $query2 = "SELECT registos.id_registo, registos.imagem_registo, plantas.nome_cientifico FROM registos
+                                         INNER JOIN plantas ON plantas_id_plantas=id_plantas
+                                         WHERE pastas_id_pasta=?";
+
+                                            if (mysqli_stmt_prepare($stmt2, $query2)) {
+                                                mysqli_stmt_bind_param($stmt2, 'i', $id_pasta);
+                                                if (mysqli_stmt_execute($stmt2)) {
+                                                    mysqli_stmt_bind_result($stmt2, $id_registo, $imagem_registo, $nome_cientifico);
+                                                    while (mysqli_stmt_fetch($stmt2)) {
+                                                        echo "ola";
+                                                        echo "<a class='col' data-gallery='gallery-1' href='planta_individual.php?id_registo=$id_registo' title='Vynil and Typerwritter'>
+                                                                <img src='' data-src='images/uploads/registos_plantas/$imagem_registo' style='height: 130px' class='rounded-m preload-img  img-fluid' alt='img'>
+                                                                <p class='pb-1'>$nome_cientifico</p>
+                                                            </a>";
+                                                    };
+
+                                                } else {
+                                                    echo "ola";
+                                                    echo "Error: " . mysqli_error($stmt2);
+                                                }
+
+                                            } else {
+                                                echo "adeus";
+                                                echo("Error description: " . mysqli_error($link2));
+                                            }
+                                            mysqli_close($link2)
+
+
+                                            ?>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <?php
+
+                    }
+                     }else {
+                    echo "Error: " . mysqli_error($stmt);
+                }
+                mysqli_stmt_close($stmt);
+            } else {
+                echo("Error description: " . mysqli_error($link));
+            }
+            mysqli_close($link);
+
+                    if ($res == 0) {
+                        ?>
+                        <div class="accordion-item">
+                            <p class="accordion-header" id="heading4">
+                                <button class="accordion-button collapsed font-18" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false"
+                                        aria-controls="collapse4">
+                                    CRIAR PASTA
+                                </button>
+                            </p>
+                            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div class="card card-style">
+                                        <div class="row text-center row-cols-3 mb-0">
+
+
+                                            <a class="col" data-gallery="gallery-1" href="images/pictures/1t.jpg"
+                                               title="Vynil and Typerwritter">
+                                                <img src="images/empty.png" data-src="images/pictures/25t.jpg"
+                                                     style="height: 130px" class="rounded-m preload-img  img-fluid"
+                                                     alt="img">
                                                 <p class=" pb-1">Writer</p>
                                             </a>
-                                            <a class="col" data-gallery="gallery-1" href="images/pictures/8t.jpg" title="Cream Cookie">
-                                                <img src="images/empty.png" data-src="images/pictures/25t.jpg" style="height: 130px" class="rounded-m preload-img  img-fluid" alt="img">
+                                            <a class="col" data-gallery="gallery-1" href="images/pictures/8t.jpg"
+                                               title="Cream Cookie">
+                                                <img src="images/empty.png" data-src="images/pictures/25t.jpg"
+                                                     style="height: 130px" class="rounded-m preload-img  img-fluid"
+                                                     alt="img">
                                                 <p class=" pb-1">Cream</p>
                                             </a>
-                                            <a class="col" data-gallery="gallery-1" href="images/pictures/14t.jpg" title="Cookies and Flowers">
-                                                <img src="images/empty.png" data-src="images/pictures/25t.jpg" style="height: 130px" class="rounded-m preload-img  img-fluid" alt="img">
+                                            <a class="col" data-gallery="gallery-1" href="images/pictures/14t.jpg"
+                                               title="Cookies and Flowers">
+                                                <img src="images/empty.png" data-src="images/pictures/25t.jpg"
+                                                     style="height: 130px" class="rounded-m preload-img  img-fluid"
+                                                     alt="img">
                                                 <p class=" pb-1">Cookie</p>
                                             </a>
-                                            <a class="col" data-gallery="gallery-1" href="images/pictures/21t.jpg" title="Pots and Pans">
-                                                <img src="images/empty.png" data-src="images/pictures/25t.jpg" style="height: 130px" class="rounded-m preload-img  img-fluid" alt="img">
+                                            <a class="col" data-gallery="gallery-1" href="images/pictures/21t.jpg"
+                                               title="Pots and Pans">
+                                                <img src="images/empty.png" data-src="images/pictures/25t.jpg"
+                                                     style="height: 130px" class="rounded-m preload-img  img-fluid"
+                                                     alt="img">
                                                 <p class=" pb-1">Pots</p>
                                             </a>
-                                            <a class="col" data-gallery="gallery-1" href="images/pictures/26t.jpg" title="Berries are Packed with Fiber">
-                                                <img src="images/empty.png" data-src="images/pictures/25t.jpg" style="height: 130px" class="rounded-m preload-img  img-fluid" alt="img">
+                                            <a class="col" data-gallery="gallery-1" href="images/pictures/26t.jpg"
+                                               title="Berries are Packed with Fiber">
+                                                <img src="images/empty.png" data-src="images/pictures/25t.jpg"
+                                                     style="height: 130px" class="rounded-m preload-img  img-fluid"
+                                                     alt="img">
                                                 <p class=" pb-1">Berry</p>
                                             </a>
-                                            <a class="col" data-gallery="gallery-1" href="images/pictures/23t.jpg" title="A beautiful Retro Camera">
-                                                <img src="images/empty.png" data-src="images/pictures/25t.jpg" style="height: 130px" class="rounded-m preload-img  img-fluid" alt="img">
+                                            <a class="col" data-gallery="gallery-1" href="images/pictures/23t.jpg"
+                                               title="A beautiful Retro Camera">
+                                                <img src="images/empty.png" data-src="images/pictures/25t.jpg"
+                                                     style="height: 130px" class="rounded-m preload-img  img-fluid"
+                                                     alt="img">
                                                 <p class=" pb-1">Camera</p>
                                             </a>
                                         </div>
@@ -212,24 +254,11 @@ session_start();
                         </div>
 
 
-
-
-            <?php
-
-
+                        <?php
                     }
 
 
-                } else {
-                    echo "Error: " . mysqli_error($stmt);
-                }
-                mysqli_stmt_close($stmt);
-            } else {
-                echo("Error description: " . mysqli_error($link));
-            }
-        mysqli_close($link);
-
-        ?>
+            ?>
 
 
         </div>
@@ -241,7 +270,7 @@ session_start();
 <script src="scripts/custom.js" type="text/javascript"></script>
 <script>
     function myFunction() {
-        document.getElementById("demo").src="images/icons/1.png";
+        document.getElementById("demo").src = "images/icons/1.png";
 
     }
 </script>
