@@ -27,19 +27,15 @@ session_start();
 </head>
 
 <body class="theme-light feed-7">
-<div id="preloader">
-    <div class="spinner-border color-red-dark" role="status"></div>
-</div>
+<!-- PRELOADER-->
+<?php
+include_once "components/cp_preloader.php";
+?>
 <div id="page">
     <!-- FOOTER MENU-->
-    <div class="footer-bar-4 " id="footer-bar">
-        <a href="perfil.html"><i><img id="demo" onclick="myFunction()" class="icons2"
-                                      src="images/icons/perfil_Prancheta%201.png"></i></a>
-        <a class="active-nav" href="feed.html.html"><img id="click2" class="icons2"
-                                                         src="images/icons/home_Prancheta%201.png"></i></a>
-        <a href="herbario-UA.html"><img id="click3" class="icons2" src="images/icons/herbario_Prancheta%201.png"></i>
-        </a>
-    </div>
+    <?php
+    include_once "components/cp_footer_menu.php";
+    ?>
 
     <!-- Global Menus-->
     <div class="menu menu-box-modal menu-gradient" data-menu-height="cover" data-menu-load="menu-color.html"
@@ -101,7 +97,6 @@ session_start();
 
             $id_user = $_SESSION ["id_utilizador"];
 
-
             $link = new_db_connection();
             $stmt = mysqli_stmt_init($link);
             $query = "SELECT  id_pasta, nome_pasta FROM pastas
@@ -113,6 +108,7 @@ session_start();
                 mysqli_stmt_bind_param($stmt, "i", $id_user);
                 if (mysqli_stmt_execute($stmt)) {
                     mysqli_stmt_bind_result($stmt, $id_pasta, $nome_pasta);
+                    mysqli_stmt_store_result($stmt);
                     while (mysqli_stmt_fetch($stmt)) {
                         $res = 1;
                         ?>
@@ -134,25 +130,25 @@ session_start();
 
                                             <?php
 
-                                            $link2 = new_db_connection();
 
-                                            $stmt2 = mysqli_stmt_init($link2);
+                                            $stmt2 = mysqli_stmt_init($link);
 
-                                            $query2 = "SELECT registos.id_registo, registos.imagem_registo, plantas.nome_cientifico FROM registos
+                                            $query= "SELECT registos.id_registo, registos.imagem_registo, plantas.nome_cientifico FROM registos
                                          INNER JOIN plantas ON plantas_id_plantas=id_plantas
                                          WHERE pastas_id_pasta=?";
 
-                                            if (mysqli_stmt_prepare($stmt2, $query2)) {
+                                            if (mysqli_stmt_prepare($stmt2, $query)) {
                                                 mysqli_stmt_bind_param($stmt2, 'i', $id_pasta);
                                                 if (mysqli_stmt_execute($stmt2)) {
                                                     mysqli_stmt_bind_result($stmt2, $id_registo, $imagem_registo, $nome_cientifico);
+
                                                     while (mysqli_stmt_fetch($stmt2)) {
-                                                        echo "ola";
-                                                        echo "<a class='col' data-gallery='gallery-1' href='planta_individual.php?id_registo=$id_registo' title='Vynil and Typerwritter'>
+                                                        echo "<a class='col'  href='planta_individual.php?id_registo=$id_registo' title='Vynil and Typerwritter'>
                                                                 <img src='' data-src='images/uploads/registos_plantas/$imagem_registo' style='height: 130px' class='rounded-m preload-img  img-fluid' alt='img'>
                                                                 <p class='pb-1'>$nome_cientifico</p>
                                                             </a>";
-                                                    };
+                                                    }
+                                                    mysqli_stmt_close($stmt2);
 
                                                 } else {
                                                     echo "ola";
@@ -161,9 +157,9 @@ session_start();
 
                                             } else {
                                                 echo "adeus";
-                                                echo("Error description: " . mysqli_error($link2));
+                                                echo("Error description: " . mysqli_error($link));
                                             }
-                                            mysqli_close($link2)
+
 
 
                                             ?>
@@ -179,14 +175,15 @@ session_start();
                         <?php
 
                     }
-                     }else {
+                    mysqli_stmt_close($stmt);
+                    }else {
                     echo "Error: " . mysqli_error($stmt);
-                }
-                mysqli_stmt_close($stmt);
-            } else {
-                echo("Error description: " . mysqli_error($link));
-            }
-            mysqli_close($link);
+                    }
+
+                    } else {
+                    echo("Error description: " . mysqli_error($link));
+                    }
+                    mysqli_close($link);
 
                     if ($res == 0) {
                         ?>

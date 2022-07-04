@@ -54,7 +54,7 @@
     <div class="page-content search-page mt-4">
         <!-- PESQUISA E ICONS -->
         <div class="search-box search-header feed-0 card-style me-4 ms-4">
-            <a onclick="display3()" class="header-icon header-icon-1" href="login.html"><i><img class="icons"
+            <a onclick="display3()" class="header-icon header-icon-1" ><i><img class="icons"
                                                                                                 src="images/icons/zoom_Prancheta%201.png"></i></a>
             <a onclick="display()" class="header-icon header-icon-1 me-5" href="login.html"><i><img class="icons"
                                                                                                     src="images/icons/filter_b.png"></i></a>
@@ -202,26 +202,7 @@
 <script src="scripts/bootstrap.min.js" type="text/javascript"></script>
 <script src="scripts/custom.js" type="text/javascript"></script>
 <script>
-    var clicado = false;
 
-    function myFunction() {
-        document.getElementById("demo").src = "images/icons/1.png";
-
-    }
-
-    function display() {
-        document.getElementById("filter").style.display = "block";
-    }
-
-
-    function display1() {
-
-        document.getElementById("icon-s").src = "images/icons/x.png";
-        document.getElementById("biblioteca").style.display = "none";
-        document.getElementById("pesquisa").style.display = "block";
-        document.getElementById("filter").style.display = "none";
-
-    }
 
 
 </script>

@@ -51,8 +51,7 @@ session_start();
     <?php
 
     require_once("connections/connection.php");
-    //$id_registo=$_GET["id_registo"];
-    $id_registo=7;
+    $id_registo=$_GET["id_registo"];
     //$id_user=$_SESSION["id_utilizador"];
 
     $link = new_db_connection();

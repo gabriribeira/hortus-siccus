@@ -241,7 +241,7 @@ include_once("scripts_php/sc_badges.php");
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-5 col-md-6 col-12 pb-4">
-                            <p class="font-18 mt-1 ">Comentários</p>
+                            <hr>
                                     <?php
 
                                     $link = new_db_connection();
@@ -263,11 +263,11 @@ include_once("scripts_php/sc_badges.php");
                                                                                    src='images/icons/apagar_Prancheta%201.png'></i></a>";
                                                 }
 
-                                                echo" <img src='images/uploads/small/$imagemperfil_c' alt='' class='rounded-circle' width='40' height='40'>
+                                                echo" <img src='images/uploads/small/$imagemperfil_c' alt='' class='rounded-circle feed_3' width='40' height='40'>
                                                         <h4>$nome_c</h4>
                                                         <span>- $data_c</span>
                                                         <br>
-                                                        <p>$comentario</p>
+                                                        <p class='font-16 mt-2 color-dark-dark'>$comentario</p>
                                                     </div>
                                                 ";
 
@@ -292,8 +292,8 @@ include_once("scripts_php/sc_badges.php");
                              <div class='col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4'>
                                 <form id='algin-form' action='scripts_php/sc_comentario_add.php?id_user_d=$id' method='post' role='form'>
                                     <div class='form-group'>
-                                        <h4>Leave a comment</h4>
-                                        <label for='message'>Message</label>
+                                        <p class='font-20 mb-3 color-amarelo'>Leave a comment</p>
+                                        <label class='color-dark-dark font-16' for='message'>Message</label>
                                         <textarea name='comentario' id='msg' cols='30' rows='5' class='form-control message' ></textarea>
                                     </div>
                                     <div class='form-group'>
