@@ -122,7 +122,6 @@
         <!--HEADER: LOGO E MENU DE CIMA-->
         <div class="header-logo-app header2 ms-4 mt-4 mb-0 ">
             <a class="header-icon header-icon-1" href="editar_perfil.html"><i><img class="icons" src="images/icons/undo.png"></i></a>
-            <a class="header-icon header-icon-1 margem-planta" href="editar_perfil.html"><i><img class="icons" src="images/icons/certo.png"></i></a>
         </div>
 
         <!--PLANTA-->
@@ -141,24 +140,24 @@
                                     $link = new_db_connection();
                                     /* create a prepared statement */
                                     $stmt = mysqli_stmt_init($link);
-                                    $query = "SELECT id_plantas, nome_cientifico, origens.origem, estatutos.estatuto, familias_plantas.familia, plantas_vulgares.nome_vulgar
-                                FROM plantas 
-                                INNER JOIN origens
-                                ON plantas.origens_id_origem = origens.id_origem
-                                INNER JOIN estatutos
-                                ON plantas.estatutos_id_estatuto = estatutos.id_estatuto
-                                INNER JOIN familias_plantas
-                                ON plantas.familias_plantas_id_familia = familias_plantas.id_familia
-                                INNER JOIN plantas_vulgares
-                                ON plantas.id_plantas = plantas_vulgares.plantas_id_plantas
-                                WHERE id_plantas = ?";
+                                    $query = "SELECT id_plantas, nome_cientifico, origens_id_origem, origens.origem, estatutos_id_estatuto, estatutos.estatuto, familias_plantas_id_familia, familias_plantas.familia, plantas_vulgares.nome_vulgar
+                                    FROM plantas 
+                                    INNER JOIN origens
+                                    ON plantas.origens_id_origem = origens.id_origem
+                                    INNER JOIN estatutos
+                                    ON plantas.estatutos_id_estatuto = estatutos.id_estatuto
+                                    INNER JOIN familias_plantas
+                                    ON plantas.familias_plantas_id_familia = familias_plantas.id_familia
+                                    INNER JOIN plantas_vulgares
+                                    ON plantas.id_plantas = plantas_vulgares.plantas_id_plantas
+                                    WHERE id_plantas = ?";
 
                                     if (mysqli_stmt_prepare($stmt, $query)) {
                                         mysqli_stmt_bind_param($stmt, 's', $_GET["id"]);
                                         /* execute the prepared statement */
                                         if (mysqli_stmt_execute($stmt)) {
                                             /* bind result variables */
-                                            mysqli_stmt_bind_result($stmt, $id, $nome, $origem, $estatuto, $familia, $vulgar);
+                                            mysqli_stmt_bind_result($stmt, $id, $nome, $id_origem, $origem, $id_estatuto, $estatuto, $id_familia, $familia, $vulgar);
                                             mysqli_stmt_fetch($stmt);
                                         } else {
                                             echo "Error: " . mysqli_stmt_error($stmt);
@@ -182,13 +181,14 @@
                                     <p class="pt-3 color-amarelo font-30 mb-2" style="font-style: italic; font-family: Georgia, sans-serif;">
                                         <?php if (isset($_GET["id"]) && $_GET["id"] != "") {
                                             echo $nome;
+                                            echo '<input type="hidden" name="id_planta" value="' . $_GET["id"] . '">';
                                         } else {
                                             echo "Nome Científico";
                                         } ?>
                                     </p>
                                     <?php
                                     if (!isset($_GET["id"]) || $_GET["id"] == "") { ?>
-                                        <div class="input-style input2  has-icon validate-field mb-4">
+                                        <div class="input-style input2 has-icon validate-field mb-4">
                                             <input type="text" class="form-control validate-name" id="search" placeholder="Selecionar Planta...">
                                             <label for="form1" class="color-highlight"></label>
                                             <div id="resultados-pesquisa"></div>
@@ -219,33 +219,87 @@
 
                                 <div class="row m-0 p-0">
                                     <div class="mt-2 col-6">
-
                                         <div id="criacao-planta" style="display: none;">
-
                                             <p class="color-amarelo font-18 mb-2">Nome Científico</p>
                                             <hr class="mt-1 mb-1">
-                                            <div class="input-style input1  has-icon validate-field mb-4">
-                                                <input type="text" name="nome_cientifico" class="form-control validate-name" id="form1" placeholder="">
+                                            <div class="input-style input1 has-icon validate-field mb-4">
+                                                <input type="text" name="nome_cientifico" class="form-control validate-name" id="form1">
                                                 <label for="form1" class="color-highlight"></label>
                                             </div>
-
                                         </div>
 
-                                        <p class="color-amarelo font-18 mb-2">
-                                            família</p>
+
+                                        <p class="color-amarelo font-18 mb-2">familia</p>
                                         <hr class="mt-1 mb-1">
-                                        <?php
-                                        if (isset($_GET["id"]) && $_GET["id"] != "") { ?>
-                                            <div class="input-style input1  has-icon validate-field mb-4">
-                                                <input type="text" name="familia" class="form-control validate-name" id="form1" value="<?= $familia ?>" disabled>
-                                                <label for="form1" class="color-highlight"></label>
-                                            </div>
-                                        <?php } else { ?>
-                                            <div class="input-style input1  has-icon validate-field mb-4">
-                                                <input type="name" class="form-control validate-name" id="form1">
-                                                <label for="form1" class="color-highlight"></label>
-                                            </div>
-                                        <?php } ?>
+                                        <div class="input-style input1 no-icon mb-4">
+                                            <?php
+                                            if (isset($_GET["id"]) && $_GET["id"] != "") { ?>
+                                                <label for="form5" class="color-highlight"></label>
+                                                <select id="form5" name="familia">
+                                                    <option value="<?= $id_familia ?>" selected><?= $familia ?></option>
+                                                    <option value="" disabled>Select a Value</option>
+                                                    <?php
+                                                    require_once('connections/connection.php');
+                                                    $link = new_db_connection();
+                                                    /* create a prepared statement */
+                                                    $stmt7 = mysqli_stmt_init($link);
+                                                    $query = "SELECT id_familia, familia FROM familias_plantas ORDER BY familia ASC";
+
+                                                    if (mysqli_stmt_prepare($stmt7, $query)) {
+                                                        /* execute the prepared statement */
+                                                        if (mysqli_stmt_execute($stmt7)) {
+                                                            /* bind result variables */
+                                                            mysqli_stmt_bind_result($stmt7, $id_familia, $familia);
+                                                            while (mysqli_stmt_fetch($stmt7)) { ?>
+                                                                <option value="<?= $id_familia ?>"><?= $familia ?></option>
+                                                    <?php }
+                                                        } else {
+                                                            echo "Error: " . mysqli_stmt_error($stmt7);
+                                                        }
+                                                        /* close statement */
+                                                        mysqli_stmt_close($stmt7);
+                                                    } else {
+                                                        echo "Error: " . mysqli_error($link);
+                                                    }
+                                                    ?>
+                                                </select>
+                                            <?php } else { ?>
+                                                <label for="form5" class="color-highlight"></label>
+                                                <select id="form5" name="familia">
+                                                    <option value="" disabled selected>Select a Value</option>
+                                                    <?php
+                                                    require_once('connections/connection.php');
+                                                    $link = new_db_connection();
+                                                    /* create a prepared statement */
+                                                    $stmt7 = mysqli_stmt_init($link);
+                                                    $query = "SELECT id_familia, familia FROM familias_plantas ORDER BY familia ASC";
+
+                                                    if (mysqli_stmt_prepare($stmt7, $query)) {
+                                                        /* execute the prepared statement */
+                                                        if (mysqli_stmt_execute($stmt7)) {
+                                                            /* bind result variables */
+                                                            mysqli_stmt_bind_result($stmt7, $id_familia, $familia);
+                                                            while (mysqli_stmt_fetch($stmt7)) { ?>
+                                                                <option value="<?= $id_familia ?>"><?= $familia ?></option>
+                                                    <?php }
+                                                        } else {
+                                                            echo "Error: " . mysqli_stmt_error($stmt7);
+                                                        }
+                                                        /* close statement */
+                                                        mysqli_stmt_close($stmt7);
+                                                    } else {
+                                                        echo "Error: " . mysqli_error($link);
+                                                    }
+                                                    ?>
+                                                </select>
+                                            <?php } ?>
+                                            <span><i class="fa fa-chevron-down"></i></span>
+                                            <i class="fa fa-check disabled valid color-green-dark"></i>
+                                            <i class="fa fa-check disabled invalid color-red-dark"></i>
+                                            <em></em>
+                                        </div>
+
+
                                         <p class="color-amarelo font-18 mb-2">estado</p>
                                         <hr class="mt-1 mb-1">
                                         <div class="input-style input1 no-icon mb-4">
@@ -287,34 +341,69 @@
                                         <p class="color-amarelo font-18 mb-2">origem</p>
                                         <hr class="mt-1 mb-1">
                                         <div class="input-style input1 no-icon mb-4">
-                                            <label for="form5" class="color-highlight"></label>
-                                            <select id="origem" name="origem">
-                                                <option value="" disabled selected>Select a Value</option>
-                                                <?php
-                                                require_once('connections/connection.php');
-                                                $link = new_db_connection();
-                                                /* create a prepared statement */
-                                                $stmt4 = mysqli_stmt_init($link);
-                                                $query = "SELECT id_origem, origem FROM origens ORDER BY origem ASC";
+                                            <?php
+                                            if (isset($_GET["id"]) && $_GET["id"] != "") { ?>
+                                                <label for="form5" class="color-highlight"></label>
+                                                <select id="origem" name="origem">
+                                                    <option value="<?= $id_origem ?>" selected><?= $origem ?></option>
+                                                    <option value="" disabled>Select a Value</option>
+                                                    <?php
+                                                    require_once('connections/connection.php');
+                                                    $link = new_db_connection();
+                                                    /* create a prepared statement */
+                                                    $stmt4 = mysqli_stmt_init($link);
+                                                    $query = "SELECT id_origem, origem FROM origens ORDER BY origem ASC";
 
-                                                if (mysqli_stmt_prepare($stmt4, $query)) {
-                                                    /* execute the prepared statement */
-                                                    if (mysqli_stmt_execute($stmt4)) {
-                                                        /* bind result variables */
-                                                        mysqli_stmt_bind_result($stmt4, $id_origem, $origem);
-                                                        while (mysqli_stmt_fetch($stmt4)) { ?>
-                                                            <option value="<?= $id_origem ?>"><?= $origem ?></option>
-                                                <?php }
+                                                    if (mysqli_stmt_prepare($stmt4, $query)) {
+                                                        /* execute the prepared statement */
+                                                        if (mysqli_stmt_execute($stmt4)) {
+                                                            /* bind result variables */
+                                                            mysqli_stmt_bind_result($stmt4, $id_origem, $origem);
+                                                            while (mysqli_stmt_fetch($stmt4)) { ?>
+                                                                <option value="<?= $id_origem ?>"><?= $origem ?></option>
+                                                    <?php }
+                                                        } else {
+                                                            echo "Error: " . mysqli_stmt_error($stmt4);
+                                                        }
+                                                        /* close statement */
+                                                        mysqli_stmt_close($stmt4);
                                                     } else {
-                                                        echo "Error: " . mysqli_stmt_error($stmt4);
+                                                        echo "Error: " . mysqli_error($link);
                                                     }
-                                                    /* close statement */
-                                                    mysqli_stmt_close($stmt4);
-                                                } else {
-                                                    echo "Error: " . mysqli_error($link);
-                                                }
-                                                ?>
-                                            </select>
+                                                    ?>
+                                                </select>
+                                            <?php } else { ?>
+
+                                                <label for="form5" class="color-highlight"></label>
+                                                <select id="origem" name="origem">
+                                                    <option value="" disabled selected>Select a Value</option>
+                                                    <?php
+                                                    require_once('connections/connection.php');
+                                                    $link = new_db_connection();
+                                                    /* create a prepared statement */
+                                                    $stmt4 = mysqli_stmt_init($link);
+                                                    $query = "SELECT id_origem, origem FROM origens ORDER BY origem ASC";
+
+                                                    if (mysqli_stmt_prepare($stmt4, $query)) {
+                                                        /* execute the prepared statement */
+                                                        if (mysqli_stmt_execute($stmt4)) {
+                                                            /* bind result variables */
+                                                            mysqli_stmt_bind_result($stmt4, $id_origem, $origem);
+                                                            while (mysqli_stmt_fetch($stmt4)) { ?>
+                                                                <option value="<?= $id_origem ?>"><?= $origem ?></option>
+                                                    <?php }
+                                                        } else {
+                                                            echo "Error: " . mysqli_stmt_error($stmt4);
+                                                        }
+                                                        /* close statement */
+                                                        mysqli_stmt_close($stmt4);
+                                                    } else {
+                                                        echo "Error: " . mysqli_error($link);
+                                                    }
+                                                    ?>
+                                                </select>
+
+                                            <?php } ?>
                                             <span><i class="fa fa-chevron-down"></i></span>
                                             <i class="fa fa-check disabled valid color-green-dark"></i>
                                             <i class="fa fa-check disabled invalid color-red-dark"></i>
@@ -325,34 +414,67 @@
                                         <p class="color-amarelo font-18 mb-2">estatuto</p>
                                         <hr class="mt-1 mb-1">
                                         <div class="input-style input1 no-icon mb-4">
-                                            <label for="form5" class="color-highlight"></label>
-                                            <select id="estatuto" name="estatuto">
-                                                <option value="" disabled selected>Select a Value</option>
-                                                <?php
-                                                require_once('connections/connection.php');
-                                                $link = new_db_connection();
-                                                /* create a prepared statement */
-                                                $stmt5 = mysqli_stmt_init($link);
-                                                $query = "SELECT id_estatuto, estatuto FROM estatutos ORDER BY estatuto ASC";
+                                            <?php
+                                            if (isset($_GET["id"]) && $_GET["id"] != "") { ?>
+                                                <label for="form5" class="color-highlight"></label>
+                                                <select id="estatuto" name="estatuto">
+                                                    <option value="" disabled selected><?= $estatuto ?></option>
+                                                    <option value="" disabled>Select a Value</option>
+                                                    <?php
+                                                    require_once('connections/connection.php');
+                                                    $link = new_db_connection();
+                                                    /* create a prepared statement */
+                                                    $stmt5 = mysqli_stmt_init($link);
+                                                    $query = "SELECT id_estatuto, estatuto FROM estatutos ORDER BY estatuto ASC";
 
-                                                if (mysqli_stmt_prepare($stmt5, $query)) {
-                                                    /* execute the prepared statement */
-                                                    if (mysqli_stmt_execute($stmt5)) {
-                                                        /* bind result variables */
-                                                        mysqli_stmt_bind_result($stmt5, $id_estatuto, $estatuto);
-                                                        while (mysqli_stmt_fetch($stmt5)) { ?>
-                                                            <option value="<?= $id_estatuto ?>"><?= $estatuto ?></option>
-                                                <?php }
+                                                    if (mysqli_stmt_prepare($stmt5, $query)) {
+                                                        /* execute the prepared statement */
+                                                        if (mysqli_stmt_execute($stmt5)) {
+                                                            /* bind result variables */
+                                                            mysqli_stmt_bind_result($stmt5, $id_estatuto, $estatuto);
+                                                            while (mysqli_stmt_fetch($stmt5)) { ?>
+                                                                <option value="<?= $id_estatuto ?>"><?= $estatuto ?></option>
+                                                    <?php }
+                                                        } else {
+                                                            echo "Error: " . mysqli_stmt_error($stmt5);
+                                                        }
+                                                        /* close statement */
+                                                        mysqli_stmt_close($stmt5);
                                                     } else {
-                                                        echo "Error: " . mysqli_stmt_error($stmt5);
+                                                        echo "Error: " . mysqli_error($link);
                                                     }
-                                                    /* close statement */
-                                                    mysqli_stmt_close($stmt5);
-                                                } else {
-                                                    echo "Error: " . mysqli_error($link);
-                                                }
-                                                ?>
-                                            </select>
+                                                    ?>
+                                                </select>
+                                            <?php } else { ?>
+                                                <label for="form5" class="color-highlight"></label>
+                                                <select id="estatuto" name="estatuto">
+                                                    <option value="<?=$id_estatuto?>" disabled selected>Select a Value</option>
+                                                    <?php
+                                                    require_once('connections/connection.php');
+                                                    $link = new_db_connection();
+                                                    /* create a prepared statement */
+                                                    $stmt5 = mysqli_stmt_init($link);
+                                                    $query = "SELECT id_estatuto, estatuto FROM estatutos ORDER BY estatuto ASC";
+
+                                                    if (mysqli_stmt_prepare($stmt5, $query)) {
+                                                        /* execute the prepared statement */
+                                                        if (mysqli_stmt_execute($stmt5)) {
+                                                            /* bind result variables */
+                                                            mysqli_stmt_bind_result($stmt5, $id_estatuto, $estatuto);
+                                                            while (mysqli_stmt_fetch($stmt5)) { ?>
+                                                                <option value="<?= $id_estatuto ?>"><?= $estatuto ?></option>
+                                                    <?php }
+                                                        } else {
+                                                            echo "Error: " . mysqli_stmt_error($stmt5);
+                                                        }
+                                                        /* close statement */
+                                                        mysqli_stmt_close($stmt5);
+                                                    } else {
+                                                        echo "Error: " . mysqli_error($link);
+                                                    }
+                                                    ?>
+                                                </select>
+                                            <?php } ?>
                                             <span><i class="fa fa-chevron-down"></i></span>
                                             <i class="fa fa-check disabled valid color-green-dark"></i>
                                             <i class="fa fa-check disabled invalid color-red-dark"></i>
@@ -490,8 +612,33 @@
                                         <hr class="mt-1 mb-1">
                                         <div class="input-style input1 no-icon mb-4">
                                             <label for="" class="color-highlight"></label>
-                                            <select id="freguesia-option" name="fregeuesia">
+                                            <select id="freguesia-option" name="pasta">
                                                 <option value="" disabled selected>Select a Value</option>
+                                                <?php
+                                                require_once('connections/connection.php');
+                                                $link = new_db_connection();
+                                                /* create a prepared statement */
+                                                $stmt8 = mysqli_stmt_init($link);
+                                                $query = "SELECT id_pasta, nome_pasta FROM pastas WHERE users_id_user = ? ORDER BY nome_pasta ASC";
+
+                                                if (mysqli_stmt_prepare($stmt8, $query)) {
+                                                    mysqli_stmt_bind_param($stmt8, 'i', $_SESSION["id_utilizador"]);
+                                                    /* execute the prepared statement */
+                                                    if (mysqli_stmt_execute($stmt8)) {
+                                                        /* bind result variables */
+                                                        mysqli_stmt_bind_result($stmt8, $id_pasta, $nome);
+                                                        while (mysqli_stmt_fetch($stmt8)) { ?>
+                                                            <option value="<?= $id_pasta ?>"><?= $nome ?></option>
+                                                <?php }
+                                                    } else {
+                                                        echo "Error: " . mysqli_stmt_error($stmt8);
+                                                    }
+                                                    /* close statement */
+                                                    mysqli_stmt_close($stmt8);
+                                                } else {
+                                                    echo "Error: " . mysqli_error($link);
+                                                }
+                                                ?>
                                             </select>
                                             <span><i class="fa fa-chevron-down"></i></span>
                                             <i class="fa fa-check disabled valid color-green-dark"></i>
@@ -499,8 +646,6 @@
                                             <em></em>
                                         </div>
                                     </div>
-
-
 
                                     <button type="submit" class="float-right submit1  me-4 font-22 mt-4  p-2">salvar</button>
                                 </div>

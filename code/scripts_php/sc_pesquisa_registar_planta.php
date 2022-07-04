@@ -10,7 +10,7 @@ $query = "SELECT plantas.id_plantas, plantas.nome_cientifico, plantas_vulgares.n
 FROM plantas 
 INNER JOIN plantas_vulgares
 ON plantas.id_plantas = plantas_vulgares.plantas_id_plantas
-WHERE plantas.nome_cientifico LIKE ? OR plantas_vulgares.nome_vulgar LIKE ?";
+WHERE plantas.nome_cientifico LIKE ? OR plantas_vulgares.nome_vulgar LIKE ? LIMIT 3";
 
 if (mysqli_stmt_prepare($stmt, $query)) {
     $tecla = "%" . $_POST["tecla"] . "%";
