@@ -1,0 +1,35 @@
+body{
+    background-color: #eeeee4;
+    color: #2b2b2b;
+}
+
+.sidebar{
+    background-color: #2b2b2b;
+    color: #eeeee4;
+}
+
+.sidebar a{
+    color: #eeeee4;
+}
+
+.navbar{
+    background-color: #2b2b2b;
+    color: #eeeee4;
+}
+
+#content-wrapper{
+    background-color: #eeeee4;
+    color: #2b2b2b;   
+}
+
+.topbar ul li a{
+    color: #eeeee4;
+}
+
+.topbar ul li{
+    color: #eeeee4;
+}
+
+.topbar ul{
+    color: #eeeee4;
+}

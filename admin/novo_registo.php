@@ -23,8 +23,82 @@
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
-
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#search').on('keyup', function() {
+                var tecla = $(this).val();
+                $.ajax({ // ajax call starts
+                        url: 'scripts_php/sc_pesquisa_registar_planta.php', // JQuery loads serverside.php
+                        data: 'tecla=' + tecla, // Send value of the clicked button
+                        dataType: 'json', // Choosing a JSON datatype
+                        type: 'POST', // Default is GET
+                    })
+                    .done(function(data) {
+                        $('#resultados-pesquisa').html('');
+                        for (var i in data) {
+                            $('#resultados-pesquisa').append('<a class="resultado" href="registar-planta.php?id=' + data[i]["id"] + '"><h4 class="pt-2" style="color: black; font-size: 1rem; font-weight: bold;">' + data[i]["nome"] + '</h4></a>');
+                            $('#resultados-pesquisa').append('<hr>');
+                        }
+                    })
+                    .fail(function() { // Se existir um erro no pedido
+                        $('#resultados-pesquisa').html('Data error'); // Escreve mensagem de erro na listagem de vinhos
+                    });
+                return false; // keeps the page from not refreshing
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#distrito').on('change', function() {
+                var value = $(this).val();
+                console.log(value)
+                $.ajax({ // ajax call starts
+                        url: 'scripts_php/sc_restringir_distritos.php', // JQuery loads serverside.php
+                        data: 'value=' + value, // Send value of the clicked button
+                        dataType: 'json', // Choosing a JSON datatype
+                        type: 'POST', // Default is GET
+                    })
+                    .done(function(data) {
+                        for (var i in data) {
+                            $('#concelho-option').append('<option value="' + data[i]["id"] + '">' + data[i]["nome"] + '</option>');
+                            $('#concelho-option').append('<hr>');
+                        }
+                    })
+                    .fail(function() { // Se existir um erro no pedido
+                        $('#concelho-option').append('<p>Erro a Processar o Pedido</p>');
+                    });
+                return false; // keeps the page from not refreshing
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#concelho-option').on('change', function() {
+                var value = $(this).val();
+                console.log(value)
+                $.ajax({ // ajax call starts
+                        url: 'scripts_php/sc_restringir_concelhos.php', // JQuery loads serverside.php
+                        data: 'value2=' + value, // Send value of the clicked button
+                        dataType: 'json', // Choosing a JSON datatype
+                        type: 'POST', // Default is GET
+                    })
+                    .done(function(data) {
+                        for (var i in data) {
+                            $('#freguesia-option').append('<option value="' + data[i]["id"] + '">' + data[i]["nome"] + '</option>');
+                            $('#freguesia-option').append('<hr>');
+                        }
+                    })
+                    .fail(function() { // Se existir um erro no pedido
+                        $('#freguesia-option').append('<p>Erro a Processar o Pedido</p>');
+                    });
+                return false; // keeps the page from not refreshing
+            });
+        });
+    </script>
 
 </head>
 
@@ -41,14 +115,14 @@
             <!-- Main Content -->
             <div id="content">
 
-                <?php include_once "components/cp_topbar.php"?>
+                <?php include_once "components/cp_topbar.php" ?>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-2">
-                        <h1 class="h3 mb-0 text-gray-800">Criar Evento</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Novo Registo Herbário UA</h1>
                     </div>
 
                     <div class="row">
@@ -58,20 +132,20 @@
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
 
-                                    <form role="form" method="post" action="scripts_php/sc_criar_evento.php">
+                                    <form role="form" method="post" action="scripts_php/sc_criar_desafio.php">
 
                                         <div class='form-group mt-3'>
-                                            <label style="font-weight: bold;">Nome do Evento</label>
-                                            <input class='form-control' name='nome_evento'>
+                                            <label style="font-weight: bold;">Nome do Desafio</label>
+                                            <input class='form-control' name='nome_desafio'>
                                         </div>
                                         <div class='form-group'>
-                                            <label style="font-weight: bold;">Descrição do Evento</label>
-                                            <input class='form-control' name='descricao_evento'>
+                                            <label style="font-weight: bold;">Descrição do Desafio</label>
+                                            <input class='form-control' name='descricao_desafio'>
                                         </div>
                                         <div>
 
                                             <div class='form-group' id="data_inicio" style="display: block;">
-                                                <label style="font-weight: bold; display: block;">Data Início Evento</label>
+                                                <label style="font-weight: bold; display: block;">Data Início Desafio</label>
                                                 <input type="date" name="data_inicio">
                                             </div>
 
@@ -86,12 +160,12 @@
                                         </div>
 
                                         <div class='form-group'>
-                                            <label style="font-weight: bold; display: block;">Data Fim Evento</label>
+                                            <label style="font-weight: bold; display: block;">Data Fim Desafio</label>
                                             <input type="date" name="data_fim">
                                         </div>
 
                                         <div class='form-group' id="local-definido">
-                                            <label style="font-weight: bold;">Local do Evento</label>
+                                            <label style="font-weight: bold;">Local do Desafio</label>
                                             <select class='form-control' name='local'>
                                                 <option value=''></option>
                                                 <?php

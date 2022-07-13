@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="149f26a9-eab2-4890-8947-c6e5ea1231a9" name="LAB4" url="http://labmm.clients.ua.pt/deca_21L4/deca_21L4_40_web">
+        <fileTransfer rootFolder="/deca_21L4_40" host="labmm.clients.ua.pt" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
